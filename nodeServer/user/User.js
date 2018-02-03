@@ -1,3 +1,5 @@
+ //  @created by rajesh
+
 var mongoose = require('mongoose');  
 var UserSchema = new mongoose.Schema({  
   // firstname: String,

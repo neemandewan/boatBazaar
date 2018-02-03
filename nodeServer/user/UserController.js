@@ -4,7 +4,7 @@ var router = express.Router();
 var VerifyToken = require(__root + 'auth/VerifyToken');
 var User = require('./User');
 
-// CREATES A NEW USER
+// CREATES A NEW USER    @created by rajesh
 router.post('/', function (req, res) {
     console.log(req.body);
     User.create({

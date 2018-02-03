@@ -39,6 +39,8 @@ router.get('/logout', function(req, res) {
   res.status(200).send({ auth: false, token: null });
 });
 
+
+// user regestration @created by rajesh
 router.post('/register', function(req, res) {
 
   var hashedPassword = bcrypt.hashSync(req.body.password, 8);
