@@ -44,10 +44,24 @@ router.post('/register', function(req, res) {
   var hashedPassword = bcrypt.hashSync(req.body.password, 8);
 
   User.create({
-    name : req.body.name,
+    // name : req.body.name,
+    // email : req.body.email,
+    // password : hashedPassword,
+
+    firstname : req.body.firstname,
+    lastname : req.body.lastname,
     email : req.body.email,
-    password : hashedPassword
+    password : hashedPassword,
+    gender : req.body.gender,
+    dob : req.body.dob,
+    phone : req.body.phone,
+    address : {
+        street : req.body.address.street,
+        city : req.body.address.city,
+        state: req.body.address.state,
+        zipcode : req.body.address.zipcode }
   }, 
+  
   function (err, user) {
     if (err) return res.status(500).send("There was a problem registering the user`.");
 
