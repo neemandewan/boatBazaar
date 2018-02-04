@@ -4,15 +4,35 @@
  * Copyright (c) 2018
  */
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const { check, validationResult } = require('express-validator/check');
 
-var VerifyToken = require(__root + 'auth/VerifyToken');
-var Boat = require('./Boat');
+const VerifyToken = require(__root + 'auth/VerifyToken');
+const Boat = require('./Boat');
+
+// limit get number of boats
+let lim = 30;
+
+// express validator to check request
+let checkBoatJSON = [
+	check(['boatImage', 'categories', 'name', 'price', 'status', 'description', 'address.street', 'address.city' , 'address.state', 'address.zipcode']).exists(),
+    check(['boatImage', 'categories', 'name', 'price', 'status', 'description', 'address.street', 'address.city' , 'address.state', 'address.zipcode'], 'must be present').isLength({ min: 1 })
+];
+
+// express validator to check request
+let checkCommentJSON = [
+    check(['body', 'date', 'user']).exists(),
+    check(['body', 'date', 'user'], 'must be present').isLength({ min: 1 })
+]
 
 // creates a new boat
-router.post('/', VerifyToken, function (req, res) {
+router.post('/', VerifyToken, checkBoatJSON, function (req, res) {
     console.log(req.body);
+
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) return res.status(422).json({ errors: errors.mapped() });
+    
     Boat.create({ 
         boatImage: req.body.boatImage,
         categories: req.body.categories,
@@ -49,7 +69,13 @@ router.get('/me', VerifyToken, function (req, res) {
 
 // returns all the boats in the database
 router.get('/', function (req, res) {
-    Boat.find(req.query, function (err, boats) {
+    
+    if(req.query.limit != undefined) {
+        lim = parseInt(req.query.limit);
+        delete req.query.limit;
+    }else lim = 30;
+
+    Boat.find(req.query).limit(lim).exec(function (err, boats) {
         if (err) return res.status(500).send({error: "There was a problem finding the boats."});
         res.status(200).send(boats);
     });
@@ -81,7 +107,7 @@ router.put('/:id', VerifyToken,  function (req, res) {
 });
 
 // add comment to a boat in the database
-router.post('/:id/comment', VerifyToken,  function (req, res) {
+router.post('/:id/comment', VerifyToken, checkCommentJSON, function (req, res) {
     console.log(req.body.comments.body);
 
     let query = {
