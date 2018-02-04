@@ -1,77 +1,30 @@
-<div class="col-md-6 col-md-offset-3">
-  <div class="alert alert-info">
-      Username: test<br />
-      Password: test
-  </div>
-  <h2>Login</h2>
-  <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !username.valid }">
-          <label for="username">Username</label>
-          <input type="text" class="form-control" name="username" [(ngModel)]="model.username" #username="ngModel" required />
-          <div *ngIf="f.submitted && !username.valid" class="help-block">Username is required</div>
-      </div>
-      <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" required />
-          <div *ngIf="f.submitted && !password.valid" class="help-block">Password is required</div>
-      </div>
-      <div class="form-group">
-          <button [disabled]="loading" class="btn btn-primary">Login</button>
-          <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-      </div>
-      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-  </form>
-  
-    <form class="example-form">
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Favorite food" value="Sushi">
-        </mat-form-field>
-      
-        <mat-form-field class="example-full-width">
-          <textarea matInput placeholder="Leave a comment"></textarea>
-        </mat-form-field>
-    </form>
-  
-</div>
+<!-- @author Niwesh Chandra Rai -->
+<!-- @Ref : https://material.angular.io/>-->
 
-<div>
-    <mat-card>
-        <mat-card-content>
-          <h2 class="example-h2">Checkbox configuration</h2>
-      
-          <section class="example-section">
-            <mat-checkbox class="example-margin" [(ngModel)]="checked">Checked</mat-checkbox>
-            <mat-checkbox class="example-margin" [(ngModel)]="indeterminate">Indeterminate</mat-checkbox>
-          </section>
-      
-          <section class="example-section">
-            <label class="example-margin">Align:</label>
-            <mat-radio-group [(ngModel)]="align">
-              <mat-radio-button class="example-margin" value="start">Start</mat-radio-button>
-              <mat-radio-button class="example-margin" value="end">End</mat-radio-button>
-            </mat-radio-group>
-          </section>
-      
-          <section class="example-section">
-            <mat-checkbox class="example-margin" [(ngModel)]="disabled">Disabled</mat-checkbox>
-          </section>
-        </mat-card-content>
-      </mat-card>
-      
-      <mat-card class="result">
-        <mat-card-content>
-          <h2 class="example-h2">Result</h2>
-      
-          <section class="example-section">
-            <mat-checkbox
-                class="example-margin"
-                [(ngModel)]="checked"
-                [(indeterminate)]="indeterminate"
-                [align]="align"
-                [disabled]="disabled">
-              I'm a checkbox
-            </mat-checkbox>
-          </section>
-        </mat-card-content>
-      </mat-card>
-</div>
+<mat-card class="layout-form">
+    <div>
+        <h2 class="head">Login</h2>
+        <form  (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+
+            <div>
+                <mat-form-field class="input-form">
+                    <input matInput placeholder="Enter your email" [formControl]="emailFormControl" required>
+                    <mat-error *ngIf="emailFormControl.invalid">{{getErrorMessage()}}</mat-error>  
+                </mat-form-field>
+
+            </div>
+            <div>
+                <mat-form-field class="input-form">
+                    <input matInput placeholder="Enter your password" [formControl]="passwordFormControl" required [type]="hide ? 'password' : 'text'">
+                    <mat-error *ngIf="passwordFormControl.invalid">{{getErrorMessage()}}</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="button">
+                <button mat-raised-button [disabled]="loading" class="btn btn-primary">Login</button>
+                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
+                />
+            </div>
+            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+        </form>
+    </div>
+</mat-card>
