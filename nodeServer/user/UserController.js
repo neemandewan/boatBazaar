@@ -20,7 +20,10 @@ router.post('/', function (req, res) {
                 city : req.body.address.city,
                 state: req.body.address.state,
                 zipcode : req.body.address.zipcode
-            }
+            },
+            avatar : req.body.avatar,
+            shipping_adddress : [],
+            
         }, 
         function (err, user) {
             if (err) return res.status(500).send("There was a problem adding the information to the database.");
