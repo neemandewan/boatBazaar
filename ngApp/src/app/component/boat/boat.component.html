@@ -72,45 +72,48 @@
                         Description is <strong>required</strong>
                     </mat-error>
                 </mat-form-field>
-      
-                <mat-form-field class="example-full-width form-group">
+
+                <div formGroupName="address">
+                  <mat-form-field class="example-full-width form-group">
                     <textarea matInput placeholder="Street" formControlName="street">1000 N 4th Street</textarea>
-                    <mat-error *ngIf="!boatForm.controls['street'].valid">
+                    <mat-error *ngIf="!boatForm.controls['address'].controls['street'].valid">
                         Street is <strong>required</strong>
                     </mat-error>
-                </mat-form-field>
+                  </mat-form-field>
+        
+                  <table class="example-full-width" cellspacing="0">
+                    <tr>
+                      <td>
+                        <mat-form-field class="example-full-width form-group">
+                          <input matInput placeholder="City" formControlName="city">
+                          <mat-error *ngIf="!boatForm.controls['address'].controls['city'].valid">
+                              City is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field class="example-full-width form-group">
+                          <input matInput placeholder="State" formControlName="state">
+                          <mat-error *ngIf="!boatForm.controls['address'].controls['state'].valid">
+                              State is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </td>
+                      <td>
+                        <mat-form-field class="example-full-width form-group">
+                          <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="94043" formControlName="zipcode">
+                          <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                          <mat-error *ngIf="!boatForm.controls['address'].controls['zipcode'].valid">
+                              Zipcode is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field>
+                      </td>
+                    </tr>
+                  </table>
+
+                </div>
       
-                <table class="example-full-width" cellspacing="0">
-                  <tr>
-                    <td>
-                      <mat-form-field class="example-full-width form-group">
-                        <input matInput placeholder="City" formControlName="city">
-                        <mat-error *ngIf="!boatForm.controls['city'].valid">
-                            City is <strong>required</strong>
-                        </mat-error>
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="example-full-width form-group">
-                        <input matInput placeholder="State" formControlName="state">
-                        <mat-error *ngIf="!boatForm.controls['state'].valid">
-                            State is <strong>required</strong>
-                        </mat-error>
-                      </mat-form-field>
-                    </td>
-                    <td>
-                      <mat-form-field class="example-full-width form-group">
-                        <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="94043" formControlName="zipcode">
-                        <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-                        <mat-error *ngIf="!boatForm.controls['zipcode'].valid">
-                            Zipcode is <strong>required</strong>
-                        </mat-error>
-                      </mat-form-field>
-                    </td>
-                  </tr>
-                </table>
-      
-                <button type="submit" mat-raised-button color="primary">Submit</button>
+                <button type="submit"  [disabled]="!boatForm.valid" mat-raised-button color="primary">Submit</button>
             </form>
             
           </div>

@@ -25,6 +25,7 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
    MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, 
    MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, 
    MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
+import { BoatService } from './services/boat.service';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
   providers: [
     AuthGuard,
     AuthenticationService,
-    UserService
+    UserService,
+    BoatService
   ],
   bootstrap: [AppComponent]
 })
