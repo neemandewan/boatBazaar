@@ -16,7 +16,7 @@ export class AuthenticationService {
     }
 
     login(username: string, password: string): Observable<boolean> {
-        return this.http.post(this.loginURL, { username: username, email:'test@example.com', password: password })
+        return this.http.post(this.loginURL, { username: username, email:'test@gmail.com', password: password })
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
