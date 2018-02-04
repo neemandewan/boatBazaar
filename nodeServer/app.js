@@ -49,4 +49,8 @@ app.use('/api/auth', AuthController);
 var BoatController = require(__root + 'boat/BoatController');
 app.use('/api/auth/boat', BoatController);
 
+// all purchase controllers
+var PurchaseController = require(__root + 'purchase/PurchaseController');
+app.use('/api/auth/purchase', PurchaseController);
+
 module.exports = app;

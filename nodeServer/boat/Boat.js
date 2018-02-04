@@ -3,13 +3,15 @@
  * Prabhab Dewan
  * Copyright (c) 2018
  */
+
+ // status 0: not available for sale, status: 1: on sale, status 2: sold
 var mongoose = require('mongoose');  
 var BoatSchema = new mongoose.Schema({  
   boatImage: [String],
   categories: String,
   name: String,
   price: Number,
-  status: Boolean,
+  status: Number,
   description: String,
   address: {
       street: String,

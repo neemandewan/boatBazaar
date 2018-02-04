@@ -100,6 +100,7 @@ router.delete('/:id', VerifyToken, function (req, res) {
 
 // updates a single boat in the database
 router.put('/:id', VerifyToken,  function (req, res) {
+    req.body.updatedDate = Date.now();
     Boat.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, boat) {
         if (err) return res.status(500).send({error: "There was a problem updating the boat."});
         res.status(200).send(boat);
