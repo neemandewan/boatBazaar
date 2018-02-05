@@ -93,3 +93,9 @@
     font-size: 12px !important;
     color: #000000a3 !important;
 }
+
+.comm {
+    height: 300px !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+}

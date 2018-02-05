@@ -7,6 +7,7 @@ import { LightboxConfig } from 'angular2-lightbox/lightbox-config.service';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from "@angular/forms";
 import { Comments } from '../../models/boat';
 import { Observable } from "rxjs/Rx";
+import { AuthenticationService } from '../../services/authentication.service';
 
 /*
  * Created on Sun Feb 04 2018
@@ -34,8 +35,11 @@ export class BoatMineInComponent implements OnInit {
     private router: Router,
     private _lightbox: Lightbox,
     private _lighboxConfig: LightboxConfig,
-    private formBuilder: FormBuilder) { 
+    private formBuilder: FormBuilder,
+    private authService: AuthenticationService) { 
       this._lighboxConfig.fadeDuration = 1;
+
+      console.log(this.authService)
     }
 
     open(index: number): void {
@@ -91,7 +95,7 @@ export class BoatMineInComponent implements OnInit {
     let myComment = new Comments();
     myComment.body = this.commentForm.value.body;
     myComment.date = (d.getMonth()+1) + "/" + d.getDay() + "/" + d.getFullYear();
-    myComment.user = this.boat.name;
+    myComment.user = this.authService.user;
 
     let userData = {
       comments: myComment

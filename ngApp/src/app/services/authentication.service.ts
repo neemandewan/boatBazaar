@@ -6,6 +6,7 @@ import 'rxjs/add/operator/map'
 @Injectable()
 export class AuthenticationService {
     public token: string;
+    public user: string;
     //loginURL: string = '/api/authenticate';
     loginURL: string = 'http://localhost:3000/api/auth/login';
 
@@ -13,6 +14,7 @@ export class AuthenticationService {
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
+        this.user = currentUser.email;
     }
 
     login(email: string, password: string): Observable<boolean> {
@@ -23,6 +25,7 @@ export class AuthenticationService {
                 if (token) {
                     // set token property
                     this.token = token;
+                    this.user = email;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify({ email: email, token: token }));
