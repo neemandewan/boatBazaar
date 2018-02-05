@@ -13,7 +13,6 @@ import { UserLogin } from '../../models/login';
 export class LoginComponent implements OnInit {
 
     hide = true;
-    userLogin = new UserLogin();
     loginForm: FormGroup;
     loading = false;
 
@@ -41,23 +40,24 @@ export class LoginComponent implements OnInit {
 
     // on form submission
     onSubmit() {
+        let userLogin = new UserLogin();
+        userLogin.email = this.loginForm.value.emailFormControl;
+        userLogin.password = this.loginForm.value.passwordFormControl;
 
-        console.log(this.loginForm.value);
+        console.log(userLogin);
 
-        this.userLogin.email = this.loginForm.value.emailFormControl;
-        this.userLogin.password = this.loginForm.value.passwordFormControl;
-
-        this.authenticationService.login(this.userLogin.email, this.userLogin.password)
+        this.authenticationService.login(userLogin.email, userLogin.password)
             .subscribe(result => {
+                console.log(result);
                 if (result === true) {
                     console.log(this.loginForm.value);
                     this.router.navigate(['/home']);
                 } else {
                     console.log("error : waiting");
-                    this.loading = false;                    
+                    this.loading = false;
                 }
             });
     }
 }
 
-export class ButtonOverviewExample { }
+//export class ButtonOverviewExample { }
