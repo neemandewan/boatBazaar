@@ -12,11 +12,11 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { HomeService } from './services/home.service';
+import { RegisterService } from './services/register.service';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './component/register/register.component';
 
-import { BoatComponent } from './component/boat/boat.component';
 import { FooterComponent } from './component/footer/footer.component';
 
 
@@ -43,14 +43,14 @@ import { ProfileComponent } from './component/profile/profile.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    BoatComponent,
     FooterComponent,
     BoatMineComponent,
     BoatInComponent,
     BoatMineInComponent,
     KeepCssPipe,
     BoatEditComponent,
-    ProfileComponent
+    ProfileComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +72,8 @@ import { ProfileComponent } from './component/profile/profile.component';
     AuthenticationService,
     UserService,
     HomeService,
-    BoatService
+    BoatService,
+    RegisterService
   ],
   bootstrap: [AppComponent]
 })
