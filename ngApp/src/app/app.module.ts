@@ -31,6 +31,8 @@ import { BoatInComponent } from './component/boat-in/boat-in.component';
 import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.component';
 import { KeepCssPipe } from './pipes/keep-css.pipe';
 
+import { LightboxModule } from 'angular2-lightbox';
+
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import { KeepCssPipe } from './pipes/keep-css.pipe';
     MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, 
     MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule,
     MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule,
+    LightboxModule
   ],
   providers: [
     AuthGuard,
