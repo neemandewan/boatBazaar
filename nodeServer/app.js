@@ -1,3 +1,9 @@
+/*
+ * Created on Sat Feb 03 2018
+ * Prabhab Dewan
+ * Copyright (c) 2018
+ */
+
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -24,17 +30,27 @@ var corsOptions = {
   credentials:true
 }
 
-//app.use(cors(corsOptions));
-app.use(cors());
+// Use cors with options
+app.use(cors(corsOptions));
 
 app.get('/api', function (req, res) {
   res.status(200).send('API works.');
 });
 
+// users controller for registration
 var UserController = require(__root + 'user/UserController');
 app.use('/api/users', UserController);
 
+// all authorization controllers
 var AuthController = require(__root + 'auth/AuthController');
 app.use('/api/auth', AuthController);
+
+// all boat controllers
+var BoatController = require(__root + 'boat/BoatController');
+app.use('/api/auth/boat', BoatController);
+
+// all purchase controllers
+var PurchaseController = require(__root + 'purchase/PurchaseController');
+app.use('/api/auth/purchase', PurchaseController);
 
 module.exports = app;

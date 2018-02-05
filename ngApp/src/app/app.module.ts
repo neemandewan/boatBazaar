@@ -11,6 +11,7 @@ import { routes } from './app.routes';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
+import { HomeService } from './services/home.service';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './component/register/register.component';
@@ -53,7 +54,8 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
   providers: [
     AuthGuard,
     AuthenticationService,
-    UserService
+    UserService,
+    HomeService
   ],
   bootstrap: [AppComponent]
 })

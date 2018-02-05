@@ -1,36 +1,83 @@
-<form class="example-form">
-  <mat-form-field class="example-full-width">
-    <input matInput placeholder="" disabled value="Registration">
-  </mat-form-field>
+<!-- user regestration form -->
 
-  <table class="example-full-width" cellspacing="0"><tr>
-    <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="First Name">
-    </mat-form-field></td>
-    <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="Last Name">
-    </mat-form-field></td>
-  </tr></table>
-
-  <p>
-    <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Address">1600 Amphitheatre Pkwy</textarea>
+<form class="user-form">
+    <mat-form-field class="user-full-width">
+      <input matInput placeholder="" disabled value="Registration">
     </mat-form-field>
-    <mat-form-field class="example-full-width">
-      <textarea matInput placeholder="Address 2"></textarea>
+  
+    <table class="user-full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="user-full-width">
+        <input matInput placeholder="First Name">
+      </mat-form-field></td>
+      <td><mat-form-field class="user-full-width">
+        <input matInput placeholder="Last Name">
+      </mat-form-field></td>
+    </tr></table>
+  
+          <div class="user-full-width">
+              <mat-form-field>
+                <input matInput placeholder="Enter your email" [formControl]="email" required>
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+              </mat-form-field>
+            </div>
+  
+            <div class="user-full-width">
+                <mat-form-field>
+                  <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
+                </mat-form-field>
+              </div>
+  
+  
+  
+  
+    <mat-form-field class="user-full-width">
+      <input matInput placeholder="Password">
     </mat-form-field>
-  </p>
-
-  <table class="example-full-width" cellspacing="0"><tr>
-    <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="City">
-    </mat-form-field></td>
-    <td><mat-form-field class="example-full-width">
-      <input matInput placeholder="State">
-    </mat-form-field></td>
-    <td><mat-form-field class="example-full-width">
-      <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="94043">
-      <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-    </mat-form-field></td>
-  </tr></table>
-</form>
+  
+  
+  
+    <table class="user-full-width" cellspacing="0">
+      <tr><td>Gender:</td></tr>
+      <tr>
+      
+      <td><mat-radio-button class="user-full-width">
+          <input matInput placeholder="Male"/>
+       </mat-radio-button></td>
+      <td><mat-radio-button class="user-full-width">
+          <input matInput placeholder="Female"/>
+       </mat-radio-button></td>
+       <td><mat-radio-button class="user-full-width">
+          <input matInput placeholder="Others"/>
+       </mat-radio-button></td>
+    </tr></table>
+  
+    <mat-form-field class="user-full-width">
+        <input matInput placeholder="Date Of Birth">
+      </mat-form-field>
+  
+     <p>
+      <mat-form-field class="user-full-width">
+        <textarea matInput placeholder="Address 1"></textarea>
+      </mat-form-field>
+      <mat-form-field class="user-full-width">
+        <textarea matInput placeholder="Address 2"></textarea>
+      </mat-form-field>
+    </p>
+  
+    <table class="user-full-width" cellspacing="0"><tr>
+      <td><mat-form-field class="user-full-width">
+        <input matInput placeholder="City">
+      </mat-form-field></td>
+      <td><mat-form-field class="user-full-width">
+        <input matInput placeholder="State">
+      </mat-form-field></td>
+      <td><mat-form-field class="user-full-width">
+        <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="">
+        <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+      </mat-form-field></td>
+    </tr></table>
+  
+    <button mat-raised-button>Submit !</button>
+  
+  
+  </form>

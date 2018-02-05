@@ -1,30 +1,42 @@
-<!-- @author Niwesh Chandra Rai -->
-<!-- @Ref : https://material.angular.io/>-->
-
+<!-- 
+     Created on Sat Feb 03 2018
+     Niwesh Chandra Rai 
+     Reference : https://material.angular.io/> 
+-->
+<mat-grid-list  class = "body" cols="4">
+        <div class="head">
+          <p>Boat Bazaar</p>
+        </div>
+       
 <mat-card class="layout-form">
     <div>
-        <h2 class="head">Login</h2>
-        <form  (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+        <h2 class = "head1">Login</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
             <div>
-                <mat-form-field class="input-form">
-                    <input matInput placeholder="Enter your email" [formControl]="emailFormControl" required>
-                    <mat-error *ngIf="emailFormControl.invalid">{{getErrorMessage()}}</mat-error>  
+                <mat-form-field class="input-form form-group">
+                    <input matInput placeholder="Enter your email" formControlName="emailFormControl">
+                    <mat-error *ngIf="loginForm.controls['emailFormControl'].hasError('email')">
+                        Please enter a valid email address
+                    </mat-error>
                 </mat-form-field>
 
             </div>
             <div>
-                <mat-form-field class="input-form">
-                    <input matInput placeholder="Enter your password" [formControl]="passwordFormControl" required [type]="hide ? 'password' : 'text'">
-                    <mat-error *ngIf="passwordFormControl.invalid">{{getErrorMessage()}}</mat-error>
+                <mat-form-field class="input-form form-group">
+                    <input matInput placeholder="Enter your password" formControlName="passwordFormControl" required [type]="hide ? 'password' : 'text'">
+                    <mat-error *ngIf="!loginForm.controls['passwordFormControl'].valid">
+                        password is
+                        <strong>required</strong>
+                    </mat-error>
                 </mat-form-field>
             </div>
             <div class="button">
-                <button mat-raised-button [disabled]="loading" class="btn btn-primary">Login</button>
+                <button mat-raised-button type="submit" class="btn btn-primary">Login</button>
                 <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="
                 />
             </div>
             <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         </form>
     </div>
-</mat-card>
+</mat-card> </mat-grid-list>

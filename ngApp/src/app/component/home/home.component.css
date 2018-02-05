@@ -1,0 +1,34 @@
+.head {
+    height: 150px;
+    background: #2b567b;
+}
+
+.head p {
+    color: #adf;
+    font-size: 40px;
+    margin: 0;
+    padding-left: 30px;
+    padding-top: 42px;
+ }
+
+ .div-card{
+     padding: 10px;
+ }
+.div-body{
+    background: #66ffff;
+}
+.example-card {
+    width: 270px;
+    margin: 10px;
+    background: linear-gradient(to top left, #ccffff 0%, #99ffcc 100%);
+  }
+
+.main-card{
+    width: 90%;
+    background: linear-gradient(to top left, #ccffff 0%, #99ffcc 100%); 
+}
+
+  .example-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+  } 

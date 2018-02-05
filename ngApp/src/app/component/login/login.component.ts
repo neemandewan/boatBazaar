@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../../services/authentication.service';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from "@angular/forms";
+import { Observable } from "rxjs/Rx";
+import { UserLogin } from '../../models/login';
 
 @Component({
     moduleId: module.id,
@@ -11,53 +13,51 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from "@ang
 export class LoginComponent implements OnInit {
 
     hide = true;
-    
+    userLogin = new UserLogin();
+    loginForm: FormGroup;
+    loading = false;
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+    constructor(
+        private formBuilder: FormBuilder,
+        private router: Router,
+        private authenticationService: AuthenticationService) {
 
-  getErrorMessage() {
-    return this.emailFormControl.hasError('required') ? 'You must enter a value' :
-        this.emailFormControl.hasError('email') ? "Not a valid email" :
-        ""
-  }
+    }
 
+    ngOnInit() {
 
-  passwordFormControl = new FormControl('',[Validators.required]);  
-
-  model: any = {};
-  loading = false;
-  error = '';
-
-  checked = false;
-  indeterminate = false;
-  align = 'start';
-  disabled = false;
-
-
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService) {
-        
-}
-
-ngOnInit() {
-    // reset login status
-    this.authenticationService.logout();
-}
-
-login() {
-    this.loading = true;
-    console.log(this.emailFormControl.value);
-    console.log(this.passwordFormControl.value);
-    this.authenticationService.login(this.emailFormControl.value, this.passwordFormControl.value)
-        .subscribe(result => {
-            if (result === true) {
-                this.router.navigate(['/']);
-            } else {
-                this.error = 'Username or password is incorrect';
-                this.loading = false;
-            }
+        this.loginForm = this.formBuilder.group({
+            "emailFormControl": new FormControl('', [Validators.required, Validators.email]),
+            "passwordFormControl": new FormControl('', [Validators.required])
         });
+
+        this.loginForm.statusChanges.subscribe(
+            (data: any) => console.log(data)
+        );
+
+        // reset login status
+        this.authenticationService.logout();
+    }
+
+    // on form submission
+    onSubmit() {
+
+        console.log(this.loginForm.value);
+
+        this.userLogin.email = this.loginForm.value.emailFormControl;
+        this.userLogin.password = this.loginForm.value.passwordFormControl;
+
+        this.authenticationService.login(this.userLogin.email, this.userLogin.password)
+            .subscribe(result => {
+                if (result === true) {
+                    console.log(this.loginForm.value);
+                    this.router.navigate(['/home']);
+                } else {
+                    console.log("error : waiting");
+                    this.loading = false;                    
+                }
+            });
+    }
 }
 
-export class ButtonOverviewExample {}
+export class ButtonOverviewExample { }
