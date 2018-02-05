@@ -26,6 +26,11 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
    MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, 
    MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, 
    MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
+import { BoatService } from './services/boat.service';
+import { BoatMineComponent } from './component/boat-mine/boat-mine.component';
+import { BoatInComponent } from './component/boat-in/boat-in.component';
+import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.component';
+import { KeepCssPipe } from './pipes/keep-css.pipe';
 
 
 @NgModule({
@@ -35,7 +40,11 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
     LoginComponent,
     RegisterComponent,
     BoatComponent,
-    FooterComponent
+    FooterComponent,
+    BoatMineComponent,
+    BoatInComponent,
+    BoatMineInComponent,
+    KeepCssPipe
   ],
   imports: [
     BrowserModule,
@@ -55,7 +64,8 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
     AuthGuard,
     AuthenticationService,
     UserService,
-    HomeService
+    HomeService,
+    BoatService
   ],
   bootstrap: [AppComponent]
 })
