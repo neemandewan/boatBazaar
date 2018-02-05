@@ -1,34 +1,93 @@
 .head {
     height: 150px;
+   
     background: #2b567b;
-}
-
-.head p {
+  }
+.log-out {
+    margin-top: 10px;
+    margin-right: 20px;
+    float: right;
+    background: white;
+    color: black;
+  }
+  
+  .head p {
     color: #adf;
     font-size: 40px;
     margin: 0;
     padding-left: 30px;
     padding-top: 42px;
- }
-
- .div-card{
-     padding: 10px;
- }
-.div-body{
-    background: #66ffff;
-}
-.example-card {
-    width: 270px;
-    margin: 10px;
-    background: linear-gradient(to top left, #ccffff 0%, #99ffcc 100%);
+  }
+  
+  .bm-card {
+    width: 90%;
+    margin: -60px auto;
+    
   }
 
-.main-card{
-    width: 90%;
-    background: linear-gradient(to top left, #ccffff 0%, #99ffcc 100%); 
-}
+  .border{
+    border: 0.5px;
+    box-shadow: 5px 10px 8px #888888;
+  }
 
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  .sm-card {
+    width: 100%;
+    margin: 0 10px;
+  }
+
+  .sm-card mat-card-content {
+    height: 120px !important;
+    overflow: hidden;
+    text-align: justify;
+  }
+
+  .sm-card button {
+      width: 100% !important;
+  }
+
+  .sm-img {
+    height: 220px;
+    background-size: cover !important;
+    background-position: center !important;
+  }
+    
+  .bm-header-image {
+    background-image: url('/assets/images/icons/ship.png');
     background-size: cover;
-  } 
+  }
+  
+  .bm-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bm-container > * {
+    width: 100%;
+  }
+  
+  .bm-right-align {
+    text-align: right;
+  }
+  
+  input.bm-right-align::-webkit-outer-spin-button,
+  input.bm-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.bm-right-align {
+    -moz-appearance: textfield;
+  }
+  
+  table .mat-form-field {
+    width: 160px !important;
+  }
+  
+  .btn-color{
+    background: #660033;
+    color : white
+  }
+
+
+  .bm-full-width {
+    width: 100%;
+  }

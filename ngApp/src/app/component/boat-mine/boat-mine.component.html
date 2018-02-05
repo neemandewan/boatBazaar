@@ -11,7 +11,7 @@
       
       <mat-card-content>
         <div class="bm-container">
-            <mat-grid-list [cols]="tabs" rowHeight="1:1.6" (window:resize)="onResize($event)">
+            <mat-grid-list [cols]="tabs" rowHeight="1:1.8" (window:resize)="onResize($event)">
                 <mat-grid-tile cols=1 rows=1 *ngFor="let boat of boats">
                     <mat-card class="sm-card">
                         <div mat-card-image class="sm-img" [style.background-image]="boat.boatImage[0] | keepCss" alt="boat.name"></div>
