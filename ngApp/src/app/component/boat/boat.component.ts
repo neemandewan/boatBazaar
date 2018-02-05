@@ -1,11 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-<<<<<<< HEAD
-import { Categories, Status } from '../../models/boat';
-import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
-import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from "@angular/forms";
-import { Observable } from "rxjs/Rx";
-=======
 import { Categories, Status, Boat } from '../../models/boat';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from "@angular/forms";
@@ -19,7 +12,6 @@ import { AbstractControl } from '@angular/forms/src/model';
  * Prabhab Dewan
  * Copyright (c) 2018 Your Company
  */
->>>>>>> 62eb1e37c0fb46cf94d0d3a36088c030ae62104a
 
 @Component({
   selector: 'app-boat',
@@ -27,11 +19,6 @@ import { AbstractControl } from '@angular/forms/src/model';
   styleUrls: ['./boat.component.css']
 })
 export class BoatComponent implements OnInit {
-<<<<<<< HEAD
-  hide: true;
-
-=======
->>>>>>> 62eb1e37c0fb46cf94d0d3a36088c030ae62104a
   categories: string[];
   status = Status;
   boatForm: FormGroup;
@@ -39,12 +26,8 @@ export class BoatComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder, 
     private router: Router, 
-<<<<<<< HEAD
-    private authenticationService: AuthenticationService
-=======
     private boatService: BoatService,
     private snackBar: MatSnackBar
->>>>>>> 62eb1e37c0fb46cf94d0d3a36088c030ae62104a
   ) {
       this.categories = new Categories().getList();
       console.log(this.status);
@@ -53,18 +36,6 @@ export class BoatComponent implements OnInit {
   ngOnInit() {
 
     this.boatForm = this.formBuilder.group({
-<<<<<<< HEAD
-      'name': ['', [Validators.required]],
-      'categories': ['', [Validators.required]],
-      'status': ['', [Validators.required]],
-      'image': ['', [Validators.required]],
-      'price': ['', [Validators.required]],
-      'description': ['', [Validators.required]],
-      'street': ['', [Validators.required]],
-      'city': ['', [Validators.required]],
-      'state': ['', [Validators.required]],
-      'zipcode': ['', [Validators.required]]
-=======
       'name': ['dsadsa', [Validators.required]],
       'categories': ['Ferries', [Validators.required]],
       'status': ['1', [Validators.required]],
@@ -77,7 +48,6 @@ export class BoatComponent implements OnInit {
         'state': ['ewqew', [Validators.required]],
         'zipcode': ['7888', [Validators.required]]
       })
->>>>>>> 62eb1e37c0fb46cf94d0d3a36088c030ae62104a
     });
 
     this.boatForm.statusChanges.subscribe(
@@ -86,10 +56,6 @@ export class BoatComponent implements OnInit {
 
   }
 
-<<<<<<< HEAD
-  onSubmit() {
-    console.log(this.boatForm.value);
-=======
   resetForm() {
     // this.boatForm.reset({
     //   'name': '',
@@ -133,7 +99,6 @@ export class BoatComponent implements OnInit {
         
       });
     
->>>>>>> 62eb1e37c0fb46cf94d0d3a36088c030ae62104a
   }
 
 }
