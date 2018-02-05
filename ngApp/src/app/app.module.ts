@@ -12,11 +12,11 @@ import { AuthGuard } from './guards/auth.guard';
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
 import { HomeService } from './services/home.service';
+import { RegisterService } from './services/register.service';
 
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegisterComponent } from './component/register/register.component';
 
-import { BoatComponent } from './component/boat/boat.component';
 import { FooterComponent } from './component/footer/footer.component';
 
 
@@ -36,6 +36,8 @@ import { LightboxModule } from 'angular2-lightbox';
 import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
+import { PaymentPageComponent } from './component/payment-page/payment-page.component';
+import { BoatComponent } from './component/boat/boat.component';
 
 
 @NgModule({
@@ -52,7 +54,8 @@ import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.c
     KeepCssPipe,
     BoatEditComponent,
     ProfileComponent,
-    BoatFeaturedComponent
+    BoatFeaturedComponent,
+    PaymentPageComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.c
     AuthenticationService,
     UserService,
     HomeService,
-    BoatService
+    BoatService,
+    RegisterService
   ],
   bootstrap: [AppComponent]
 })

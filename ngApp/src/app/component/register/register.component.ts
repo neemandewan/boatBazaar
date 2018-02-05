@@ -1,8 +1,63 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, Validators,FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
+import { RegisterService } from '../../services/register.service';
+import { Gender, userRegister } from '../../models/userRegistration';
 import { AuthenticationService } from '../../services/authentication.service';
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from "@angular/forms";
+import { Observable } from "rxjs/Rx";
+import { MatSnackBar } from '@angular/material';
 
+
+/*
+ * Created on Sun Feb 03 2018
+ * Rajesh Subedi
+ * Copyright (c) 2018 Your Company
+ */
+
+
+// let passwordMatchValidator = function(fg: FormGroup) {
+//   return fg.get('password1').value === fg.get('password1').value ? null : { 'mismatch': true };
+// }
+
+
+function checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+  return (group: FormGroup) => {
+    let passwordInput = group.controls[passwordKey],
+        passwordConfirmationInput = group.controls[passwordConfirmationKey];
+    if (passwordInput.value !== passwordConfirmationInput.value) {
+      return passwordConfirmationInput.setErrors({notEquivalent: true})
+    }
+    else {
+        return passwordConfirmationInput.setErrors(null);
+    }
+  }
+}
+
+// function checkIfNumber(passwordKey: string, passwordConfirmationKey: string) {
+//   return (group: FormGroup) => {
+//     let passwordInput = group.controls[passwordKey];
+//     console.log(passwordInput.value);
+//     //console.log(Number(passwordInput.value).toString);
+//     if ( passwordInput.value!== passwordConfirmationKey) {
+//       return passwordInput.setErrors({notEquivalent: true})
+//     }
+//     else {
+//         return passwordInput.setErrors(null);
+//     }
+//   }
+// }
+// function checkIfNumber( passwordKey: string) {
+//   return (group: FormGroup) => {
+//     let passwordInput = group.controls[passwordKey];
+//     console.log(Number(passwordInput.value).toString)
+//     if ( Number(passwordInput.value).toString === 'undefine' ) {
+//       return passwordInput.setErrors({notEquivalent: true})
+//     }
+//     else {
+//         return passwordInput.setErrors(null);
+//     }
+//   }
+// }
 
 
 @Component({
@@ -10,56 +65,82 @@ import { AuthenticationService } from '../../services/authentication.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
+
+
 export class RegisterComponent implements OnInit {
 
+    hide: true;
 
-  hide = true;
+    gender = Gender;
+    userForm: FormGroup;
+    
+  
+    constructor(
+      private formBuilder: FormBuilder, 
+      private router: Router, 
+      private registerService: RegisterService,
+      private authenticationService: AuthenticationService
+    ) { }
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
+    // email = new FormControl('', [Validators.required, Validators.email]);
 
-  getErrorMessage() {
-    return this.emailFormControl.hasError('required') ? 'You must enter a value' :
-        this.emailFormControl.hasError('email') ? 'Not a valid email' :
-            '';
-  }
-
-
-  passwordFormControl = new FormControl('');
-
-  model: any = {};
-  loading = false;
-  error = '';
-
-  checked = false;
-  indeterminate = false;
-  align = 'start';
-  disabled = false;
+    // getErrorMessage() {
+    //   return this.email.hasError('required') ? 'You must enter a value' :
+    //       this.email.hasError('email') ? 'Not a valid email' :
+    //           '';
+    // }   , heckcIfNumber('PhoneNumber',"undefined")
 
 
-  constructor(
-    private router: Router,
-    private authenticationService: AuthenticationService) {
-}
+  
+    ngOnInit() {
+  
+      this.userForm = this.formBuilder.group({
+        'firstname': ['', [Validators.required]],
+        'lastname': ['', [Validators.required]],
+        'PhoneNumber': ['', [Validators.required]],
+        'email': ['', [Validators.required, Validators.email]],
+        'password1': ['', [Validators.required]],
+        'password2': ['', [Validators.required]],
+        
+        'DateOfBirth': ['', [Validators.required]],
+        'gender': ['', [Validators.required]],
+        'address': this.formBuilder.group({
+        'street': ['', [Validators.required]],
+        'city': ['', [Validators.required]],
+        'state': ['', [Validators.required]],
+        'zipcode': ['', [Validators.required]]
+        })
+      },{validator: [checkIfMatchingPasswords('password1', 'password2')]});
+      
+  
+      
+      this.userForm.statusChanges.subscribe(
+        (data: any) => console.log(data)
+      );
+  
+    }
+  
+    onSubmit() {
+     console.log(this.userForm.value);
+      
+     let user = new userRegister();
 
-ngOnInit() {
-    // reset login status
-    this.authenticationService.logout();
-}
+     user.firstname= this.userForm.value.firstname;
+     user.lastname= this.userForm.value.lastname;
+     user.gender= this.userForm.value.gender;
+     user.email= this.userForm.value.email;
+     user.password= this.userForm.value.password1;
+     user.dob= this.userForm.value.DateOfBirth;
+     user.phone= this.userForm.value.PhoneNumber;
+     user.address= this.userForm.value.address;
+  
+	
+   this.registerService.addUser(user)
+            .subscribe(result => {
+                console.log(result);
+            });
 
-login() {
-    this.loading = true;
-    console.log(this.emailFormControl.value);
-    console.log(this.passwordFormControl.value);
-    // this.authenticationService.login(this.emailFormControl.value, this.passwordFormControl.value)
-    //     .subscribe(result => {
-    //         if (result === true) {
-    //             this.router.navigate(['/']);
-    //         } else {
-    //             this.error = 'Username or password is incorrect';
-    //             this.loading = false;
-    //         }
-    //     });
-}
-
+   }
+  
 
 }

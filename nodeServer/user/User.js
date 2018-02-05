@@ -1,4 +1,8 @@
- //  @created by rajesh
+ /*
+ * Created on Sun Feb 03 2018
+ * Rajesh Subedi
+ * Copyright (c) 2018 Your Company
+ */
 
 var mongoose = require('mongoose');  
 var UserSchema = new mongoose.Schema({  
