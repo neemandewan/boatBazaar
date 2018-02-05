@@ -7,6 +7,12 @@ import { BoatService } from '../../services/boat.service';
 import { MatSnackBar } from '@angular/material';
 import { AbstractControl } from '@angular/forms/src/model';
 
+/*
+ * Created on Sun Feb 04 2018
+ * Prabhab Dewan
+ * Copyright (c) 2018 Your Company
+ */
+
 @Component({
   selector: 'app-boat',
   templateUrl: './boat.component.html',
@@ -66,11 +72,7 @@ export class BoatComponent implements OnInit {
     //   }
     // });
 
-    this.boatForm.reset();
-    Object.keys(this.boatForm.controls).forEach(field => { 
-      const control = this.boatForm.get(field);
-      control.markAsTouched({ onlySelf: false });
-    });
+    this.boatForm.reset(this.boatForm.value);
   }
 
   onSubmit() {

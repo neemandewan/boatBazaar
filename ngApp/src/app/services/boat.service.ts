@@ -29,7 +29,21 @@ export class BoatService {
     return this.http.post(Links.boatURL, boat, options)
         .map((response: Response) => {
           return response;
-            
+    });
+  }
+
+  getMyBoats(): Observable<any> {
+    // add authorization header with jwt token
+    let headers = new Headers({ 'x-access-token': this.authenticationService.token });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(Links.myBoatURL, options)
+        .map((response: Response) => {
+          if(response.status === 200) {
+            return response
+          }else {
+            return "err";
+          }
     });
   }
 
