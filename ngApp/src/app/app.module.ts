@@ -11,6 +11,7 @@ import { routes } from './app.routes';
 import { AuthGuard } from './guards/auth.guard';
 import { AuthenticationService } from './services/authentication.service';
 import { UserService } from './services/user.service';
+import { HomeService } from './services/home.service';
 import { RegisterService } from './services/register.service';
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -27,6 +28,14 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
    MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { BoatService } from './services/boat.service';
 import { PaymentPageComponent } from './component/payment-page/payment-page.component';
+import { BoatMineComponent } from './component/boat-mine/boat-mine.component';
+import { BoatInComponent } from './component/boat-in/boat-in.component';
+import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.component';
+import { KeepCssPipe } from './pipes/keep-css.pipe';
+
+import { LightboxModule } from 'angular2-lightbox';
+import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
+import { ProfileComponent } from './component/profile/profile.component';
 
 
 @NgModule({
@@ -36,7 +45,14 @@ import { PaymentPageComponent } from './component/payment-page/payment-page.comp
     LoginComponent,
     RegisterComponent,
     FooterComponent,
-    PaymentPageComponent
+    PaymentPageComponent,
+    BoatMineComponent,
+    BoatInComponent,
+    BoatMineInComponent,
+    KeepCssPipe,
+    BoatEditComponent,
+    ProfileComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -51,11 +67,13 @@ import { PaymentPageComponent } from './component/payment-page/payment-page.comp
     MatListModule, MatMenuModule, MatNativeDateModule, MatPaginatorModule, MatProgressBarModule, MatProgressSpinnerModule, 
     MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule,
     MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule,
+    LightboxModule
   ],
   providers: [
     AuthGuard,
     AuthenticationService,
     UserService,
+    HomeService,
     BoatService,
     RegisterService
   ],

@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map'
 
 import { AuthenticationService } from './authentication.service';
 import { User } from '../models/user';
+import { Links } from '../app.config';
 
 @Injectable()
 export class UserService {
@@ -13,13 +14,19 @@ export class UserService {
         private authenticationService: AuthenticationService) {
     }
 
-    getUsers(): Observable<User[]> {
+    getUser(): Observable<any> {
         // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        let headers = new Headers({ 'x-access-token': this.authenticationService.token });
         let options = new RequestOptions({ headers: headers });
 
-        // get users from api
-        return this.http.get('/api/users', options)
-            .map((response: Response) => response.json());
+        // get user from api
+        return this.http.get(Links.myURL, options)
+            .map((response: Response) => {
+                if(response.status == 200) {
+                    return response;
+                }else {
+                    return "err";
+                }
+            });
     }
 }
