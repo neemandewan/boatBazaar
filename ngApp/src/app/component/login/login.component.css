@@ -7,12 +7,9 @@
     min-width: 150px;
     max-width: 500px;
     width: 400px;
-    background: linear-gradient(to right, #0099cc 0%, #ccffff 100%);
-  }
 
-.body{
-  background: linear-gradient(to bottom, #99ffcc 0%, #ffffff 100%);
 }
+
   .head1{
     margin-left: 50px;
     font-family: sans-serif
