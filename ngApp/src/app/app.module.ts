@@ -34,6 +34,7 @@ import { KeepCssPipe } from './pipes/keep-css.pipe';
 
 import { LightboxModule } from 'angular2-lightbox';
 import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
+import { ProfileComponent } from './component/profile/profile.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
     BoatInComponent,
     BoatMineInComponent,
     KeepCssPipe,
-    BoatEditComponent
+    BoatEditComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
