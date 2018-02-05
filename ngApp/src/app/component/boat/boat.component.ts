@@ -33,6 +33,9 @@ export class BoatComponent implements OnInit {
       console.log(this.status);
   }
 
+  /**
+   * Initial things need to be done
+   */
   ngOnInit() {
 
     this.boatForm = this.formBuilder.group({
@@ -56,6 +59,9 @@ export class BoatComponent implements OnInit {
 
   }
 
+  /**
+   * Reset form
+   */
   resetForm() {
     // this.boatForm.reset({
     //   'name': '',
@@ -75,6 +81,9 @@ export class BoatComponent implements OnInit {
     this.boatForm.reset(this.boatForm.value);
   }
 
+  /**
+   * Submit form
+   */
   onSubmit() {
     
     console.log(this.boatForm.value);
@@ -91,14 +100,17 @@ export class BoatComponent implements OnInit {
 
     this.boatService.addBoat(myBoat)
       .subscribe(result => {
-        this.snackBar.open('Added Successfully..', 'Undo', {
-          duration: 1000
-        });
-
-        this.resetForm();
-        
+        if(result == "err") {
+          this.snackBar.open('Error in Fetch..', 'Undo', {
+            duration: 1000
+          });
+        }else {
+          this.snackBar.open('Successfully Done..', 'Undo', {
+            duration: 1000
+          });
+        }
+        console.log(JSON.parse(result._body));
       });
-    
   }
 
 }

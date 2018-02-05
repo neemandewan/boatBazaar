@@ -33,6 +33,7 @@ import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.compo
 import { KeepCssPipe } from './pipes/keep-css.pipe';
 
 import { LightboxModule } from 'angular2-lightbox';
+import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { LightboxModule } from 'angular2-lightbox';
     BoatMineComponent,
     BoatInComponent,
     BoatMineInComponent,
-    KeepCssPipe
+    KeepCssPipe,
+    BoatEditComponent
   ],
   imports: [
     BrowserModule,

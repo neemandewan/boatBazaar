@@ -46,7 +46,10 @@ export class BoatMineInComponent implements OnInit {
       // open lightbox
       this._lightbox.open(this._albums, index , { wrapAround: true, showImageNumberLabel: true });
     }
-
+  
+  /**
+   * All initial fetch
+   */
   ngOnInit() {
       // params will return an Observable
       // we need it so we track changes in parameters as this code will be run once at constructor
@@ -86,6 +89,9 @@ export class BoatMineInComponent implements OnInit {
 
   }
 
+  /**
+   * Comment form submission
+   */
   onSubmit() {
     
     console.log(this.commentForm.value);

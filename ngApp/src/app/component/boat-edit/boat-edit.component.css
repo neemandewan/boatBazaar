@@ -12,37 +12,16 @@
   }
   
   .bm-card {
-    width: 90%;
+    max-width: 600px;
     margin: -60px auto;
-  }
-
-  .sm-card {
-    width: 100%;
-    margin: 0 10px;
-  }
-
-  .sm-card mat-card-content {
-    height: 120px !important;
-    overflow: hidden;
-    text-align: justify;
-  }
-
-  .sm-card .r-btn {
-    width: 48%;
-    float: left !important;
-    margin: 0 1% !important;
-  }
-
-  .sm-img {
-    height: 220px;
-    background-size: cover !important;
-    background-position: center !important;
+    width: 90%;
   }
     
   .bm-header-image {
     background-image: url('/assets/images/icons/ship.png');
     background-size: cover;
   }
+  
   
   .bm-container {
     display: flex;
@@ -66,19 +45,26 @@
     -moz-appearance: textfield;
   }
   
-  table .mat-form-field {
+  /* table .mat-form-field {
     width: 160px !important;
-  }
+  } */
   
     
   .bm-full-width {
-    width: 100%;
+    width: 100% !important;
   }
 
-  .del-btn {
-    width: 98% !important;
-    margin-top: 5px !important;
-    margin-bottom: 0 !important;
-    margin-left: 1% !important;
-    margin-right: 1% !important;
+  .light-im {
+    width: 80px;
+    float: left !important;
+    margin: 0 10px 10px 0px !important;
+}
+
+.W100 {
+    width: 100%;
+}
+
+.W50 {
+  width: 50%;
+  float: left;
 }

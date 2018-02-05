@@ -28,7 +28,41 @@ export class BoatService {
 
     return this.http.post(Links.boatURL, boat, options)
         .map((response: Response) => {
-          return response;
+          if(response.status === 200) {
+            return response
+          }else {
+            return "err";
+          }
+    });
+  }
+
+  updateBoat(boat: Boat, id:string): Observable<any> {
+    // add authorization header with jwt token
+    let headers = new Headers({ 'x-access-token': this.authenticationService.token });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(Links.boatURL + "/" + id, boat, options)
+        .map((response: Response) => {
+          if(response.status === 200) {
+            return response
+          }else {
+            return "err";
+          }
+    });
+  }
+
+  deleteBoat(id:string): Observable<any> {
+    // add authorization header with jwt token
+    let headers = new Headers({ 'x-access-token': this.authenticationService.token });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.delete(Links.boatURL + "/" + id, options)
+        .map((response: Response) => {
+          if(response.status === 200) {
+            return response
+          }else {
+            return "err";
+          }
     });
   }
 
