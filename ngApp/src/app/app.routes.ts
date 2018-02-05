@@ -13,9 +13,9 @@ import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
-    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: '', component: HomeComponent},
     { path: 'register', component: RegisterComponent },
-    { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: 'home', component: HomeComponent},
     { path: 'boat/form', component: BoatComponent, canActivate: [AuthGuard] },
     { path: 'boat/mine', component: BoatMineComponent, canActivate: [AuthGuard] },
     { path: 'boat/:id', component: BoatInComponent, canActivate: [AuthGuard] },
