@@ -91,7 +91,7 @@
                       <mat-form-field>
                         <input matInput placeholder="Re-enter the password"  formControlName="password2" required [type]="hide ? 'password' : 'text'">
                         <mat-error *ngIf="!userForm.controls['password2'].valid">
-                            Password is <strong>required</strong>
+                            Password must <strong>match</strong>
                         </mat-error>
                       </mat-form-field>
                     </div>
@@ -138,8 +138,8 @@
 
               </div>
       
-                <button type="submit" mat-raised-button color="primary">Submit</button>
-            </form>
+                <button typ="submit" mat-raised-button color="primary">Submit</button>
+            </form>e
 
           </div>
         </mat-card-content>

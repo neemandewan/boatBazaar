@@ -15,6 +15,50 @@ import { MatSnackBar } from '@angular/material';
  */
 
 
+// let passwordMatchValidator = function(fg: FormGroup) {
+//   return fg.get('password1').value === fg.get('password1').value ? null : { 'mismatch': true };
+// }
+
+
+function checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+  return (group: FormGroup) => {
+    let passwordInput = group.controls[passwordKey],
+        passwordConfirmationInput = group.controls[passwordConfirmationKey];
+    if (passwordInput.value !== passwordConfirmationInput.value) {
+      return passwordConfirmationInput.setErrors({notEquivalent: true})
+    }
+    else {
+        return passwordConfirmationInput.setErrors(null);
+    }
+  }
+}
+
+// function checkIfNumber(passwordKey: string, passwordConfirmationKey: string) {
+//   return (group: FormGroup) => {
+//     let passwordInput = group.controls[passwordKey];
+//     console.log(passwordInput.value);
+//     //console.log(Number(passwordInput.value).toString);
+//     if ( passwordInput.value!== passwordConfirmationKey) {
+//       return passwordInput.setErrors({notEquivalent: true})
+//     }
+//     else {
+//         return passwordInput.setErrors(null);
+//     }
+//   }
+// }
+// function checkIfNumber( passwordKey: string) {
+//   return (group: FormGroup) => {
+//     let passwordInput = group.controls[passwordKey];
+//     console.log(Number(passwordInput.value).toString)
+//     if ( Number(passwordInput.value).toString === 'undefine' ) {
+//       return passwordInput.setErrors({notEquivalent: true})
+//     }
+//     else {
+//         return passwordInput.setErrors(null);
+//     }
+//   }
+// }
+
 
 @Component({
   selector: 'app-register',
@@ -29,6 +73,7 @@ export class RegisterComponent implements OnInit {
 
     gender = Gender;
     userForm: FormGroup;
+    
   
     constructor(
       private formBuilder: FormBuilder, 
@@ -43,7 +88,7 @@ export class RegisterComponent implements OnInit {
     //   return this.email.hasError('required') ? 'You must enter a value' :
     //       this.email.hasError('email') ? 'Not a valid email' :
     //           '';
-    // }
+    // }   , heckcIfNumber('PhoneNumber',"undefined")
 
 
   
@@ -56,6 +101,7 @@ export class RegisterComponent implements OnInit {
         'email': ['', [Validators.required, Validators.email]],
         'password1': ['', [Validators.required]],
         'password2': ['', [Validators.required]],
+        
         'DateOfBirth': ['', [Validators.required]],
         'gender': ['', [Validators.required]],
         'address': this.formBuilder.group({
@@ -64,7 +110,8 @@ export class RegisterComponent implements OnInit {
         'state': ['', [Validators.required]],
         'zipcode': ['', [Validators.required]]
         })
-      });
+      },{validator: [checkIfMatchingPasswords('password1', 'password2')]});
+      
   
       
       this.userForm.statusChanges.subscribe(

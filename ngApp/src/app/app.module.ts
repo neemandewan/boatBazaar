@@ -26,6 +26,7 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
    MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, 
    MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { BoatService } from './services/boat.service';
+import { PaymentPageComponent } from './component/payment-page/payment-page.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { BoatService } from './services/boat.service';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
-    FooterComponent
+    FooterComponent,
+    PaymentPageComponent
   ],
   imports: [
     BrowserModule,
