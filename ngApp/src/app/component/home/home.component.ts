@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../../services/home.service';
+import { Boat } from '../../models/boat';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/user';
 
 @Component({
   selector: 'app-home',
@@ -9,16 +10,33 @@ import { User } from '../../models/user';
 })
 export class HomeComponent implements OnInit {
 
-    users: User[] = [];
+    boatInfo: Boat[];
+    categories : String
+    name : String
+    description : String
+    price : Number
 
-    constructor(private userService: UserService) { }
+    title = 'I\'m a nested component';
+
+    constructor(private user: HomeService) { 
+        this.boatInfo = []    
+        console.log(this.boatInfo)   
+    }
 
     ngOnInit() {
-        // get users from secure api end point
-        this.userService.getUsers()
-            .subscribe(users => {
-                this.users = users;
+        // get boats info from secure api end point
+        this.user.getData()
+            .subscribe(info => {
+                this.boatInfo = info;
+                console.log(this.boatInfo)
+                console.log("123cdf")
+               
             });
+           
+           
+            
+           
+            
     }
 
 }

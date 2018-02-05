@@ -14,6 +14,7 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', component: HomeComponent, canActivate: [AuthGuard] },
     { path: 'register', component: RegisterComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'boat/form', component: BoatComponent, canActivate: [AuthGuard] },
     { path: 'boat/mine', component: BoatMineComponent, canActivate: [AuthGuard] },
     { path: 'boat/:id', component: BoatInComponent, canActivate: [AuthGuard] },
