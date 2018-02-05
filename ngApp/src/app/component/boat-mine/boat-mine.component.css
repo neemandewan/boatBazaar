@@ -27,8 +27,10 @@
     text-align: justify;
   }
 
-  .sm-card button {
-      width: 100% !important;
+  .sm-card .r-btn {
+    width: 48%;
+    float: left !important;
+    margin: 0 1% !important;
   }
 
   .sm-img {
@@ -72,3 +74,11 @@
   .bm-full-width {
     width: 100%;
   }
+
+  .del-btn {
+    width: 98% !important;
+    margin-top: 5px !important;
+    margin-bottom: 0 !important;
+    margin-left: 1% !important;
+    margin-right: 1% !important;
+}

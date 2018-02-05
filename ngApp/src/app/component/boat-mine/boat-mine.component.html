@@ -1,3 +1,9 @@
+<!--
+ Created on Mon Feb 05 2018
+ Prabhab Dewan
+ Copyright (c) 2018 Your Company
+-->
+
 <mat-grid-list cols="4">
   <div class="head">
     <p>Boat Bazaar</p>
@@ -20,7 +26,9 @@
                           <p>{{boat.description}}</p>
                         </mat-card-content>
                         <mat-card-actions>
-                          <button mat-raised-button color="primary" (click) = "getBoatInfo(boat._id)">More</button>
+                          <button class="r-btn" mat-raised-button color="primary" (click) = "getBoatInfo(boat._id)">More</button>
+                          <button class="r-btn" mat-raised-button color="accent" (click) = "editBoat(boat._id)">Edit</button>
+                          <button class="del-btn" mat-raised-button color="warn" (click) = "delBoat(boat._id)">Delete</button>
                         </mat-card-actions>
                       </mat-card>
                 </mat-grid-tile>
@@ -29,10 +37,6 @@
 
         </div>
       </mat-card-content>
-      <mat-card-actions>
-        <button mat-button>LIKE</button>
-        <button mat-button>SHARE</button>
-      </mat-card-actions>
     </mat-card>
     
 </mat-grid-list>

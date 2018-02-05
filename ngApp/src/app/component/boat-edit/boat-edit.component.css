@@ -16,32 +16,12 @@
     margin: -60px auto;
     width: 90%;
   }
-
-  .sm-card {
-    width: 100%;
-    margin: 0 10px;
-  }
-
-  .sm-card mat-card-content {
-    height: 120px !important;
-    overflow: hidden;
-    text-align: justify;
-  }
-
-  .sm-card button {
-      width: 100% !important;
-  }
-
-  .sm-img {
-    height: 220px;
-    background-size: cover !important;
-    background-position: center !important;
-  }
     
   .bm-header-image {
     background-image: url('/assets/images/icons/ship.png');
     background-size: cover;
   }
+  
   
   .bm-container {
     display: flex;
@@ -65,37 +45,26 @@
     -moz-appearance: textfield;
   }
   
-  table .mat-form-field {
+  /* table .mat-form-field {
     width: 160px !important;
-  }
+  } */
   
     
   .bm-full-width {
-    width: 100%;
+    width: 100% !important;
   }
 
   .light-im {
-      width: 80px;
-      float: left !important;
-      margin: 0 10px 0 0px !important;
-  }
-
-  .W100 {
-      width: 100%;
-  }
-
-  .W50 {
-    width: 50%;
-    float: left;
+    width: 80px;
+    float: left !important;
+    margin: 0 10px 10px 0px !important;
 }
 
-.c-in {
-    font-size: 12px !important;
-    color: #000000a3 !important;
+.W100 {
+    width: 100%;
 }
 
-.comm {
-    height: 300px !important;
-    overflow-x: hidden !important;
-    overflow-y: scroll !important;
+.W50 {
+  width: 50%;
+  float: left;
 }

@@ -9,6 +9,7 @@ import { BoatComponent } from './component/boat/boat.component';
 import { BoatMineComponent } from './component/boat-mine/boat-mine.component';
 import { BoatInComponent } from './component/boat-in/boat-in.component';
 import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.component';
+import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
     { path: 'boat/mine', component: BoatMineComponent, canActivate: [AuthGuard] },
     { path: 'boat/:id', component: BoatInComponent, canActivate: [AuthGuard] },
     { path: 'boat/mine/:id', component: BoatMineInComponent, canActivate: [AuthGuard] },
+    { path: 'boat/mine/edit/:id', component: BoatEditComponent, canActivate: [AuthGuard] },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

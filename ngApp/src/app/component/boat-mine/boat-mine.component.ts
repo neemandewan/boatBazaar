@@ -24,9 +24,10 @@ export class BoatMineComponent implements OnInit {
 
   constructor(private boatService: BoatService, private snackBar: MatSnackBar, private router: Router) { }
 
-  ngOnInit() {
-    this.tabs = (window.innerWidth <= 400) ? 1 : 5;
-
+  /**
+   * Fecth all boats based on user
+   */
+  getMyBoats(): void {
     this.boatService.getMyBoats()
     .subscribe(result => {
       if(result == "err") {
@@ -41,11 +42,53 @@ export class BoatMineComponent implements OnInit {
     });
   }
 
+  ngOnInit() {
+    this.tabs = (window.innerWidth <= 400) ? 1 : 5;
+    this.getMyBoats();
+  }
+
+  /**
+   * Get individual boat info
+   * @param data string
+   */
   getBoatInfo(data: string): void {
     console.log("data -->> " + data);
     this.router.navigate(['/boat/mine/' + data]);
   }
 
+  /**
+   * Direct to boat id which is needed to be edited
+   * @param id string
+   */
+  editBoat(id: string): void {
+    this.router.navigate(['./boat/mine/edit/' + id]);
+  }
+
+  /**
+   * Delete boat based on id
+   * @param id string
+   */
+  delBoat(id: string): void {
+    this.boatService.deleteBoat(id)
+    .subscribe(result => {
+      if(result == "err") {
+        this.snackBar.open('Error in Delete..', 'Undo', {
+          duration: 1000
+        });
+      }else {
+        this.snackBar.open('Deleted Successfully..', 'Undo', {
+          duration: 1000
+        });
+        this.getMyBoats();
+      }
+      
+    });
+  }
+
+  /**
+   * Get window width to fix responsiveness
+   * @param event event
+   */
   onResize(event) {
     const element = event.target.innerWidth;
     console.log(element);
