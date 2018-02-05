@@ -1,83 +1,147 @@
-<!-- user regestration form -->
+<mat-grid-list cols="4">
+  <div class="head">
+    <p>Registration</p>
+  </div>
+  <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>User Registration</mat-card-title>
+      </mat-card-header>
+      <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+      <mat-card-content>
+        <div class="example-container">
 
-<form class="user-form">
-    <mat-form-field class="user-full-width">
-      <input matInput placeholder="" disabled value="Registration">
-    </mat-form-field>
-  
-    <table class="user-full-width" cellspacing="0"><tr>
-      <td><mat-form-field class="user-full-width">
-        <input matInput placeholder="First Name">
-      </mat-form-field></td>
-      <td><mat-form-field class="user-full-width">
-        <input matInput placeholder="Last Name">
-      </mat-form-field></td>
-    </tr></table>
-  
-          <div class="user-full-width">
-              <mat-form-field>
-                <input matInput placeholder="Enter your email" [formControl]="email" required>
-                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
-              </mat-form-field>
-            </div>
-  
-            <div class="user-full-width">
-                <mat-form-field>
-                  <input matInput placeholder="Enter your password" [type]="hide ? 'password' : 'text'">
-                </mat-form-field>
-              </div>
-  
-  
-  
-  
-    <mat-form-field class="user-full-width">
-      <input matInput placeholder="Password">
-    </mat-form-field>
-  
-  
-  
-    <table class="user-full-width" cellspacing="0">
-      <tr><td>Gender:</td></tr>
-      <tr>
+            <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+
+
+                <table class="example-full-width form-group" cellspacing="0"><tr>
+                    <td><mat-form-field class="example-full-width form-group">
+                      <input matInput placeholder="First Name" formControlName="firstname">
+                      <mat-error *ngIf="!userForm.controls['firstname'].valid">
+                          Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field></td>
+                    <td><mat-form-field class="example-full-width form-grouph">
+                      <input matInput placeholder="Last Name" formControlName="lastname">
+                      <mat-error *ngIf="!userForm.controls['lastname'].valid">
+                          Name is <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field></td>
+                  </tr></table>
+
+                  <table class="example-full-width form-group" cellspacing="0"><tr>
+                      <td> <mat-form-field class="example-full-width form-group">
+                          <input matInput placeholder="DateOfBirth" formControlName="DateOfBirth">
+                          <mat-error *ngIf="!userForm.controls['DateOfBirth'].valid">
+                              Date Of Birth is <strong>required</strong>
+                          </mat-error>
+                        </mat-form-field></td>
+                       <td>
+                          <mat-form-field class="example-full-width form-group">
+                              <mat-select placeholder="Gender" formControlName="gender">
+                                <mat-option [value]="gender.male">
+                                  Male
+                                </mat-option>
+                                <mat-option [value]="gender.female">
+                                  Female
+                                </mat-option>
+                                <mat-option [value]="gender.others">
+                                  Others
+                                </mat-option>
+                              </mat-select>
+                              <mat-error *ngIf="!userForm.controls['gender'].valid">
+                                  Gender is <strong>required</strong>
+                              </mat-error>
+                          </mat-form-field>
+                       </td>
+                         
+                       
+                       
+                    </tr></table>
+
+                <mat-form-field class="example-full-width form-group">
+                    <input matInput placeholder="Phone Number" formControlName="PhoneNumber">
+                    <mat-error *ngIf="!userForm.controls['PhoneNumber'].valid">
+                        Phone Number is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+
+                 
+
+                  <div class="user-full-width">
+                      <mat-form-field>
+                        <input matInput placeholder="Enter your email" formControlName="email" required>
+                        <!-- <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error> -->
+                        <mat-error *ngIf="!userForm.controls['email'].valid">
+                            Valid email is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  
+                    <div class="user-full-width">
+                      <mat-form-field>
+                        <input matInput placeholder="Enter your password"  formControlName="password1" required [type]="hide ? 'password' : 'text'">
+                        <mat-error *ngIf="!userForm.controls['password1'].valid">
+                            Password is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    
+                    <div class="user-full-width">
+                      <mat-form-field>
+                        <input matInput placeholder="Re-enter the password"  formControlName="password2" required [type]="hide ? 'password' : 'text'">
+                        <mat-error *ngIf="!userForm.controls['password2'].valid">
+                            Password is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
       
-      <td><mat-radio-button class="user-full-width">
-          <input matInput placeholder="Male"/>
-       </mat-radio-button></td>
-      <td><mat-radio-button class="user-full-width">
-          <input matInput placeholder="Female"/>
-       </mat-radio-button></td>
-       <td><mat-radio-button class="user-full-width">
-          <input matInput placeholder="Others"/>
-       </mat-radio-button></td>
-    </tr></table>
-  
-    <mat-form-field class="user-full-width">
-        <input matInput placeholder="Date Of Birth">
-      </mat-form-field>
-  
-     <p>
-      <mat-form-field class="user-full-width">
-        <textarea matInput placeholder="Address 1"></textarea>
-      </mat-form-field>
-      <mat-form-field class="user-full-width">
-        <textarea matInput placeholder="Address 2"></textarea>
-      </mat-form-field>
-    </p>
-  
-    <table class="user-full-width" cellspacing="0"><tr>
-      <td><mat-form-field class="user-full-width">
-        <input matInput placeholder="City">
-      </mat-form-field></td>
-      <td><mat-form-field class="user-full-width">
-        <input matInput placeholder="State">
-      </mat-form-field></td>
-      <td><mat-form-field class="user-full-width">
-        <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="">
-        <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-      </mat-form-field></td>
-    </tr></table>
-  
-    <button mat-raised-button>Submit !</button>
-  
-  
-  </form>
+              <div formGroupName="address">
+                <mat-form-field class="example-full-width form-group">
+                    <textarea matInput placeholder="Street" formControlName="street"></textarea>
+                    <mat-error *ngIf="!userForm.controls['address'].controls['street'].valid">
+                        Street is <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>
+
+              
+      
+                <table class="example-full-width" cellspacing="0">
+                  <tr>
+                    <td>
+                      <mat-form-field class="example-full-width form-group">
+                        <input matInput placeholder="City" formControlName="city">
+                        <mat-error *ngIf="!userForm.controls['address'].controls['city'].valid">
+                            City is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width form-group">
+                        <input matInput placeholder="State" formControlName="state">
+                        <mat-error *ngIf="!userForm.controls['address'].controls['state'].valid">
+                            State is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="example-full-width form-group">
+                        <input matInput #postalCode maxlength="5" placeholder="Postal Code" formControlName="zipcode">
+                        <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                        <mat-error *ngIf="!userForm.controls['address'].controls['zipcode'].valid">
+                            Zipcode is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </td>
+                  </tr>
+                </table>
+
+              </div>
+      
+                <button type="submit" mat-raised-button color="primary">Submit</button>
+            </form>
+
+          </div>
+        </mat-card-content>
+      </mat-card>
+</mat-grid-list>
