@@ -14,57 +14,64 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
 export class HomeComponent implements OnInit {
 
-    tabs: Number;
-    boatInfo: Boat[];
-    boats: any
+  tabs: Number;
+  boatInfo: Boat[];
+  boats: any
 
-    title = 'I\'m a nested component';
+  constructor(
+    private user: HomeService,
+    private snackBar: MatSnackBar,
+    private router: Router,
+    private authenticationService: AuthenticationService) { }
 
-    constructor(
-        private user: HomeService, 
-        private snackBar: MatSnackBar, 
-        private router: Router,
-        private authenticationService: AuthenticationService) { }
-
-    ngOnInit() {
-        this.tabs = (window.innerWidth <= 400) ? 1 : 5;
-        // get boats info from secure api end point
-        this.user.getData()
-            .subscribe(result => {
-                console.log(result)
-                console.log("avc")
+  ngOnInit() {
+    this.tabs = (window.innerWidth <= 400) ? 1 : 5;
+    // get boats info from secure api end point
+    this.user.getData()
+      .subscribe(result => {
+        console.log(result)
+        console.log("avc")
         this.boats = result;
         console.log(this.boats)
       });
-      
-    }   
-    
-    onLogout(){
-        this.authenticationService.logout();
-        this.router.navigate(['/login']);       
+
+  }
+
+  onLogout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  }
+
+  /**
+ * Get individual boat info
+ * @param data string
+ */
+  getBoatInfo(data: string): void {
+    console.log("data -->> " + data);
+    this.router.navigate(['/home/featured/' + data]);
+  }
+
+  onResize(event) {
+    const element = event.target.innerWidth;
+    console.log(element);
+
+
+    if (element < 950) {
+      this.tabs = 3;
     }
 
-    onResize(event) {
-        const element = event.target.innerWidth;
-        console.log(element);
-    
-    
-        if (element < 950) {
-          this.tabs = 3;
-        }
-    
-        if (element > 950) {
-          this.tabs = 5;
-        }
-    
-        if (element < 750) {
-          this.tabs = 2;
-        }
-    
-        if (element < 400) {
-          this.tabs = 1;
-        }
-      }
-    
+    if (element > 950) {
+      this.tabs = 5;
+    }
+
+    if (element < 750) {
+      this.tabs = 2;
+    }
+
+    if (element < 400) {
+      this.tabs = 1;
+    }
+  }
+
 
 }
