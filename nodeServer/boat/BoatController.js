@@ -68,26 +68,17 @@ router.get('/me', VerifyToken, function (req, res) {
 });
 
 // returns all the boats in the database
-router.get('/', function (req, res) {
-    
+router.get('/', VerifyToken, function (req, res) {
     if(req.query.limit != undefined) {
         lim = parseInt(req.query.limit);
         delete req.query.limit;
     }else lim = 30;
 
-    Boat.find(req.query).limit(lim).exec(function (err, boats) {
-        if (err) return res.status(500).send({error: "There was a problem finding the boats."});
-        res.status(200).send(boats);
-    });
-});
+    req.query.user = {
+        $not: req.userId
+    }
 
-// returns all the boats in the database
-router.get('/', function (req, res) {
-    
-    if(req.query.limit != undefined) {
-        lim = parseInt(req.query.limit);
-        delete req.query.limit;
-    }else lim = 30;
+    console.log(req.query)
 
     Boat.find(req.query).limit(lim).exec(function (err, boats) {
         if (err) return res.status(500).send({error: "There was a problem finding the boats."});
