@@ -16,7 +16,7 @@
   }
 
   .head {
-    height: 150px;
+    height: calc(150px - 64px);
     background: #2b567b;
   }
   
@@ -40,6 +40,16 @@
     margin-bottom: 35px;
   }
 
- 
+  .logo {
+    font-size: 30px;
+    position: relative;
+    top: 18px;
+    left: 14px;
+}
+
+.mat-toolbar.mat-primary {
+    background: #2b567b !important;
+    color: #ade0ff;
+}
 
   

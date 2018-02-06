@@ -1,14 +1,6 @@
 .head {
-    height: 150px;
-   
+    height: calc(150px - 15px);
     background: #2b567b;
-  }
-.log-out {
-    margin-top: 10px;
-    margin-right: 20px;
-    float: right;
-    background: white;
-    color: black;
   }
   
   .head p {

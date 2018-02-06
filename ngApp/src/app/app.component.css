@@ -29,4 +29,6 @@ span {
 .mat-toolbar.mat-primary {
     background: #2b567b !important;
     color: #ade0ff;
+    position: fixed;
+    z-index: 1;
 }
