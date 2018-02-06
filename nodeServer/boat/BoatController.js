@@ -122,7 +122,7 @@ router.put('/:id', VerifyToken,  function (req, res) {
     });
 });
 
-// updates a single boat in the database
+// update sale of a single boat in the database
 router.put('/me/:id', VerifyToken,  function (req, res) {
     req.body.updatedDate = Date.now();
     req.body.user = req.userId;

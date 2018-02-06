@@ -51,6 +51,18 @@ router.get('/me', VerifyToken, function (req, res) {
     });
 });
 
+// returns all the sales in the database by userid
+router.get('/sales', VerifyToken, function (req, res) {
+    let q = req.query;
+    q.oldUser = req.userId;
+
+    Purchase.find(q, function (err, purchase) {
+        if (err) return res.status(500).send({error: "There was a problem finding the purchase."});
+        if (!purchase) return res.status(404).send({error: "No purchase found."});
+        res.status(200).send(purchase);
+    });
+});
+
 // gets a single purchase from the database
 router.get('/:id', VerifyToken, function (req, res) {
     Purchase.findById(req.params.id, function (err, purchase) {
