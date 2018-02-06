@@ -7,6 +7,10 @@ import { MatSnackBar } from '@angular/material';
 import { Body } from '@angular/http/src/body';
 import { AuthenticationService } from '../../services/authentication.service';
 
+//  Created on Mon Feb 05 2018
+//  Niwesh Chandra Rai
+//  Copyright (c) 2018 Your Company
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
