@@ -9,40 +9,42 @@
     <button mat-raised-button (click)="onLogout()" class="log-out">Logout</button>
   </div>
 
-  <div class="head">
-    <p>Boat Bazaar </p>
-  </div>
-
-
-  <mat-card class="bm-card">
-    <mat-card-header>
-      <div mat-card-avatar class="bm-header-image"></div>
-      <mat-card-title>Boat Bazaar</mat-card-title>
-      <mat-card-subtitle>List of featured Boats</mat-card-subtitle>
-    </mat-card-header>
-
-    <mat-card-content>
-      <div class="bm-container ">
-        <mat-grid-list [cols]="tabs" rowHeight="1:1.8" (window:resize)="onResize($event)">
-          <mat-grid-tile cols=1 rows=1 *ngFor="let boat of boats">
-            <mat-card class="sm-card border">
-              <div mat-card-image class="sm-img" [style.background-image]="boat.boatImage[0] | keepCss" alt="boat.name"></div>
-              <mat-card-content>
-                <p><strong>Name:  </strong>   {{boat.name}}</p>
-                <p><strong>Category: </strong>{{boat.categories}}</p>
-                <p><strong>Price:  </strong>  {{boat.price}}</p>
-                <p><strong>Description:</strong> {{boat.description}}</p>
-              </mat-card-content>
-              <mat-card-actions>
-                <button mat-raised-button class="btn-color" (click)="getBoatInfo(boat._id)">View</button>
-              </mat-card-actions>
-            </mat-card>
-          </mat-grid-tile>
-
-        </mat-grid-list>
-
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-</mat-grid-list>
+    <div class="head"></div>
+    
+    
+    <mat-card class="bm-card">
+        <mat-card-header >
+          <div mat-card-avatar class="bm-header-image"></div>
+          <mat-card-title>Boat Bazaar</mat-card-title>
+          <mat-card-subtitle>List of featured Boats</mat-card-subtitle>
+        </mat-card-header>
+        
+        <mat-card-content  >
+          <div class="bm-container ">
+              <mat-grid-list [cols]="tabs" rowHeight="1:1.8" (window:resize)="onResize($event)">
+                  <mat-grid-tile cols=1 rows=1 *ngFor="let boat of boats">
+                      <mat-card class="sm-card border">
+                          <div  mat-card-image class="sm-img" [style.background-image]="boat.boatImage[0] | keepCss" alt="boat.name"></div>
+                          <mat-card-content >
+                            <p>{{boat.name}}</p>
+                            <p>{{boat.categories}}</p>
+                            <p>{{boat.description}}</p>
+                            <p>{{boat.price}}</p>
+                          </mat-card-content>
+                          <mat-card-actions>
+                            <button mat-raised-button class = "btn-color" (click) = "getBoatInfo(boat._id)">View</button>
+                          </mat-card-actions>
+                        </mat-card>
+                  </mat-grid-tile>
+  
+              </mat-grid-list>
+  
+          </div>
+        </mat-card-content>
+        <!-- <mat-card-actions>
+          <button mat-button>LIKE</button>
+          <button mat-button>SHARE</button>
+        </mat-card-actions> -->
+      </mat-card>
+      
+  </mat-grid-list>

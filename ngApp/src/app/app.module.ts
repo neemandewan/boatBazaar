@@ -27,6 +27,10 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
    MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, 
    MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { BoatService } from './services/boat.service';
+<<<<<<< HEAD
+=======
+import { PaymentPageComponent } from './component/payment-page/payment-page.component';
+>>>>>>> 0a3e711c238c79306543c31049a06f63098a9424
 import { BoatMineComponent } from './component/boat-mine/boat-mine.component';
 import { BoatInComponent } from './component/boat-in/boat-in.component';
 import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.component';
@@ -35,8 +39,12 @@ import { KeepCssPipe } from './pipes/keep-css.pipe';
 import { LightboxModule } from 'angular2-lightbox';
 import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 import { ProfileComponent } from './component/profile/profile.component';
+import { DatePipe } from './pipes/date.pipe';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
+<<<<<<< HEAD
 import { PaymentPageComponent } from './component/payment-page/payment-page.component';
+=======
+>>>>>>> 0a3e711c238c79306543c31049a06f63098a9424
 import { BoatComponent } from './component/boat/boat.component';
 
 
@@ -46,16 +54,27 @@ import { BoatComponent } from './component/boat/boat.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+<<<<<<< HEAD
     BoatComponent,
+=======
+>>>>>>> 0a3e711c238c79306543c31049a06f63098a9424
     FooterComponent,
+    PaymentPageComponent,
     BoatMineComponent,
     BoatInComponent,
     BoatMineInComponent,
     KeepCssPipe,
     BoatEditComponent,
     ProfileComponent,
+<<<<<<< HEAD
     BoatFeaturedComponent,
     PaymentPageComponent
+=======
+    FooterComponent,
+    BoatComponent,
+    DatePipe,
+    BoatFeaturedComponent
+>>>>>>> 0a3e711c238c79306543c31049a06f63098a9424
   ],
   imports: [
     BrowserModule,

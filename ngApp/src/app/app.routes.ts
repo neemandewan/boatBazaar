@@ -5,6 +5,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './component/login/login.component';
 import { HomeComponent } from './component/home/home.component';
 import { RegisterComponent } from './component/register/register.component';
+import { PaymentPageComponent } from './component/payment-page/payment-page.component';
 import { BoatComponent } from './component/boat/boat.component';
 import { BoatMineComponent } from './component/boat-mine/boat-mine.component';
 import { BoatInComponent } from './component/boat-in/boat-in.component';
@@ -12,11 +13,10 @@ import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.compo
 import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
-import { PaymentPageComponent } from './component/payment-page/payment-page.component';
 
 const appRoutes: Routes = [
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
-    { path: '', component: HomeComponent, canActivate: [AuthGuard]  },
     { path: 'register', component: RegisterComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
     { path: 'home/featured/:id', component: BoatFeaturedComponent, canActivate: [AuthGuard]},

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map'
 
 import { AuthenticationService } from './authentication.service';
 import { userRegister } from '../models/userRegistration';
-// import { Links } from '../app.config';
+import { Links } from '../app.config';
 
 /*
  * Created on Sun Feb 04 2018
@@ -21,22 +21,24 @@ export class RegisterService {
     private http: Http,
     private authenticationService: AuthenticationService) {
   }
-
   
-
+  /**
+   * Register User
+   * @param user userRegister
+   */
   addUser(user: userRegister): Observable<any> {
     // add authorization header with jwt token
     let headers = new Headers({ 'x-access-token': this.authenticationService.token });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.post('http://localhost:3000/api/auth/register', user)
+    return this.http.post(Links.regURL, user)
         .map((response: Response) => {
-          return response;
+          if(response.status === 200) {
+            return response
+          }else {
+            return "err";
+          }
             
     });
   }
-  
-
-
-
 }

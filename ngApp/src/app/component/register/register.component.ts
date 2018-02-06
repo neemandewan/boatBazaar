@@ -6,6 +6,8 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from "@angular/forms";
 import { Observable } from "rxjs/Rx";
 import { MatSnackBar } from '@angular/material';
+import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
+import { isNumber } from 'util';
 
 
 /*
@@ -13,52 +15,6 @@ import { MatSnackBar } from '@angular/material';
  * Rajesh Subedi
  * Copyright (c) 2018 Your Company
  */
-
-
-// let passwordMatchValidator = function(fg: FormGroup) {
-//   return fg.get('password1').value === fg.get('password1').value ? null : { 'mismatch': true };
-// }
-
-
-function checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-  return (group: FormGroup) => {
-    let passwordInput = group.controls[passwordKey],
-        passwordConfirmationInput = group.controls[passwordConfirmationKey];
-    if (passwordInput.value !== passwordConfirmationInput.value) {
-      return passwordConfirmationInput.setErrors({notEquivalent: true})
-    }
-    else {
-        return passwordConfirmationInput.setErrors(null);
-    }
-  }
-}
-
-// function checkIfNumber(passwordKey: string, passwordConfirmationKey: string) {
-//   return (group: FormGroup) => {
-//     let passwordInput = group.controls[passwordKey];
-//     console.log(passwordInput.value);
-//     //console.log(Number(passwordInput.value).toString);
-//     if ( passwordInput.value!== passwordConfirmationKey) {
-//       return passwordInput.setErrors({notEquivalent: true})
-//     }
-//     else {
-//         return passwordInput.setErrors(null);
-//     }
-//   }
-// }
-// function checkIfNumber( passwordKey: string) {
-//   return (group: FormGroup) => {
-//     let passwordInput = group.controls[passwordKey];
-//     console.log(Number(passwordInput.value).toString)
-//     if ( Number(passwordInput.value).toString === 'undefine' ) {
-//       return passwordInput.setErrors({notEquivalent: true})
-//     }
-//     else {
-//         return passwordInput.setErrors(null);
-//     }
-//   }
-// }
-
 
 @Component({
   selector: 'app-register',
@@ -70,27 +26,45 @@ function checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: 
 export class RegisterComponent implements OnInit {
 
     hide: true;
-
     gender = Gender;
     userForm: FormGroup;
-    
   
     constructor(
       private formBuilder: FormBuilder, 
       private router: Router, 
       private registerService: RegisterService,
-      private authenticationService: AuthenticationService
+      private authenticationService: AuthenticationService,
+      private snackBar: MatSnackBar
     ) { }
 
-    // email = new FormControl('', [Validators.required, Validators.email]);
+    checkIfNumber( passwordKey: any) {
+      return (group: FormGroup) => {
+        let passwordInput = group.controls[passwordKey];
+        let a = passwordInput.value.length;
+        if (!Number(passwordInput.value)) {
+          return passwordInput.setErrors({notEquivalent: true});
+        }
+      if (a!= 10) {
+        return passwordInput.setErrors({notEquivalent: true});
+      } 
+        else {
+            return passwordInput.setErrors(null);
+        }
+      }
+    }
 
-    // getErrorMessage() {
-    //   return this.email.hasError('required') ? 'You must enter a value' :
-    //       this.email.hasError('email') ? 'Not a valid email' :
-    //           '';
-    // }   , heckcIfNumber('PhoneNumber',"undefined")
-
-
+    checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+      return (group: FormGroup) => {
+        let passwordInput = group.controls[passwordKey],
+            passwordConfirmationInput = group.controls[passwordConfirmationKey];
+        if (passwordInput.value !== passwordConfirmationInput.value) {
+          return passwordConfirmationInput.setErrors({notEquivalent: true})
+        }
+        else {
+            return passwordConfirmationInput.setErrors(null);
+        }
+      }
+    }
   
     ngOnInit() {
   
@@ -101,19 +75,16 @@ export class RegisterComponent implements OnInit {
         'email': ['', [Validators.required, Validators.email]],
         'password1': ['', [Validators.required]],
         'password2': ['', [Validators.required]],
-        
         'DateOfBirth': ['', [Validators.required]],
         'gender': ['', [Validators.required]],
         'address': this.formBuilder.group({
-        'street': ['', [Validators.required]],
-        'city': ['', [Validators.required]],
-        'state': ['', [Validators.required]],
-        'zipcode': ['', [Validators.required]]
+          'street': ['', [Validators.required]],
+          'city': ['', [Validators.required]],
+          'state': ['', [Validators.required]],
+          'zipcode': ['', [Validators.required]]
         })
-      },{validator: [checkIfMatchingPasswords('password1', 'password2')]});
-      
-  
-      
+      },{validator: [this.checkIfMatchingPasswords('password1', 'password2'), this.checkIfNumber('PhoneNumber')]});
+    
       this.userForm.statusChanges.subscribe(
         (data: any) => console.log(data)
       );
@@ -137,7 +108,13 @@ export class RegisterComponent implements OnInit {
 	
    this.registerService.addUser(user)
             .subscribe(result => {
-                console.log(result);
+                if(result == "err") {
+                  this.snackBar.open('Error in Registration..', 'Undo', {
+                    duration: 1000
+                  });
+                }else {
+                  this.router.navigate(['./login']);
+                }
             });
 
    }

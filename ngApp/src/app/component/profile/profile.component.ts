@@ -3,6 +3,14 @@ import { FormBuilder } from '@angular/forms/src/form_builder';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material';
+import { userRegister } from '../../models/userRegistration';
+
+/*
+ * Created on Mon Feb 05 2018
+ * Prabhab Dewan
+ * Copyright (c) 2018 Your Company
+ */
+
 
 @Component({
   selector: 'app-profile',
@@ -10,6 +18,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  user: userRegister;
 
   constructor(
     //private formBuilder: FormBuilder, 
@@ -18,6 +27,9 @@ export class ProfileComponent implements OnInit {
     private snackBar: MatSnackBar
   ) { }
 
+  /**
+   * Get User
+   */
   getUser(): void {
 
     this.userService.getUser()
@@ -29,6 +41,7 @@ export class ProfileComponent implements OnInit {
           });
         }else {
           console.log(result._body);
+          this.user = JSON.parse(result._body);
         }
       });
   }

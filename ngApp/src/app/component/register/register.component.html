@@ -1,19 +1,30 @@
+<!--
+ Created on Mon Feb 05 2018
+  Rajesh Subedi
+ Copyright (c) 2018 Your Company
+-->
+
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+        <span class="logo">Boat Bazaar</span>
+        <span class="e-spacer"></span>
+        <span [routerLink]="['/login/']">LOGIN</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
 <mat-grid-list cols="4">
-  <div class="head">
-    <p>Registration</p>
-  </div>
+  <div class="head"></div>
   <mat-card class="example-card">
       <mat-card-header>
         <div mat-card-avatar class="example-header-image"></div>
-        <mat-card-title>User Registration</mat-card-title>
+        <mat-card-title>Boat Bazaar</mat-card-title>
+        <mat-card-subtitle>User Registration</mat-card-subtitle>
       </mat-card-header>
       <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
       <mat-card-content>
         <div class="example-container">
 
             <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-
-
                 <table class="example-full-width form-group" cellspacing="0"><tr>
                     <td><mat-form-field class="example-full-width form-group">
                       <input matInput placeholder="First Name" formControlName="firstname">
@@ -30,12 +41,21 @@
                   </tr></table>
 
                   <table class="example-full-width form-group" cellspacing="0"><tr>
-                      <td> <mat-form-field class="example-full-width form-group">
-                          <input matInput placeholder="DateOfBirth" formControlName="DateOfBirth">
-                          <mat-error *ngIf="!userForm.controls['DateOfBirth'].valid">
-                              Date Of Birth is <strong>required</strong>
-                          </mat-error>
-                        </mat-form-field></td>
+                      <td> 
+
+                        <mat-form-field>
+                            <input matInput [matDatepicker]="picker" placeholder="Date Of Birth" formControlName="DateOfBirth" >
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="!userForm.controls['DateOfBirth'].valid">
+                                Date Of Birth is <strong>required</strong>
+                            </mat-error>
+                          </mat-form-field>
+
+
+
+
+                      </td>
                        <td>
                           <mat-form-field class="example-full-width form-group">
                               <mat-select placeholder="Gender" formControlName="gender">
@@ -62,7 +82,7 @@
                 <mat-form-field class="example-full-width form-group">
                     <input matInput placeholder="Phone Number" formControlName="PhoneNumber">
                     <mat-error *ngIf="!userForm.controls['PhoneNumber'].valid">
-                        Phone Number is <strong>required</strong>
+                        Phone Number should be <strong>valid.</strong>
                     </mat-error>
                   </mat-form-field>
 
@@ -139,7 +159,7 @@
               </div>
       
                 <button typ="submit" mat-raised-button color="primary">Submit</button>
-            </form>e
+            </form>
 
           </div>
         </mat-card-content>
