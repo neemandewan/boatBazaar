@@ -9,6 +9,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 
 //  Created on Mon Feb 05 2018
 //  Niwesh Chandra Rai
+//  @Modified: Prabhab Dewan
 //  Copyright (c) 2018 Your Company
 
 @Component({
@@ -26,6 +27,7 @@ export class HomeComponent implements OnInit {
     private user: HomeService,
     private snackBar: MatSnackBar,
     private router: Router,
+    private userService: UserService,
     private authenticationService: AuthenticationService) { }
 
   ngOnInit() {
@@ -38,7 +40,6 @@ export class HomeComponent implements OnInit {
         this.boats = result;
         console.log(this.boats)
       });
-
   }
 
   onLogout() {

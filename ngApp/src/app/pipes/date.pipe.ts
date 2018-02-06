@@ -19,7 +19,10 @@ export class DatePipe implements PipeTransform {
    */
   transform(value: string, args?: any): string {
     if(value == null) return;
-    return value.split("00:00:00")[0];
+    if(value.includes("00:00:00")) {
+      return value.split("00:00:00")[0];
+    }
+    return value.split("T")[0];
   }
 
 }

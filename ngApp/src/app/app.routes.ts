@@ -13,6 +13,7 @@ import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
 import { PaymentPageComponent } from './component/payment-page/payment-page.component';
+import { NoticesComponent } from './component/notices/notices.component';
 
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -28,6 +29,7 @@ const appRoutes: Routes = [
     { path: 'boat/mine/edit/:id', component: BoatEditComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
     { path: 'payment/:id', component: PaymentPageComponent, canActivate: [AuthGuard]},
+    { path: 'notices', component: NoticesComponent, canActivate: [AuthGuard]},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

@@ -39,6 +39,7 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { DatePipe } from './pipes/date.pipe';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
 import { BoatComponent } from './component/boat/boat.component';
+import { NoticesComponent } from './component/notices/notices.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { BoatComponent } from './component/boat/boat.component';
     BoatComponent,
     PaymentPageComponent,
     DatePipe,
-    BoatFeaturedComponent
+    BoatFeaturedComponent,
+    NoticesComponent
   ],
   imports: [
     BrowserModule,
