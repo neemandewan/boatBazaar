@@ -111,10 +111,10 @@ export class RegisterComponent implements OnInit {
      user.address= this.userForm.value.address;
   
 	
-  //  this.registerService.addUser(user)
-  //           .subscribe(result => {
-  //               console.log(result);
-  //           });
+   this.registerService.addUser(user)
+            .subscribe(result => {
+                console.log(result);
+            });
 
    }
   
