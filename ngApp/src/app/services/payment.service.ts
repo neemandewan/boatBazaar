@@ -31,24 +31,7 @@ export class PaymentService {
     let headers = new Headers({ 'x-access-token': this.authenticationService.token });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put('http://localhost:3000/api/auth/purchase/', purchase)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-    });
-  }
-
-
-  
-  updateBoat(boat: Boat, id:string): Observable<any> {
-    // add authorization header with jwt token
-    let headers = new Headers({ 'x-access-token': this.authenticationService.token });
-    let options = new RequestOptions({ headers: headers });
-
-    return this.http.put(Links.boatURL + "/" + id, boat, options)
+    return this.http.post('http://localhost:3000/api/auth/purchase', purchase, options)
         .map((response: Response) => {
           if(response.status === 200) {
             return response

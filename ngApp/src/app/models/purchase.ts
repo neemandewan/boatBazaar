@@ -1,6 +1,6 @@
 
 export class Purchase {
     boat: string;
-    olduser: string;
+    oldUser: string;
     paymentType: string;
 }

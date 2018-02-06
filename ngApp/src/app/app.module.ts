@@ -40,6 +40,7 @@ import { DatePipe } from './pipes/date.pipe';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
 import { BoatComponent } from './component/boat/boat.component';
 import { NoticesComponent } from './component/notices/notices.component';
+import { PaymentService } from './services/payment.service';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { NoticesComponent } from './component/notices/notices.component';
     UserService,
     HomeService,
     BoatService,
-    RegisterService
+    RegisterService,
+    PaymentService
   ],
   bootstrap: [AppComponent]
 })

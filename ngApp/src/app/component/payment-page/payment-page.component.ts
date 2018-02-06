@@ -7,6 +7,7 @@ import { Observable } from "rxjs/Rx";
 import { AuthenticationService } from '../../services/authentication.service';
 import { PaymentService } from '../../services/payment.service';
 import { Purchase } from '../../models/purchase';
+import { Boat } from '../../models/boat';
 
 /*
  * Created on Mon Feb 05 2018
@@ -30,6 +31,7 @@ export class PaymentPageComponent implements OnInit {
   boatid ="";
   price = null;
   totalprice = null;
+
 
   paytype = [
     { value: 'paypal', viewValue: 'PayPal' },
@@ -69,7 +71,7 @@ export class PaymentPageComponent implements OnInit {
               });
             } else {
               this.boat = JSON.parse(result._body);
-              console.log(this.boat)
+              console.log(this.boat);
               console.log(this.boat.name);
               this.boatname = this.boat.name;
               this.price = this.boat.price;
@@ -84,9 +86,6 @@ export class PaymentPageComponent implements OnInit {
 
     this.payForm = this.formBuilder.group({
 
-      'boatname': this.boatname,
-      'price': this.price,
-      'totalprice': this.totalprice,
       'payment_type': ['', [Validators.required]],
       'address': this.formBuilder.group({
         'street': ['', [Validators.required]],
@@ -110,10 +109,11 @@ export class PaymentPageComponent implements OnInit {
     console.log(this.boatid);
 
     let purchase = new Purchase();
-    purchase.boat=this.payForm.value.boatname;
-    purchase.olduser= this.boatownerid;
+    purchase.boat=this.boatid;
+    purchase.oldUser= this.boatownerid;
     purchase.paymentType = this.payForm.value.payment_type;
 
+    console.log(purchase);
 
     this.paymentService.addpurchase(purchase)
             .subscribe(result => {
@@ -122,10 +122,17 @@ export class PaymentPageComponent implements OnInit {
                     duration: 1000
                   });
                 }else {
-                 // this.router.navigate(['./home']);
-                 this.snackBar.open('Purchase success..', 'Undo', {
-                  duration: 1000
-                });
+                  this.boat.status = 0;
+                  this.boatService.sellBoat(this.boat,this.boatid)
+                  .subscribe(result => {
+                      if(result == "err") {
+                        this.snackBar.open('Error in BoatUpdate..', 'Undo', {
+                          duration: 1000
+                        });
+                      }else {
+                        this.router.navigate(['./home']);
+                      }
+                  });
                 }
             });
 
