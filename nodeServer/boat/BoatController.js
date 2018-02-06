@@ -81,6 +81,21 @@ router.get('/', function (req, res) {
     });
 });
 
+// returns all the boats in the database
+router.get('/', function (req, res) {
+    
+    if(req.query.limit != undefined) {
+        lim = parseInt(req.query.limit);
+        delete req.query.limit;
+    }else lim = 30;
+
+    Boat.find(req.query).limit(lim).exec(function (err, boats) {
+        if (err) return res.status(500).send({error: "There was a problem finding the boats."});
+        res.status(200).send(boats);
+    });
+});
+
+
 // gets a single boat from the database
 router.get('/:id', VerifyToken, function (req, res) {
     Boat.findById(req.params.id, function (err, boat) {
@@ -102,6 +117,16 @@ router.delete('/:id', VerifyToken, function (req, res) {
 router.put('/:id', VerifyToken,  function (req, res) {
     req.body.updatedDate = Date.now();
     Boat.findByIdAndUpdate(req.params.id, req.body, {new: true}, function (err, boat) {
+        if (err) return res.status(500).send({error: "There was a problem updating the boat."});
+        res.status(200).send(boat);
+    });
+});
+
+// updates a single boat in the database
+router.put('/me/:id', VerifyToken,  function (req, res) {
+    req.body.updatedDate = Date.now();
+    req.body.user = req.userId;
+    Boat.findByIdAndUpdate(req.params.id, req.body, {new: false}, function (err, boat) {
         if (err) return res.status(500).send({error: "There was a problem updating the boat."});
         res.status(200).send(boat);
     });
