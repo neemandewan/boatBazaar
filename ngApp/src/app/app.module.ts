@@ -46,6 +46,7 @@ import { BoatComponent } from './component/boat/boat.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    BoatComponent,
     FooterComponent,
     PaymentPageComponent,
     BoatMineComponent,
@@ -56,7 +57,8 @@ import { BoatComponent } from './component/boat/boat.component';
     ProfileComponent,
     FooterComponent,
     BoatFeaturedComponent,
-    BoatComponent
+    BoatComponent,
+    PaymentPageComponent
   ],
   imports: [
     BrowserModule,

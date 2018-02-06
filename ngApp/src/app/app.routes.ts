@@ -28,6 +28,7 @@ const appRoutes: Routes = [
     { path: 'boat/mine/:id', component: BoatMineInComponent, canActivate: [AuthGuard] },
     { path: 'boat/mine/edit/:id', component: BoatEditComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+    { path: 'payment/:id', component: PaymentPageComponent },
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

@@ -5,6 +5,11 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from "@ang
 import { Observable } from "rxjs/Rx";
 import { UserLogin } from '../../models/login';
 
+//  Created on Mon Feb 05 2018
+//  Niwesh Chandra Rai
+//  Copyright (c) 2018 Your Company
+
+
 @Component({
     moduleId: module.id,
     templateUrl: './login.component.html',
@@ -37,6 +42,7 @@ export class LoginComponent implements OnInit {
         // reset login status
         this.authenticationService.logout();
     }
+    
 
     // on form submission
     onSubmit() {

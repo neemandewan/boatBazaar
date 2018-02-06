@@ -51,6 +51,11 @@
   .bm-container > * {
     width: 100%;
   }
+
+  .buy-btn-div{
+    margin-bottom: 10px;
+    width: 100%
+  }
   
   .bm-right-align {
     text-align: right;
@@ -89,8 +94,8 @@
     float: left;
 }
 
-.btn-buy{
-  background-color: #2b567b;  
+.buy-btn{
+  width: 100%;
 }
 
 .btn-div{
