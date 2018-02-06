@@ -19,6 +19,7 @@ const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'payment', component: PaymentPageComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
     { path: 'home/featured/:id', component: BoatFeaturedComponent, canActivate: [AuthGuard]},
     { path: 'boat/form', component: BoatComponent, canActivate: [AuthGuard] },

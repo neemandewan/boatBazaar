@@ -5,7 +5,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from "@angular/forms";
 import { Observable } from "rxjs/Rx";
 import { AuthenticationService } from '../../services/authentication.service';
-
+import { PaymentService } from '../../services/payment.service';
+import { Purchase } from '../../models/purchase';
+import { Boat } from '../../models/boat';
 
 /*
  * Created on Mon Feb 05 2018
@@ -25,8 +27,11 @@ export class PaymentPageComponent implements OnInit {
   id: string;
   boat: any;
   boatname = "";
+  boatownerid="";
+  boatid ="";
   price = null;
   totalprice = null;
+
 
   paytype = [
     { value: 'paypal', viewValue: 'PayPal' },
@@ -44,7 +49,8 @@ export class PaymentPageComponent implements OnInit {
     private snackBar: MatSnackBar,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private paymentService : PaymentService
   ) { }
 
 
@@ -65,11 +71,13 @@ export class PaymentPageComponent implements OnInit {
               });
             } else {
               this.boat = JSON.parse(result._body);
-              console.log(this.boat)
+              console.log(this.boat);
               console.log(this.boat.name);
               this.boatname = this.boat.name;
               this.price = this.boat.price;
               this.totalprice = this.boat.price+10;
+              this.boatownerid= this.boat.user;
+              this.boatid=this.boat._id;
             }
           })
       })
@@ -78,10 +86,7 @@ export class PaymentPageComponent implements OnInit {
 
     this.payForm = this.formBuilder.group({
 
-      'boatname': this.boatname,
-      'price': this.price,
-      'totalprice': this.totalprice,
-      'type': ['', [Validators.required]],
+      'payment_type': ['', [Validators.required]],
       'address': this.formBuilder.group({
         'street': ['', [Validators.required]],
         'city': ['', [Validators.required]],
@@ -101,6 +106,35 @@ export class PaymentPageComponent implements OnInit {
 
   onSubmit() {
     console.log(this.payForm.value);
+    console.log(this.boatid);
+
+    let purchase = new Purchase();
+    purchase.boat=this.boatid;
+    purchase.oldUser= this.boatownerid;
+    purchase.paymentType = this.payForm.value.payment_type;
+
+    console.log(purchase);
+
+    this.paymentService.addpurchase(purchase)
+            .subscribe(result => {
+                if(result == "err") {
+                  this.snackBar.open('Error in Purchase..', 'Undo', {
+                    duration: 1000
+                  });
+                }else {
+                  this.boat.status = 0;
+                  this.boatService.sellBoat(this.boat,this.boatid)
+                  .subscribe(result => {
+                      if(result == "err") {
+                        this.snackBar.open('Error in BoatUpdate..', 'Undo', {
+                          duration: 1000
+                        });
+                      }else {
+                        this.router.navigate(['./home']);
+                      }
+                  });
+                }
+            });
 
   }
 
