@@ -19,14 +19,14 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard]  },
     { path: 'register', component: RegisterComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
-    { path: 'home/featured/:id', component: BoatFeaturedComponent},
+    { path: 'home/featured/:id', component: BoatFeaturedComponent, canActivate: [AuthGuard]},
     { path: 'boat/form', component: BoatComponent, canActivate: [AuthGuard] },
     { path: 'boat/mine', component: BoatMineComponent, canActivate: [AuthGuard] },
     { path: 'boat/:id', component: BoatInComponent, canActivate: [AuthGuard] },
     { path: 'boat/mine/:id', component: BoatMineInComponent, canActivate: [AuthGuard] },
     { path: 'boat/mine/edit/:id', component: BoatEditComponent, canActivate: [AuthGuard] },
     { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
-    { path: 'payment/:id', component: PaymentPageComponent },
+    { path: 'payment/:id', component: PaymentPageComponent, canActivate: [AuthGuard]},
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }
