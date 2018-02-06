@@ -26,7 +26,10 @@ export class NoticesComponent implements OnInit {
     private authenticationService: AuthenticationService) { 
       
     }
-
+  
+  /**
+   *  get sales
+   */
   getSales(): void {
     this.userService.getSales()
       .subscribe(result => {
@@ -41,6 +44,9 @@ export class NoticesComponent implements OnInit {
       });
   }
 
+  /**
+   *  get purchases
+   */
   getPurchases(): void {
     this.userService.getPurchases()
       .subscribe(result => {
@@ -55,6 +61,10 @@ export class NoticesComponent implements OnInit {
       });
   }
 
+  /**
+   * get boat information
+   * @param id string
+   */
   getBoatInfo(id: string): void {
     this.router.navigate(['./home/featured/' + id]);
   }
