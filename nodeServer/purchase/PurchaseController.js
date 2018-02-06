@@ -31,6 +31,12 @@ router.post('/', VerifyToken, checkPurchaseJSON, function (req, res) {
         boat: req.body.boat,
         oldUser: req.body.oldUser,
         paymentType: req.body.paymentType,
+        shippingAddress: {
+            street: req.body.shippingAddress.street,
+            city: req.body.shippingAddress.city,
+            state: req.body.shippingAddress.state,
+            zipcode: req.body.shippingAddress.zipcode
+        },
         user: req.userId 
         }, 
         function (err, purchase) {

@@ -11,6 +11,12 @@
    oldUser: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
    user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'},
    paymentType: String,
+   shippingAddress: {
+     street: String,
+     city: String,
+     state: String,
+     zipcode: Number
+   },
    createdDate: {type: Date, default: Date.now}
  });
  mongoose.model('Purchase', PurchaseSchema);
