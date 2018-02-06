@@ -37,6 +37,7 @@ import { LightboxModule } from 'angular2-lightbox';
 import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
+import { BoatComponent } from './component/boat/boat.component';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.c
     BoatEditComponent,
     ProfileComponent,
     FooterComponent,
-    BoatFeaturedComponent
+    BoatFeaturedComponent,
+    BoatComponent
   ],
   imports: [
     BrowserModule,
