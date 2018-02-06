@@ -58,6 +58,7 @@ import { BoatComponent } from './component/boat/boat.component';
     ProfileComponent,
     BoatFeaturedComponent,
     PaymentPageComponent,
+    FooterComponent,
     BoatComponent,
     DatePipe,
     BoatFeaturedComponent

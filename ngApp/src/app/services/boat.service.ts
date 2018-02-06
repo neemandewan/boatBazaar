@@ -61,6 +61,26 @@ export class BoatService {
   }
 
   /**
+   * Sell Boat
+   * @param boat Boat
+   * @param id string
+   */
+  sellBoat(boat: Boat, id:string): Observable<any> {
+    // add authorization header with jwt token
+    let headers = new Headers({ 'x-access-token': this.authenticationService.token });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(Links.myBoatURL + "/" + id, boat, options)
+        .map((response: Response) => {
+          if(response.status === 200) {
+            return response
+          }else {
+            return "err";
+          }
+    });
+  }
+
+  /**
    * Delete Boat
    * @param id string
    */
