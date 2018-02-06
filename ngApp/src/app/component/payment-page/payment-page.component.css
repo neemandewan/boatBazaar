@@ -1,9 +1,5 @@
 .head {
-<<<<<<< HEAD
-    height: calc(150px - 15px);
-=======
     height: 150px;
->>>>>>> dc958d9ddeb709d3c6afb0586286a2961c3869eb
     background: #2b567b;
   }
   

@@ -27,6 +27,7 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
    MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, 
    MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { BoatService } from './services/boat.service';
+import { PaymentPageComponent } from './component/payment-page/payment-page.component';
 import { BoatMineComponent } from './component/boat-mine/boat-mine.component';
 import { BoatInComponent } from './component/boat-in/boat-in.component';
 import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.component';
@@ -38,6 +39,7 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { BoatComponent } from './component/boat/boat.component';
 import { DatePipe } from './pipes/date.pipe';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
+import { BoatComponent } from './component/boat/boat.component';
 
 
 @NgModule({
@@ -47,6 +49,7 @@ import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.c
     LoginComponent,
     RegisterComponent,
     FooterComponent,
+    PaymentPageComponent,
     BoatMineComponent,
     BoatInComponent,
     BoatMineInComponent,
@@ -54,9 +57,14 @@ import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.c
     BoatEditComponent,
     ProfileComponent,
     FooterComponent,
+<<<<<<< HEAD
     BoatComponent,
     DatePipe,
     BoatFeaturedComponent
+=======
+    BoatFeaturedComponent,
+    BoatComponent
+>>>>>>> dc958d9ddeb709d3c6afb0586286a2961c3869eb
   ],
   imports: [
     BrowserModule,

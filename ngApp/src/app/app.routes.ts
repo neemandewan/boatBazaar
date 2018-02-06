@@ -5,6 +5,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { LoginComponent } from './component/login/login.component';
 import { HomeComponent } from './component/home/home.component';
 import { RegisterComponent } from './component/register/register.component';
+import { PaymentPageComponent } from './component/payment-page/payment-page.component';
 import { BoatComponent } from './component/boat/boat.component';
 import { BoatMineComponent } from './component/boat-mine/boat-mine.component';
 import { BoatInComponent } from './component/boat-in/boat-in.component';
@@ -17,6 +18,8 @@ const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
     { path: '', component: HomeComponent, canActivate: [AuthGuard]  },
     { path: 'register', component: RegisterComponent },
+    { path: 'payment', component: PaymentPageComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
     { path: 'home/featured/:id', component: BoatFeaturedComponent},
     { path: 'boat/form', component: BoatComponent, canActivate: [AuthGuard] },
