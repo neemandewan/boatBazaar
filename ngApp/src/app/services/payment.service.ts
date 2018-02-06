@@ -3,7 +3,8 @@ import { Http, Headers, RequestOptions, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 
 import { AuthenticationService } from './authentication.service';
-import { Boat, Comments } from '../models/boat';
+import { Purchase } from '../models/purchase';
+import { Boat } from '../models/boat';
 import { Links } from '../app.config';
 
 /*
@@ -21,12 +22,16 @@ export class PaymentService {
   }
 
 
-  addpurchase(payment: Boat, id:string): Observable<any> {
+  /**
+   * add purchase details
+   */
+
+  addpurchase(purchase: Purchase): Observable<any> {
     // add authorization header with jwt token
     let headers = new Headers({ 'x-access-token': this.authenticationService.token });
     let options = new RequestOptions({ headers: headers });
 
-    return this.http.put(Links.boatURL + "/" + id, boat, options)
+    return this.http.put('http://localhost:3000/api/auth/purchase/', purchase)
         .map((response: Response) => {
           if(response.status === 200) {
             return response

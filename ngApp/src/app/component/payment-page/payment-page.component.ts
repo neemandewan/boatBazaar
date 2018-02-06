@@ -5,7 +5,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder, FormArray, AbstractControl } from "@angular/forms";
 import { Observable } from "rxjs/Rx";
 import { AuthenticationService } from '../../services/authentication.service';
-
+import { PaymentService } from '../../services/payment.service';
+import { Purchase } from '../../models/purchase';
 
 /*
  * Created on Mon Feb 05 2018
@@ -25,6 +26,8 @@ export class PaymentPageComponent implements OnInit {
   id: string;
   boat: any;
   boatname = "";
+  boatownerid="";
+  boatid ="";
   price = null;
   totalprice = null;
 
@@ -44,7 +47,8 @@ export class PaymentPageComponent implements OnInit {
     private snackBar: MatSnackBar,
     private authService: AuthenticationService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private paymentService : PaymentService
   ) { }
 
 
@@ -70,6 +74,8 @@ export class PaymentPageComponent implements OnInit {
               this.boatname = this.boat.name;
               this.price = this.boat.price;
               this.totalprice = this.boat.price+10;
+              this.boatownerid= this.boat.user;
+              this.boatid=this.boat._id;
             }
           })
       })
@@ -81,7 +87,7 @@ export class PaymentPageComponent implements OnInit {
       'boatname': this.boatname,
       'price': this.price,
       'totalprice': this.totalprice,
-      'type': ['', [Validators.required]],
+      'payment_type': ['', [Validators.required]],
       'address': this.formBuilder.group({
         'street': ['', [Validators.required]],
         'city': ['', [Validators.required]],
@@ -101,6 +107,27 @@ export class PaymentPageComponent implements OnInit {
 
   onSubmit() {
     console.log(this.payForm.value);
+    console.log(this.boatid);
+
+    let purchase = new Purchase();
+    purchase.boat=this.payForm.value.boatname;
+    purchase.olduser= this.boatownerid;
+    purchase.paymentType = this.payForm.value.payment_type;
+
+
+    this.paymentService.addpurchase(purchase)
+            .subscribe(result => {
+                if(result == "err") {
+                  this.snackBar.open('Error in Purchase..', 'Undo', {
+                    duration: 1000
+                  });
+                }else {
+                 // this.router.navigate(['./home']);
+                 this.snackBar.open('Purchase success..', 'Undo', {
+                  duration: 1000
+                });
+                }
+            });
 
   }
 

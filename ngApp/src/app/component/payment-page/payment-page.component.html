@@ -76,12 +76,12 @@
             </mat-list>
             Payment Type :
             <mat-form-field>
-              <mat-select placeholder="" formControlName="type">
-                <mat-option *ngFor="let type of paytype" [value]="type.value">
+              <mat-select placeholder="" formControlName="payment_type">
+                <mat-option *ngFor="let type of paytype" [value]="payment_type.value">
                   {{ type.viewValue }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="!payForm.controls['type'].valid">
+              <mat-error *ngIf="!payForm.controls['payment_type'].valid">
                 Payment Type is
                 <strong>required</strong>
               </mat-error>
