@@ -112,3 +112,12 @@
     overflow-x: hidden !important;
     overflow-y: scroll !important;
 }
+
+.W100 {
+  width: 100%;
+}
+
+.W50 {
+width: 50%;
+float: left;
+}

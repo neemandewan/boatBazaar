@@ -112,6 +112,7 @@ export class PaymentPageComponent implements OnInit {
     purchase.boat=this.boatid;
     purchase.oldUser= this.boatownerid;
     purchase.paymentType = this.payForm.value.payment_type;
+    purchase.shippingAddress = this.payForm.value.address;
 
     console.log(purchase);
 
