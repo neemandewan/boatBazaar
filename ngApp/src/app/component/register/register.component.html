@@ -77,7 +77,7 @@
                     </tr></table>
 
                 <mat-form-field class="example-full-width form-group">
-                    <input matInput placeholder="Phone Number" formControlName="PhoneNumber">
+                    <input matInput #postalCode maxlength="10" placeholder="Phone Number" formControlName="PhoneNumber">
                     <mat-error *ngIf="!userForm.controls['PhoneNumber'].valid">
                         Phone Number should be <strong>valid.</strong>
                     </mat-error>

@@ -19,7 +19,6 @@ const appRoutes: Routes = [
     { path: '', component: HomeComponent, canActivate: [AuthGuard]  },
     { path: 'register', component: RegisterComponent },
     { path: 'payment', component: PaymentPageComponent },
-    { path: 'home', component: HomeComponent },
     { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
     { path: 'home/featured/:id', component: BoatFeaturedComponent},
     { path: 'boat/form', component: BoatComponent, canActivate: [AuthGuard] },
