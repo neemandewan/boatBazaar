@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
         private formBuilder: FormBuilder,
         private router: Router,
         private authenticationService: AuthenticationService) {
-
     }
 
     ngOnInit() {
@@ -36,6 +35,11 @@ export class LoginComponent implements OnInit {
 
         // reset login status
         this.authenticationService.logout();
+    }
+
+    goToReg():void {
+        console.log("Dsadas")
+        this.router.navigate(['/register/'])
     }
 
     // on form submission

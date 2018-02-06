@@ -23,9 +23,12 @@ export class AppComponent {
     private snackBar: MatSnackBar,
     private activatedRout: ActivatedRoute
   ) {
+    console.log("MODULE")
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.username = this.authService.user;
   }
+
+  ngOnInit(): void {}
 
   logout(): void {
     this.authService.logout();

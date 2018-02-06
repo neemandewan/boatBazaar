@@ -9,7 +9,7 @@
                     <span [routerLink]="['home']">HOME &nbsp;&nbsp;| &nbsp;&nbsp;</span>
                     <span [routerLink]="['boat/mine']">MY BOATS &nbsp;&nbsp;| &nbsp;&nbsp;</span>
                     <span [routerLink]="['boat/form']">ADD BOAT &nbsp;&nbsp;| &nbsp;&nbsp;</span>
-                    <span>{{username}}</span>
+                    <span [routerLink]="['profile']">{{username}}</span>
                     <mat-icon class="e-icon" (click) = logout() style="cursor: pointer;">exit_to_app</mat-icon>
                 </mat-toolbar-row>
             </mat-toolbar>

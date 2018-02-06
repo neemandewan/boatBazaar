@@ -36,7 +36,6 @@ import { KeepCssPipe } from './pipes/keep-css.pipe';
 import { LightboxModule } from 'angular2-lightbox';
 import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 import { ProfileComponent } from './component/profile/profile.component';
-import { BoatComponent } from './component/boat/boat.component';
 import { DatePipe } from './pipes/date.pipe';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
 import { BoatComponent } from './component/boat/boat.component';
@@ -57,14 +56,9 @@ import { BoatComponent } from './component/boat/boat.component';
     BoatEditComponent,
     ProfileComponent,
     FooterComponent,
-<<<<<<< HEAD
     BoatComponent,
     DatePipe,
     BoatFeaturedComponent
-=======
-    BoatFeaturedComponent,
-    BoatComponent
->>>>>>> dc958d9ddeb709d3c6afb0586286a2961c3869eb
   ],
   imports: [
     BrowserModule,
