@@ -1,3 +1,11 @@
+/*
+ * Created on Sat Feb 03 2018
+ * Prabhab Dewan
+ * Refrence:- https://github.com/adnanrahic/securing-restful-apis-with-jwt
+ * Copyright (c) 2018 Your Company
+ */
+
+
 var jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 var config = require('../config'); // get our config file
 

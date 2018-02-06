@@ -1,0 +1,141 @@
+<mat-grid-list cols=1 rows=1>
+    <div class="head"></div>
+  <mat-card class="bm-card">
+      <mat-card-header>
+        <div mat-card-avatar class="bm-header-image"></div>
+        <mat-card-title>Boat Bazaar</mat-card-title>
+        <mat-card-subtitle>Updating boat</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="bm-container">
+          
+          <form [formGroup]="boatForm" (ngSubmit)="onSubmit()">
+
+              <mat-form-field class="bm-full-width form-group">
+                <input matInput placeholder="Name" formControlName="name">
+                <mat-error *ngIf="!boatForm.controls['name'].valid">
+                  Name is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+    
+              <mat-form-field class="bm-full-width form-group">
+                <mat-select placeholder="Boat categories" formControlName="categories">
+                  <mat-option *ngFor="let category of categories" [value]="category">
+                    {{ category }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="!boatForm.controls['categories'].valid">
+                    Categories is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+    
+              <mat-form-field class="bm-full-width form-group">
+                  <mat-select placeholder="Boat status" formControlName="status">
+                    <mat-option [value]="status.notAvailable">
+                      Not Available
+                    </mat-option>
+                    <mat-option [value]="status.available">
+                      Available
+                    </mat-option>
+                    <mat-option [value]="status.sold">
+                      Sold
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="!boatForm.controls['status'].valid">
+                      Status is <strong>required</strong>
+                  </mat-error>
+              </mat-form-field>
+      
+              <mat-form-field class="bm-full-width form-group">
+                <input matInput placeholder="Amount" type="number" class="bm-right-align" formControlName="price">
+                <span matPrefix>$&nbsp;</span>
+                <span matSuffix>.00</span>
+                <mat-error *ngIf="!boatForm.controls['price'].valid">
+                    Price is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+    
+              <mat-form-field class="bm-full-width form-group">
+                  <textarea matInput placeholder="Description" matTextareaAutosize matAutosizeMinRows="2"
+                            matAutosizeMaxRows="5" formControlName="description"></textarea>
+                  <mat-error *ngIf="!boatForm.controls['description'].valid">
+                      Description is <strong>required</strong>
+                  </mat-error>
+              </mat-form-field>
+
+              <div formGroupName="address">
+                <mat-form-field class="bm-full-width form-group">
+                  <textarea matInput placeholder="Street" formControlName="street">1000 N 4th Street</textarea>
+                  <mat-error *ngIf="!boatForm.controls['address'].controls['street'].valid">
+                      Street is <strong>required</strong>
+                  </mat-error>
+                </mat-form-field>
+      
+                <table class="bm-full-width" cellspacing="0">
+                  <tr>
+                    <td>
+                      <mat-form-field class="bm-full-width form-group">
+                        <input matInput placeholder="City" formControlName="city">
+                        <mat-error *ngIf="!boatForm.controls['address'].controls['city'].valid">
+                            City is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="bm-full-width form-group">
+                        <input matInput placeholder="State" formControlName="state">
+                        <mat-error *ngIf="!boatForm.controls['address'].controls['state'].valid">
+                            State is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </td>
+                    <td>
+                      <mat-form-field class="bm-full-width form-group">
+                        <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="94043" formControlName="zipcode">
+                        <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
+                        <mat-error *ngIf="!boatForm.controls['address'].controls['zipcode'].valid">
+                            Zipcode is <strong>required</strong>
+                        </mat-error>
+                      </mat-form-field>
+                    </td>
+                  </tr>
+                </table>
+
+              </div>
+    
+              <button type="submit"  [disabled]="!boatForm.valid" mat-raised-button color="primary">Submit</button>
+          </form>
+          
+        </div>
+      </mat-card-content>
+
+      <mat-card-content>
+        <div class="bm-container">
+          
+          <h3>And and Delete Boat Images</h3>
+          <p>Click image to delete</p>
+          <div class="W100">
+            <div *ngFor="let image of actualBoat?.boatImage; let i=index">
+              <img [src]="image" class="light-im" alt="image" (click)="delImage(i)"/>
+            </div>
+  
+            <div style="clear:both;"></div>
+          </div>
+          <form class="bm-full-width" [formGroup]="imageForm" (ngSubmit)="onSubmitImage()">
+            <div>
+                <mat-form-field class="bm-full-width form-group">
+                    <input type="text" matInput placeholder="Image link" formControlName="image" />
+                    <mat-error *ngIf="!imageForm.controls['image'].valid">
+                      Image link is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                  <div style="clear:both;"></div>
+            </div>
+            <button type="submit"  [disabled]="!imageForm.valid" mat-raised-button color="primary">Add Image</button>
+            <div style="clear:both;"></div>
+          </form>
+          
+        </div>
+      </mat-card-content>
+    </mat-card>
+</mat-grid-list>

@@ -5,6 +5,14 @@ import 'rxjs/add/operator/map'
 
 import { AuthenticationService } from './authentication.service';
 import { User } from '../models/user';
+import { Links } from '../app.config';
+
+/*
+ * Created on Mon Feb 05 2018
+ * Prabhab Dewan
+ * Copyright (c) 2018 Your Company
+ */
+
 
 @Injectable()
 export class UserService {
@@ -13,13 +21,54 @@ export class UserService {
         private authenticationService: AuthenticationService) {
     }
 
-    getUsers(): Observable<User[]> {
+    /**
+     * Get user detail
+     */
+    getUser(): Observable<any> {
         // add authorization header with jwt token
-        let headers = new Headers({ 'Authorization': 'Bearer ' + this.authenticationService.token });
+        let headers = new Headers({ 'x-access-token': this.authenticationService.token });
         let options = new RequestOptions({ headers: headers });
 
-        // get users from api
-        return this.http.get('/api/users', options)
-            .map((response: Response) => response.json());
+        // get user from api
+        return this.http.get(Links.myURL, options)
+            .map((response: Response) => {
+                if(response.status == 200) {
+                    return response;
+                }else {
+                    return "err";
+                }
+            });
+    }
+
+    getSales(): Observable<any> {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'x-access-token': this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers });
+
+        // get user from api
+        return this.http.get(Links.salesURL, options)
+            .map((response: Response) => {
+                if(response.status == 200) {
+                    return response;
+                }else {
+                    return "err";
+                }
+            });
+    }
+
+    getPurchases(): Observable<any> {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'x-access-token': this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers });
+
+        // get user from api
+        return this.http.get(Links.purchaseURL, options)
+            .map((response: Response) => {
+                if(response.status == 200) {
+                    return response;
+                }else {
+                    return "err";
+                }
+            });
     }
 }

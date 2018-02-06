@@ -1,10 +1,82 @@
+.head {
+  height: calc(150px - 15px);
+  background: #2b567b;
+}
 
-.example-form {
-    min-width: 150px;
-    max-width: 500px;
-    width: 100%;
-  }
+.head p {
+  color: #adf;
+  font-size: 40px;
+  margin: 0;
+  padding-left: 30px;
+  padding-top: 42px;
+}
+
+.example-card {
+  width: 500px;
+  margin: -60px auto;
+}
   
-  .example-full-width {
-    width: 100%;
-  }
+.example-header-image {
+  background-image: url('/assets/images/icons/ship.png');
+  background-size: cover;
+}
+
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.example-container > * {
+  width: 100%;
+}
+
+.example-right-align {
+  text-align: right;
+}
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+input.example-right-align {
+  -moz-appearance: textfield;
+}
+
+table .mat-form-field {
+  width: 160px !important;
+}
+
+  
+.example-full-width {
+  width: 100%;
+}
+
+.e-icon {
+  padding: 0 14px;
+}
+
+.e-spacer {
+  flex: 1 1 auto;
+}
+
+span {
+  outline: none !important;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.logo {
+  font-size: 30px;
+  position: relative;
+  top: 18px;
+  left: 14px;
+}
+
+.mat-toolbar.mat-primary {
+  background: #2b567b !important;
+  color: #ade0ff;
+  position: fixed;
+  z-index: 1;
+}

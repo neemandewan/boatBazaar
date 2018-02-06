@@ -1,0 +1,53 @@
+<mat-grid-list cols=1 rows=1>
+    <div class="head"></div>
+    <mat-card class="bm-card">
+        <mat-card-header>
+          <div mat-card-avatar class="bm-header-image"></div>
+          <mat-card-title>Boat Bazaar</mat-card-title>
+          <mat-card-subtitle>User Profile</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="w100" align="center">
+                <img class="avatar" src= "./assets/images/people.png" />
+            </div>
+            <div style="clear:both"></div>
+            <mat-list>
+              <h3 mat-subheader>PERSONAL INFORMATION</h3>
+              <mat-list-item>
+                <p mat-line> <strong>Name: </strong>{{user?.firstname}} {{user?.lastname}} </p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                  <p mat-line><strong>Email: </strong>{{user?.email}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                  <p mat-line><strong>Gender: </strong>{{user?.gender}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                  <p mat-line><strong>Date of Birth: </strong>{{user?.dob | date}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <h3 mat-subheader>PERSONAL ADDRESS</h3>
+              <mat-list-item>
+                  <p mat-line><strong>Street: </strong>{{user?.address.street}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                  <p mat-line><strong>City: </strong>{{user?.address.city}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                  <p mat-line><strong>State: </strong>{{user?.address.state}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+              <mat-list-item>
+                  <p mat-line><strong>Zipcode: </strong>{{user?.address.zipcode}}</p>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </mat-list>
+
+        </mat-card-content>
+      </mat-card>
+  </mat-grid-list>

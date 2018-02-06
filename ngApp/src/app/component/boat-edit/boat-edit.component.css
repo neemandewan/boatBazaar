@@ -1,0 +1,70 @@
+.head {
+    height: calc(150px - 15px);
+    background: #2b567b;
+  }
+  
+  .head p {
+    color: #adf;
+    font-size: 40px;
+    margin: 0;
+    padding-left: 30px;
+    padding-top: 42px;
+  }
+  
+  .bm-card {
+    max-width: 600px;
+    margin: -60px auto;
+    width: 90%;
+  }
+    
+  .bm-header-image {
+    background-image: url('/assets/images/icons/ship.png');
+    background-size: cover;
+  }
+  
+  
+  .bm-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .bm-container > * {
+    width: 100%;
+  }
+  
+  .bm-right-align {
+    text-align: right;
+  }
+  
+  input.bm-right-align::-webkit-outer-spin-button,
+  input.bm-right-align::-webkit-inner-spin-button {
+    display: none;
+  }
+  
+  input.bm-right-align {
+    -moz-appearance: textfield;
+  }
+  
+  /* table .mat-form-field {
+    width: 160px !important;
+  } */
+  
+    
+  .bm-full-width {
+    width: 100% !important;
+  }
+
+  .light-im {
+    height: 70px;
+    float: left !important;
+    margin: 0 10px 10px 0px !important;
+}
+
+.W100 {
+    width: 100%;
+}
+
+.W50 {
+  width: 50%;
+  float: left;
+}

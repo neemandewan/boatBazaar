@@ -1,0 +1,86 @@
+<mat-grid-list cols="4">
+  <div class="head">
+    
+  </div>
+  <mat-card class="bm-card">
+    <mat-card-header class="btn-div">
+      <div mat-card-avatar class="bm-header-image"></div>
+      <mat-card-title>
+        Boat Bazaar
+      </mat-card-title>
+      <mat-card-subtitle>
+        Boat Details
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="buy-btn-div" *ngIf="status==1">
+            <button class="buy-btn" (click)="getBoatInfo(boat._id)" mat-raised-button color="primary">BUY</button>
+          </div>
+          
+      <div class="W100">
+        <div *ngFor="let image of _albums; let i=index">
+          <img [src]="image.src" class="light-im" (click)="open(i)" />
+        </div>
+
+        <div style="clear:both;"></div>
+      </div>
+
+      <div class="W100">
+        <div class="W50">
+          <h2 style="margin-bottom: 0">DETAILS</h2>
+          <p>
+            <strong>Name: </strong> {{boat?.name}}</p>
+          <p>
+            <strong>Category: </strong> {{boat?.categories}}</p>
+          <p>
+            <strong>Status: </strong> {{boat?.status}}</p>
+          <p>
+            <strong>Price: </strong> {{boat?.price}}</p>
+          <p>
+            <strong>Street: </strong> {{boat?.address.street}}</p>
+          <p>
+            <strong>City: </strong> {{boat?.address.city}}</p>
+          <p>
+            <strong>State: </strong> {{boat?.address.state}}</p>
+          <p>
+            <strong>Zipcode: </strong> {{boat?.address.zipcode}}</p>
+        </div>
+        <div class="W50">
+          <h2 style="margin-bottom: 0">DESCRIPTION</h2>
+          <p>{{boat?.description}}</p>
+        </div>
+        <div style="clear:both;"></div>
+      </div>
+
+      <div class="W100">
+        <h3 mat-subheader style="margin: 0; padding: 10px 0;">COMMENTS</h3>
+        <mat-list class="comm">
+          <!-- <h3 mat-subheader>COMMENTS</h3> -->
+          <mat-list-item *ngFor="let comment of boat?.comments">
+            <mat-icon mat-list-icon>face</mat-icon>
+            <h4 mat-line>{{comment?.body}}</h4>
+            <p mat-line class="c-in"> User: {{comment?.user}} </p>
+            <p mat-line class="c-in"> Date: {{comment?.date}} </p>
+          </mat-list-item>
+        </mat-list>
+        <h3 mat-subheader style="margin: 0; padding: 10px 0;">ADD COMMENT</h3>
+        <form class="bm-full-width" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
+          <div>
+            <mat-form-field class="bm-full-width form-group">
+              <textarea matInput placeholder="Comment" formControlName="body"></textarea>
+              <mat-error *ngIf="!commentForm.controls['body'].valid">
+                Body is
+                <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+            <div style="clear:both;"></div>
+          </div>
+          <button type="submit" [disabled]="!commentForm.valid" mat-raised-button color="primary">Submit</button>
+          <div style="clear:both;"></div>
+        </form>
+      </div>
+      <div style="clear:both;"></div>
+    </mat-card-content>
+  </mat-card>
+
+</mat-grid-list>

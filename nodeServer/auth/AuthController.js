@@ -61,7 +61,9 @@ router.post('/register', function(req, res) {
         street : req.body.address.street,
         city : req.body.address.city,
         state: req.body.address.state,
-        zipcode : req.body.address.zipcode }
+        zipcode : req.body.address.zipcode },
+    avatar : req.body.avatar,
+    shipping_adddress : [],
   }, 
   
   function (err, user) {
@@ -77,6 +79,26 @@ router.post('/register', function(req, res) {
   });
 
 });
+
+// add comment to a boat in the database
+router.post('/:id/shipadd', VerifyToken,  function (req, res) {
+  console.log(req.body.shipping_adddress.body);
+  let query = {
+      $push: {
+          "shipping_adddress": {
+            street : req.body.shipping_adddress.street,
+            city : req.body.shipping_adddress.city,
+            state: req.body.shipping_adddress.state,
+            zipcode : req.body.shipping_adddress.zipcode
+          }
+      }
+  }
+  User.findByIdAndUpdate(req.params.id, query, {new: false}, function (err, user) {
+      if (err) return res.status(500).send({error: "There was a problem updating the user."});
+      res.status(200).send(user);
+  });
+});
+
 
 router.get('/me', VerifyToken, function(req, res, next) {
 
