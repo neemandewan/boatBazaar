@@ -27,7 +27,10 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
    MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, 
    MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { BoatService } from './services/boat.service';
+<<<<<<< HEAD
 import { PaymentPageComponent } from './component/payment-page/payment-page.component';
+=======
+>>>>>>> a9f0e82dea61034e043c2971b347621111b35de7
 import { BoatMineComponent } from './component/boat-mine/boat-mine.component';
 import { BoatInComponent } from './component/boat-in/boat-in.component';
 import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.component';
@@ -38,6 +41,10 @@ import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { DatePipe } from './pipes/date.pipe';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
+<<<<<<< HEAD
+=======
+import { PaymentPageComponent } from './component/payment-page/payment-page.component';
+>>>>>>> a9f0e82dea61034e043c2971b347621111b35de7
 import { BoatComponent } from './component/boat/boat.component';
 
 
@@ -47,6 +54,10 @@ import { BoatComponent } from './component/boat/boat.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+<<<<<<< HEAD
+=======
+    BoatComponent,
+>>>>>>> a9f0e82dea61034e043c2971b347621111b35de7
     FooterComponent,
     PaymentPageComponent,
     BoatMineComponent,
@@ -55,10 +66,15 @@ import { BoatComponent } from './component/boat/boat.component';
     KeepCssPipe,
     BoatEditComponent,
     ProfileComponent,
+<<<<<<< HEAD
     FooterComponent,
     BoatComponent,
     DatePipe,
     BoatFeaturedComponent
+=======
+    BoatFeaturedComponent,
+    PaymentPageComponent
+>>>>>>> a9f0e82dea61034e043c2971b347621111b35de7
   ],
   imports: [
     BrowserModule,
