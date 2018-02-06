@@ -16,7 +16,7 @@
   }
 
   .head {
-    height: 150px;
+    height: calc(150px - 15px);
     background: #2b567b;
   }
   
@@ -40,6 +40,32 @@
     margin-bottom: 35px;
   }
 
- 
+  .e-icon {
+    padding: 0 14px;
+  }
+  
+  .e-spacer {
+    flex: 1 1 auto;
+  }
+  
+  span {
+    outline: none !important;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .logo {
+    font-size: 30px;
+    position: relative;
+    top: 18px;
+    left: 14px;
+  }
+  
+  .mat-toolbar.mat-primary {
+    background: #2b567b !important;
+    color: #ade0ff;
+    position: fixed;
+    z-index: 1;
+  }
 
   

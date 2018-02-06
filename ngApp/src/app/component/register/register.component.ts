@@ -16,39 +16,6 @@ import { isNumber } from 'util';
  * Copyright (c) 2018 Your Company
  */
 
-
-
-function checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
-  return (group: FormGroup) => {
-    let passwordInput = group.controls[passwordKey],
-        passwordConfirmationInput = group.controls[passwordConfirmationKey];
-    if (passwordInput.value !== passwordConfirmationInput.value) {
-      return passwordConfirmationInput.setErrors({notEquivalent: true})
-    }
-    else {
-        return passwordConfirmationInput.setErrors(null);
-    }
-  }
-}
-
-
-function checkIfNumber( passwordKey: any) {
-    return (group: FormGroup) => {
-      let passwordInput = group.controls[passwordKey];
-      let a = passwordInput.value.length;
-      if (!Number(passwordInput.value)) {
-        return passwordInput.setErrors({notEquivalent: true});
-      }
-    if (a!= 10) {
-      return passwordInput.setErrors({notEquivalent: true});
-    } 
-      else {
-          return passwordInput.setErrors(null);
-      }
-    }
-  }
-
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -66,8 +33,38 @@ export class RegisterComponent implements OnInit {
       private formBuilder: FormBuilder, 
       private router: Router, 
       private registerService: RegisterService,
-      private authenticationService: AuthenticationService
+      private authenticationService: AuthenticationService,
+      private snackBar: MatSnackBar
     ) { }
+
+    checkIfNumber( passwordKey: any) {
+      return (group: FormGroup) => {
+        let passwordInput = group.controls[passwordKey];
+        let a = passwordInput.value.length;
+        if (!Number(passwordInput.value)) {
+          return passwordInput.setErrors({notEquivalent: true});
+        }
+      if (a!= 10) {
+        return passwordInput.setErrors({notEquivalent: true});
+      } 
+        else {
+            return passwordInput.setErrors(null);
+        }
+      }
+    }
+
+    checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
+      return (group: FormGroup) => {
+        let passwordInput = group.controls[passwordKey],
+            passwordConfirmationInput = group.controls[passwordConfirmationKey];
+        if (passwordInput.value !== passwordConfirmationInput.value) {
+          return passwordConfirmationInput.setErrors({notEquivalent: true})
+        }
+        else {
+            return passwordConfirmationInput.setErrors(null);
+        }
+      }
+    }
   
     ngOnInit() {
   
@@ -81,15 +78,13 @@ export class RegisterComponent implements OnInit {
         'DateOfBirth': ['', [Validators.required]],
         'gender': ['', [Validators.required]],
         'address': this.formBuilder.group({
-        'street': ['', [Validators.required]],
-        'city': ['', [Validators.required]],
-        'state': ['', [Validators.required]],
-        'zipcode': ['', [Validators.required]]
+          'street': ['', [Validators.required]],
+          'city': ['', [Validators.required]],
+          'state': ['', [Validators.required]],
+          'zipcode': ['', [Validators.required]]
         })
-      },{validator: [checkIfMatchingPasswords('password1', 'password2'),checkIfNumber('PhoneNumber')]});
-      
-  
-      
+      },{validator: [this.checkIfMatchingPasswords('password1', 'password2'), this.checkIfNumber('PhoneNumber')]});
+    
       this.userForm.statusChanges.subscribe(
         (data: any) => console.log(data)
       );
@@ -113,7 +108,13 @@ export class RegisterComponent implements OnInit {
 	
    this.registerService.addUser(user)
             .subscribe(result => {
-                console.log(result);
+                if(result == "err") {
+                  this.snackBar.open('Error in Registration..', 'Undo', {
+                    duration: 1000
+                  });
+                }else {
+                  this.router.navigate(['./login']);
+                }
             });
 
    }

@@ -21,6 +21,10 @@ export class BoatService {
     private authenticationService: AuthenticationService) {
   }
 
+  /**
+   * Add Boat
+   * @param boat Boat
+   */
   addBoat(boat: Boat): Observable<any> {
     // add authorization header with jwt token
     let headers = new Headers({ 'x-access-token': this.authenticationService.token });
@@ -36,6 +40,11 @@ export class BoatService {
     });
   }
 
+  /**
+   * Update Boat
+   * @param boat Boat
+   * @param id string
+   */
   updateBoat(boat: Boat, id:string): Observable<any> {
     // add authorization header with jwt token
     let headers = new Headers({ 'x-access-token': this.authenticationService.token });
@@ -51,6 +60,30 @@ export class BoatService {
     });
   }
 
+  /**
+   * Sell Boat
+   * @param boat Boat
+   * @param id string
+   */
+  sellBoat(boat: Boat, id:string): Observable<any> {
+    // add authorization header with jwt token
+    let headers = new Headers({ 'x-access-token': this.authenticationService.token });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.put(Links.myBoatURL + "/" + id, boat, options)
+        .map((response: Response) => {
+          if(response.status === 200) {
+            return response
+          }else {
+            return "err";
+          }
+    });
+  }
+
+  /**
+   * Delete Boat
+   * @param id string
+   */
   deleteBoat(id:string): Observable<any> {
     // add authorization header with jwt token
     let headers = new Headers({ 'x-access-token': this.authenticationService.token });
@@ -66,6 +99,9 @@ export class BoatService {
     });
   }
 
+  /**
+   * Get Boats by user logged In
+   */
   getMyBoats(): Observable<any> {
     // add authorization header with jwt token
     let headers = new Headers({ 'x-access-token': this.authenticationService.token });
@@ -81,6 +117,10 @@ export class BoatService {
     });
   }
 
+  /**
+   * Get particuler boat by boat Id
+   * @param id string
+   */
   getMyBoatById(id: string): Observable<any> {
     // add authorization header with jwt token
     let headers = new Headers({ 'x-access-token': this.authenticationService.token });
@@ -96,6 +136,11 @@ export class BoatService {
     });
   }
 
+  /**
+   * Add comment to a boat
+   * @param data Any
+   * @param id string
+   */
   addComment(data: any, id: string): Observable<any> {
     // add authorization header with jwt token
     let headers = new Headers({ 'x-access-token': this.authenticationService.token });
