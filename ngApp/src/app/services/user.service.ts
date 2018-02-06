@@ -39,4 +39,36 @@ export class UserService {
                 }
             });
     }
+
+    getSales(): Observable<any> {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'x-access-token': this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers });
+
+        // get user from api
+        return this.http.get(Links.salesURL, options)
+            .map((response: Response) => {
+                if(response.status == 200) {
+                    return response;
+                }else {
+                    return "err";
+                }
+            });
+    }
+
+    getPurchases(): Observable<any> {
+        // add authorization header with jwt token
+        let headers = new Headers({ 'x-access-token': this.authenticationService.token });
+        let options = new RequestOptions({ headers: headers });
+
+        // get user from api
+        return this.http.get(Links.purchaseURL, options)
+            .map((response: Response) => {
+                if(response.status == 200) {
+                    return response;
+                }else {
+                    return "err";
+                }
+            });
+    }
 }

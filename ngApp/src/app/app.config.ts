@@ -12,4 +12,6 @@ export class Links {
     static myBoatURL: string = Links.url + "/api/auth/boat/me";
     static myURL: string = Links.url + "/api/auth/me";
     static regURL: string = Links.url + '/api/auth/register';
+    static salesURL: string = Links.url + '/api/auth/purchase/sales';
+    static purchaseURL: string = Links.url + '/api/auth/purchase/me';
 }
