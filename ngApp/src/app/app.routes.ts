@@ -11,12 +11,14 @@ import { BoatInComponent } from './component/boat-in/boat-in.component';
 import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.component';
 import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 import { ProfileComponent } from './component/profile/profile.component';
+import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
 
 const appRoutes: Routes = [
     { path: 'login', component: LoginComponent },
-    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+    { path: '', component: HomeComponent, canActivate: [AuthGuard]  },
     { path: 'register', component: RegisterComponent },
-    { path: 'home', component: HomeComponent },
+    { path: 'home', component: HomeComponent, canActivate: [AuthGuard]},
+    { path: 'home/featured/:id', component: BoatFeaturedComponent},
     { path: 'boat/form', component: BoatComponent, canActivate: [AuthGuard] },
     { path: 'boat/mine', component: BoatMineComponent, canActivate: [AuthGuard] },
     { path: 'boat/:id', component: BoatInComponent, canActivate: [AuthGuard] },

@@ -35,8 +35,12 @@ import { KeepCssPipe } from './pipes/keep-css.pipe';
 import { LightboxModule } from 'angular2-lightbox';
 import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 import { ProfileComponent } from './component/profile/profile.component';
+<<<<<<< HEAD
 import { BoatComponent } from './component/boat/boat.component';
 import { DatePipe } from './pipes/date.pipe';
+=======
+import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
+>>>>>>> 59503cc3e27469751f4ae0405ae7d69a348f1285
 
 
 @NgModule({
@@ -52,9 +56,13 @@ import { DatePipe } from './pipes/date.pipe';
     KeepCssPipe,
     BoatEditComponent,
     ProfileComponent,
+<<<<<<< HEAD
     FooterComponent,
     BoatComponent,
     DatePipe
+=======
+    BoatFeaturedComponent
+>>>>>>> 59503cc3e27469751f4ae0405ae7d69a348f1285
   ],
   imports: [
     BrowserModule,

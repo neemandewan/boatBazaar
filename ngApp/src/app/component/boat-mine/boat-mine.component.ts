@@ -18,6 +18,7 @@ import { Router } from '@angular/router';
 })
 
 export class BoatMineComponent implements OnInit {
+  
   tabs: Number;
   boats: any;
 

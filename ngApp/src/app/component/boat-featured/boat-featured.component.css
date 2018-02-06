@@ -1,14 +1,6 @@
 .head {
     height: 150px;
-   
     background: #2b567b;
-  }
-.log-out {
-    margin-top: 10px;
-    margin-right: 20px;
-    float: right;
-    background: white;
-    color: black;
   }
   
   .head p {
@@ -20,14 +12,9 @@
   }
   
   .bm-card {
-    width: 90%;
+    max-width: 600px;
     margin: -60px auto;
-    
-  }
-
-  .border{
-    border: 0.5px;
-    box-shadow: 5px 10px 8px #888888;
+    width: 90%;
   }
 
   .sm-card {
@@ -82,12 +69,41 @@
     width: 160px !important;
   }
   
-  .btn-color{
-    background: #660033;
-    color : white
-  }
-
-
+    
   .bm-full-width {
     width: 100%;
   }
+
+  .light-im {
+      width: 80px;
+      float: left !important;
+      margin: 0 10px 0 0px !important;
+  }
+
+  .W100 {
+      width: 100%;
+  }
+
+  .W50 {
+    width: 50%;
+    float: left;
+}
+
+.btn-buy{
+  background-color: #2b567b;  
+}
+
+.btn-div{
+  text-align: center;
+}
+
+.c-in {
+    font-size: 12px !important;
+    color: #000000a3 !important;
+}
+
+.comm {
+    height: 300px !important;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+}
