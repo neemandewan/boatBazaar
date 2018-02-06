@@ -27,7 +27,6 @@ import { MatAutocompleteModule, MatButtonModule, MatButtonToggleModule, MatCardM
    MatRadioModule, MatRippleModule, MatSelectModule, MatSidenavModule, MatSliderModule, MatSlideToggleModule, MatSnackBarModule, 
    MatSortModule, MatTableModule, MatTabsModule, MatToolbarModule, MatTooltipModule } from '@angular/material';
 import { BoatService } from './services/boat.service';
-import { PaymentPageComponent } from './component/payment-page/payment-page.component';
 import { BoatMineComponent } from './component/boat-mine/boat-mine.component';
 import { BoatInComponent } from './component/boat-in/boat-in.component';
 import { BoatMineInComponent } from './component/boat-mine-in/boat-mine-in.component';
@@ -38,6 +37,7 @@ import { BoatEditComponent } from './component/boat-edit/boat-edit.component';
 import { ProfileComponent } from './component/profile/profile.component';
 import { DatePipe } from './pipes/date.pipe';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
+import { PaymentPageComponent } from './component/payment-page/payment-page.component';
 import { BoatComponent } from './component/boat/boat.component';
 import { NoticesComponent } from './component/notices/notices.component';
 
@@ -48,6 +48,7 @@ import { NoticesComponent } from './component/notices/notices.component';
     HomeComponent,
     LoginComponent,
     RegisterComponent,
+    BoatComponent,
     FooterComponent,
     PaymentPageComponent,
     BoatMineComponent,
@@ -56,6 +57,8 @@ import { NoticesComponent } from './component/notices/notices.component';
     KeepCssPipe,
     BoatEditComponent,
     ProfileComponent,
+    BoatFeaturedComponent,
+    PaymentPageComponent,
     FooterComponent,
     BoatComponent,
     DatePipe,
