@@ -1,5 +1,5 @@
 .head {
-    height: 150px;
+    height: calc(150px - 64px);
     background: #2b567b;
   }
   
@@ -67,4 +67,10 @@
 .W50 {
   width: 50%;
   float: left;
+}
+
+.avatar {
+    height: 150px;
+    width: 150px;
+    margin: 0 auto !important;
 }

@@ -11,35 +11,36 @@
     padding-top: 42px;
   }
   
-  .bm-card {
-    width: 90%;
+  .example-card {
+    width: 500px;
     margin: -60px auto;
   }
     
-  .bm-header-image {
+  .example-header-image {
     background-image: url('/assets/images/icons/ship.png');
     background-size: cover;
   }
   
-  .bm-container {
+  
+  .example-container {
     display: flex;
     flex-direction: column;
   }
   
-  .bm-container > * {
+  .example-container > * {
     width: 100%;
   }
   
-  .bm-right-align {
+  .example-right-align {
     text-align: right;
   }
   
-  input.bm-right-align::-webkit-outer-spin-button,
-  input.bm-right-align::-webkit-inner-spin-button {
+  input.example-right-align::-webkit-outer-spin-button,
+  input.example-right-align::-webkit-inner-spin-button {
     display: none;
   }
   
-  input.bm-right-align {
+  input.example-right-align {
     -moz-appearance: textfield;
   }
   
@@ -48,6 +49,6 @@
   }
   
     
-  .bm-full-width {
+  .example-full-width {
     width: 100%;
   }

@@ -2,6 +2,20 @@
 <div class="jumbotron">
   <div class="container">
       <div class="col-sm-8 col-sm-offset-2">
+            <mat-toolbar color="primary" *ngIf="isLoggedIn$ | async">
+                <mat-toolbar-row>
+                    <span class="logo" [routerLink]="['home']">Boat Bazaar</span>
+                    <span class="e-spacer"></span>
+                    <span [routerLink]="['home']">HOME &nbsp;&nbsp;| &nbsp;&nbsp;</span>
+                    <span [routerLink]="['boat/mine']">MY BOATS &nbsp;&nbsp;| &nbsp;&nbsp;</span>
+                    <span [routerLink]="['boat/form']">ADD BOAT &nbsp;&nbsp;| &nbsp;&nbsp;</span>
+                    <span>{{username}}</span>
+                    <mat-icon class="e-icon" (click) = logout() style="cursor: pointer;">exit_to_app</mat-icon>
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <!-- <div class="c-nav" *ngIf="isLoggedIn$ | async">
+                    <button (click) = logout()>Logout</button>
+            </div> -->
           <router-outlet></router-outlet>
       </div>
   </div>

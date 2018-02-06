@@ -7,6 +7,13 @@ import { AuthenticationService } from './authentication.service';
 import { User } from '../models/user';
 import { Links } from '../app.config';
 
+/*
+ * Created on Mon Feb 05 2018
+ * Prabhab Dewan
+ * Copyright (c) 2018 Your Company
+ */
+
+
 @Injectable()
 export class UserService {
     constructor(
@@ -14,6 +21,9 @@ export class UserService {
         private authenticationService: AuthenticationService) {
     }
 
+    /**
+     * Get user detail
+     */
     getUser(): Observable<any> {
         // add authorization header with jwt token
         let headers = new Headers({ 'x-access-token': this.authenticationService.token });
