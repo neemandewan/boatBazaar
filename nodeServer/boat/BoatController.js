@@ -10,6 +10,7 @@ const { check, validationResult } = require('express-validator/check');
 
 const VerifyToken = require(__root + 'auth/VerifyToken');
 const Boat = require('./Boat');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 // limit get number of boats
 let lim = 30;
@@ -74,8 +75,10 @@ router.get('/', VerifyToken, function (req, res) {
         delete req.query.limit;
     }else lim = 30;
 
+    // db.boats.find({"user": { $nin: [ObjectId("5a7640211560207478aaecd3")] }})
+    // https://stackoverflow.com/questions/7878557/cant-find-documents-searching-by-objectid-using-mongoose
     req.query.user = {
-        $not: req.userId
+        "$nin": new ObjectId(req.userId)
     }
 
     console.log(req.query)
