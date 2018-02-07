@@ -114,8 +114,26 @@ export class BoatService {
           }else {
             return "err";
           }
-    });
-  }
+      });
+    }
+
+    /**
+   * Get Boats by user logged In
+   */
+  getMyBoatsByQuery(data: string): Observable<any> {
+    // add authorization header with jwt token
+    let headers = new Headers({ 'x-access-token': this.authenticationService.token });
+    let options = new RequestOptions({ headers: headers });
+
+    return this.http.get(Links.myBoatURL + "?" + data, options)
+        .map((response: Response) => {
+          if(response.status === 200) {
+            return response
+          }else {
+            return "err";
+          }
+      });
+    }
 
   /**
    * Get particuler boat by boat Id

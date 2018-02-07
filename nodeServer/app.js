@@ -37,10 +37,6 @@ app.get('/api', function (req, res) {
   res.status(200).send('API works.');
 });
 
-// users controller for registration
-var UserController = require(__root + 'user/UserController');
-app.use('/api/users', UserController);
-
 // all authorization controllers
 var AuthController = require(__root + 'auth/AuthController');
 app.use('/api/auth', AuthController);

@@ -39,17 +39,17 @@ export class BoatComponent implements OnInit {
   ngOnInit() {
 
     this.boatForm = this.formBuilder.group({
-      'name': ['dsadsa', [Validators.required]],
+      'name': ['', [Validators.required]],
       'categories': ['Ferries', [Validators.required]],
-      'status': ['1', [Validators.required]],
-      'image': ['sdadasd', [Validators.required]],
-      'price': ['90', [Validators.required]],
-      'description': ['ewqewe', [Validators.required]],
+      'status': [0, [Validators.required]],
+      'image': ['', [Validators.required]],
+      'price': [null, [Validators.required]],
+      'description': ['', [Validators.required]],
       'address': this.formBuilder.group({
-        'street': ['ewqew', [Validators.required]],
-        'city': ['eqwew', [Validators.required]],
-        'state': ['ewqew', [Validators.required]],
-        'zipcode': ['7888', [Validators.required]]
+        'street': ['', [Validators.required]],
+        'city': ['', [Validators.required]],
+        'state': ['', [Validators.required]],
+        'zipcode': [null, [Validators.required]]
       })
     });
 

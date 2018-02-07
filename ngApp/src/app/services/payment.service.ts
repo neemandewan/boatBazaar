@@ -32,6 +32,7 @@ export class PaymentService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post('http://localhost:3000/api/auth/purchase', purchase, options)
+    return this.http.post(Links.payURL, purchase, options)
         .map((response: Response) => {
           if(response.status === 200) {
             return response

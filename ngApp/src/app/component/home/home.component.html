@@ -5,6 +5,10 @@
 -->
 
 <mat-grid-list cols="4">
+  <div>
+    <button mat-raised-button (click)="onLogout()" class="log-out">Logout</button>
+  </div>
+
     <div class="head"></div>
     <mat-card class="bm-card">
         <mat-card-header >
@@ -14,6 +18,16 @@
         </mat-card-header>
         
         <mat-card-content  >
+            <div class="w100" style="padding: 0 0 0 10px;">
+            <p>
+              Sort:
+              <mat-select class="sel" [ngModel]="selectedValue">
+                  <mat-option *ngFor="let category of categories" [value]="category" (click) = "searchByCat(category)">
+                    {{ category }}
+                  </mat-option>
+              </mat-select>
+            </p>
+          </div>
           <div class="bm-container ">
               <mat-grid-list [cols]="tabs" rowHeight="1:1.7" (window:resize)="onResize($event)">
                   <mat-grid-tile cols=1 rows=1 *ngFor="let boat of boats">
@@ -30,14 +44,9 @@
                           </mat-card-actions>
                         </mat-card>
                   </mat-grid-tile>
-  
               </mat-grid-list>
-  
           </div>
         </mat-card-content>
-        <!-- <mat-card-actions>
-          <button mat-button>LIKE</button>
-          <button mat-button>SHARE</button>
-        </mat-card-actions> -->
       </mat-card>
+      
   </mat-grid-list>

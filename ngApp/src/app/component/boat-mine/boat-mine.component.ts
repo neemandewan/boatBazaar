@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BoatService } from '../../services/boat.service';
 import { MatSnackBar } from '@angular/material';
-import { Boat } from '../../models/boat';
+import { Boat, Categories } from '../../models/boat';
 import { Router } from '@angular/router';
 
 
@@ -21,8 +21,17 @@ export class BoatMineComponent implements OnInit {
   
   tabs: Number;
   boats: any;
+  categories: Array<string>;
+  selectedValue: string;
 
-  constructor(private boatService: BoatService, private snackBar: MatSnackBar, private router: Router) { }
+  constructor(private boatService: BoatService, private snackBar: MatSnackBar, private router: Router) {
+    this.categories = new Categories().getList();
+    let bol = this.categories.includes("All");
+    if(!bol) {
+      this.categories.unshift("All");
+      this.selectedValue = "All";
+    }
+   }
 
   /**
    * Fecth all boats based on user
@@ -109,6 +118,35 @@ export class BoatMineComponent implements OnInit {
     if (element < 400) {
       this.tabs = 1;
     }
+  }
+
+  /**
+   * get boats based on categories
+   */
+  searchByCat(data: string): void {
+    if(data === "All") {
+      return this.getMyBoats();
+    }
+
+    let query = {
+      categories: data
+    }
+    let params = new URLSearchParams();
+    for(let key in query){
+        params.set(key, query[key]) 
+    }
+    this.boatService.getMyBoatsByQuery(params.toString())
+    .subscribe(result => {
+      if(result == "err") {
+        this.snackBar.open('Error in Fetch..', 'Undo', {
+          duration: 1000
+        });
+      }else {
+        this.boats = JSON.parse(result._body);
+        console.log(this.boats)
+      }
+      
+    });
   }
 
 }

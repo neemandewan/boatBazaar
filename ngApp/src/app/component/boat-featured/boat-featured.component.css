@@ -1,5 +1,5 @@
 .head {
-    height: 150px;
+    height: calc(150px - 15px);
     background: #2b567b;
   }
   
@@ -80,7 +80,7 @@
   }
 
   .light-im {
-      width: 80px;
+      height: 70px;
       float: left !important;
       margin: 0 10px 0 0px !important;
   }
@@ -111,4 +111,13 @@
     height: 300px !important;
     overflow-x: hidden !important;
     overflow-y: scroll !important;
+}
+
+.W100 {
+  width: 100%;
+}
+
+.W50 {
+width: 50%;
+float: left;
 }

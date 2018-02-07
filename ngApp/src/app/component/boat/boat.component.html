@@ -1,5 +1,6 @@
 <mat-grid-list cols="4">
-        <div class="head"></div>
+        <div class="head">
+        </div>
         <mat-card class="example-card">
             <mat-card-header>
               <div mat-card-avatar class="example-header-image"></div>
@@ -99,7 +100,7 @@
                           </td>
                           <td>
                             <mat-form-field class="example-full-width form-group">
-                              <input matInput #postalCode maxlength="5" placeholder="Postal Code" value="94043" formControlName="zipcode">
+                              <input matInput #postalCode maxlength="5" placeholder="Postal Code" formControlName="zipcode">
                               <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
                               <mat-error *ngIf="!boatForm.controls['address'].controls['zipcode'].valid">
                                   Zipcode is <strong>required</strong>

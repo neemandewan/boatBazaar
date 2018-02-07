@@ -15,6 +15,17 @@
       
       <mat-card-content>
         <div class="bm-container">
+            <div class="w100" style="padding: 0 0 0 10px;">
+              <p>
+                Sort:
+                <mat-select class="sel" [ngModel]="selectedValue">
+                    <mat-option *ngFor="let category of categories" [value]="category" (click) = "searchByCat(category)">
+                      {{ category }}
+                    </mat-option>
+                </mat-select>
+              </p>
+            </div>
+            <div style="clear: both;"></div>
             <mat-grid-list [cols]="tabs" rowHeight="1:1.8" (window:resize)="onResize($event)">
                 <mat-grid-tile cols=1 rows=1 *ngFor="let boat of boats">
                     <mat-card class="sm-card">

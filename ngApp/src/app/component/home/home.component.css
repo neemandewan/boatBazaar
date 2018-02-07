@@ -83,3 +83,19 @@
   .bm-full-width {
     width: 100%;
   }
+
+  .W100 {
+    width: 100%;
+  }
+
+  .W50 {
+    width: 50%;
+    float: left;
+  }
+
+  .sel {
+    border: 1px solid #2b567b !important;
+    padding: 6px;
+    border-radius: 3px !important;
+    width: 100px;
+  }

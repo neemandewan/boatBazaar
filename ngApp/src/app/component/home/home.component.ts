@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HomeService } from '../../services/home.service';
-import { Boat } from '../../models/boat';
+import { Boat, Categories } from '../../models/boat';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
@@ -22,18 +22,27 @@ export class HomeComponent implements OnInit {
   tabs: Number;
   boatInfo: Boat[];
   boats: any
+  categories: Array<string>;
+  selectedValue: string;
 
   constructor(
     private user: HomeService,
     private snackBar: MatSnackBar,
     private router: Router,
     private userService: UserService,
-    private authenticationService: AuthenticationService) { }
+    private authenticationService: AuthenticationService) {
+      this.categories = new Categories().getList();
+      let bol = this.categories.includes("All");
+      if(!bol) {
+        this.categories.unshift("All");
+        this.selectedValue = "All";
+      }
+    }
 
   ngOnInit() {
     this.tabs = (window.innerWidth <= 400) ? 1 : 5;
     // get boats info from secure api end point
-    this.user.getData()
+    this.user.getBoats()
       .subscribe(result => {
         console.log(result)
         console.log("avc")
@@ -78,5 +87,25 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * get boats based on categories
+   */
+  searchByCat(data: string): void {
+    if(data === "All") {
+      return this.ngOnInit();
+    }
+
+    let query = {
+      categories: data
+    }
+    let params = new URLSearchParams();
+    for(let key in query){
+        params.set(key, query[key]) 
+    }
+    this.user.getBoatsByQuery(params.toString())
+    .subscribe(result => {
+      this.boats = result;
+    });
+  }
 
 }

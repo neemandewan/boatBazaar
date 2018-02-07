@@ -10,6 +10,7 @@ const { check, validationResult } = require('express-validator/check');
 
 const VerifyToken = require(__root + 'auth/VerifyToken');
 const Boat = require('./Boat');
+var ObjectId = require('mongoose').Types.ObjectId;
 
 // limit get number of boats
 let lim = 30;
@@ -68,26 +69,19 @@ router.get('/me', VerifyToken, function (req, res) {
 });
 
 // returns all the boats in the database
-router.get('/', function (req, res) {
-    
+router.get('/', VerifyToken, function (req, res) {
     if(req.query.limit != undefined) {
         lim = parseInt(req.query.limit);
         delete req.query.limit;
     }else lim = 30;
 
-    Boat.find(req.query).limit(lim).exec(function (err, boats) {
-        if (err) return res.status(500).send({error: "There was a problem finding the boats."});
-        res.status(200).send(boats);
-    });
-});
+    // db.boats.find({"user": { $nin: [ObjectId("5a7640211560207478aaecd3")] }})
+    // https://stackoverflow.com/questions/7878557/cant-find-documents-searching-by-objectid-using-mongoose
+    req.query.user = {
+        "$nin": new ObjectId(req.userId)
+    }
 
-// returns all the boats in the database
-router.get('/', function (req, res) {
-    
-    if(req.query.limit != undefined) {
-        lim = parseInt(req.query.limit);
-        delete req.query.limit;
-    }else lim = 30;
+    console.log(req.query)
 
     Boat.find(req.query).limit(lim).exec(function (err, boats) {
         if (err) return res.status(500).send({error: "There was a problem finding the boats."});
