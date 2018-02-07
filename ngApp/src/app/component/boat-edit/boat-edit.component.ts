@@ -187,7 +187,23 @@ export class BoatEditComponent implements OnInit {
    * Submit Add image form
    */
   onSubmitImage(): void {
-    console.log(this.imageForm.value.image)
+    
+     // first check image format and submit 
+     let imagecheck = this.imageForm.value.image.split(".");
+     let lastelement = imagecheck[imagecheck.length-1];
+     let array = ["jpg", "png", "gif", "JPG", "PNG", "GIF"];
+ 
+     let count=false;
+ 
+     array.forEach(arrayelement=>{
+       if (lastelement==arrayelement) count=true;
+     })
+ 
+     if(!count){
+       this.snackBar.open('Image Format Error .....', 'Undo', {
+       duration: 1000 });
+       return;
+   }
     this.actualBoat.boatImage.push(this.imageForm.value.image);
     this.updateImage();
   }

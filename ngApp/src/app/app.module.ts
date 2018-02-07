@@ -35,7 +35,6 @@ import { UserService } from './services/user.service';
 import { HomeService } from './services/home.service';
 import { RegisterService } from './services/register.service';
 import { BoatService } from './services/boat.service';
-import { PaymentService } from './services/payment.service';
 
 import { KeepCssPipe } from './pipes/keep-css.pipe';
 import { DatePipe } from './pipes/date.pipe';
@@ -48,14 +47,12 @@ import { StatusPipe } from './pipes/status.pipe';
     LoginComponent,
     RegisterComponent,
     BoatComponent,
-    FooterComponent,
     PaymentPageComponent,
     BoatMineComponent,
     BoatMineInComponent,
     KeepCssPipe,
     BoatEditComponent,
     ProfileComponent,
-    FooterComponent,
     BoatFeaturedComponent,
     PaymentPageComponent,
     BoatFeaturedComponent,

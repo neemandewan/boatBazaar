@@ -86,7 +86,22 @@ export class BoatComponent implements OnInit {
    */
   onSubmit() {
     
-    console.log(this.boatForm.value);
+    // first check image format and submit 
+    let imagecheck = this.boatForm.value.image.split(".");
+    let lastelement = imagecheck[imagecheck.length-1];
+    let array = ["jpg", "png", "gif", "JPG", "PNG", "GIF"];
+
+    let count=false;
+
+    array.forEach(arrayelement=>{
+      if (lastelement==arrayelement) count=true;
+    })
+
+    if(!count){
+      this.snackBar.open('Image Format Error .....', 'Undo', {
+      duration: 1000 });
+      return;
+  }
 
     let myBoat = new Boat();
     myBoat.boatImage = [this.boatForm.value.image];
