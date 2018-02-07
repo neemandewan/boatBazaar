@@ -4,7 +4,8 @@
  Copyright (c) 2018 Your Company
 -->
 
-<mat-toolbar color="primary">
+<div class="wrapper">
+  <mat-toolbar color="primary">
     <mat-toolbar-row>
         <span class="logo">Boat Bazaar</span>
         <span class="e-spacer"></span>
@@ -100,7 +101,8 @@
                   
                     <div class="user-full-width">
                       <mat-form-field>
-                        <input matInput placeholder="Enter your password"  formControlName="password1" required [type]="hide ? 'password' : 'text'">
+                        <input matInput placeholder="Enter your password"  formControlName="password1" [type]="hideP ? 'text' : 'password'">
+                        <mat-icon matSuffix (click)="hideP = !hideP">{{hideP ? 'visibility' : 'visibility_off'}}</mat-icon>
                         <mat-error *ngIf="!userForm.controls['password1'].valid">
                             Password is <strong>required</strong>
                         </mat-error>
@@ -109,7 +111,8 @@
                     
                     <div class="user-full-width">
                       <mat-form-field>
-                        <input matInput placeholder="Re-enter the password"  formControlName="password2" required [type]="hide ? 'password' : 'text'">
+                        <input matInput placeholder="Re-enter the password"  formControlName="password2" [type]="hide ? 'text' : 'password'">
+                        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
                         <mat-error *ngIf="!userForm.controls['password2'].valid">
                             Password must <strong>match</strong>
                         </mat-error>
@@ -119,9 +122,12 @@
               <div formGroupName="address">
                 <mat-form-field class="example-full-width form-group">
                     <textarea matInput placeholder="Street" formControlName="street"></textarea>
-                    <mat-error *ngIf="!userForm.controls['address'].controls['street'].valid">
+                    <!-- <mat-error *ngIf="!userForm.controls['address'].controls['street'].valid">
                         Street is <strong>required</strong>
-                    </mat-error>
+                    </mat-error> -->
+                    <mat-error *ngIf="!userForm.get('address.street').valid">
+                      Street is <strong>required</strong>
+                  </mat-error>
                 </mat-form-field>
 
               
@@ -131,7 +137,7 @@
                     <td>
                       <mat-form-field class="example-full-width form-group">
                         <input matInput placeholder="City" formControlName="city">
-                        <mat-error *ngIf="!userForm.controls['address'].controls['city'].valid">
+                        <mat-error *ngIf="!userForm.get('address.city').valid">
                             City is <strong>required</strong>
                         </mat-error>
                       </mat-form-field>
@@ -139,7 +145,7 @@
                     <td>
                       <mat-form-field class="example-full-width form-group">
                         <input matInput placeholder="State" formControlName="state">
-                        <mat-error *ngIf="!userForm.controls['address'].controls['state'].valid">
+                        <mat-error *ngIf="!userForm.get('address.state').valid">
                             State is <strong>required</strong>
                         </mat-error>
                       </mat-form-field>
@@ -148,7 +154,7 @@
                       <mat-form-field class="example-full-width form-group">
                         <input matInput #postalCode maxlength="5" placeholder="Postal Code" formControlName="zipcode">
                         <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
-                        <mat-error *ngIf="!userForm.controls['address'].controls['zipcode'].valid">
+                        <mat-error *ngIf="!userForm.get('address.zipcode').valid">
                             Zipcode is <strong>required</strong>
                         </mat-error>
                       </mat-form-field>
@@ -165,3 +171,4 @@
         </mat-card-content>
       </mat-card>
 </mat-grid-list>
+</div>

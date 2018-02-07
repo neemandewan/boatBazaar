@@ -7,13 +7,22 @@ import { AuthenticationService } from './authentication.service';
 import { Boat } from '../models/boat';
 import { Links } from '../app.config';
 
+/*
+ * Created on Tue Feb 06 2018
+ * Niwesh Chandra Rai
+ * Copyright (c) 2018 Your Company
+ */
+
+
 @Injectable()
 export class HomeService {
   constructor(
     private http: Http,
     private authenticationService: AuthenticationService) {
 }
-
+    /**
+     * Get all boats
+     */
     getBoats(): Observable<Boat[]> {
         // add authorization header with jwt token
         let headers = new Headers({ 'x-access-token': this.authenticationService.token });
@@ -24,6 +33,10 @@ export class HomeService {
             .map((response: Response) => response.json());
     }
 
+    /**
+     * get boats by query
+     * @param data string
+     */
     getBoatsByQuery(data: string): Observable<Boat[]> {
         // add authorization header with jwt token
         let headers = new Headers({ 'x-access-token': this.authenticationService.token });

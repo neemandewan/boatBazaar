@@ -31,13 +31,7 @@ export class BoatService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(Links.boatURL, boat, options)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-    });
+        .map((response: Response) => response.json());
   }
 
   /**
@@ -51,13 +45,7 @@ export class BoatService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.put(Links.boatURL + "/" + id, boat, options)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-    });
+        .map((response: Response)  => response.json());
   }
 
   /**
@@ -71,13 +59,7 @@ export class BoatService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.put(Links.myBoatURL + "/" + id, boat, options)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-    });
+        .map((response: Response) => response.json());
   }
 
   /**
@@ -90,13 +72,7 @@ export class BoatService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.delete(Links.boatURL + "/" + id, options)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-    });
+        .map((response: Response) => response.json());
   }
 
   /**
@@ -108,13 +84,7 @@ export class BoatService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.get(Links.myBoatURL, options)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-      });
+        .map((response: Response)  => response.json());
     }
 
     /**
@@ -126,13 +96,7 @@ export class BoatService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.get(Links.myBoatURL + "?" + data, options)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-      });
+        .map((response: Response)  => response.json());
     }
 
   /**
@@ -145,13 +109,7 @@ export class BoatService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.get(Links.boatURL + "/" + id, options)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-    });
+        .map((response: Response)  => response.json());
   }
 
   /**
@@ -165,13 +123,7 @@ export class BoatService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(Links.boatURL + "/" + id + "/comment", data, options)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-    });
+        .map((response: Response) => response.json());
   }
 
 }

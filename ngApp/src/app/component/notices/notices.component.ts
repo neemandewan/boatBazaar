@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { AuthenticationService } from '../../services/authentication.service';
+import { ISubscription } from "rxjs/Subscription";
 
 /*
  * Created on Mon Feb 05 2018
@@ -19,6 +20,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 export class NoticesComponent implements OnInit {
   sales:any;
   purchases: any;
+  subscription: ISubscription;
 
   constructor(private snackBar: MatSnackBar,
     private router: Router,
@@ -31,16 +33,13 @@ export class NoticesComponent implements OnInit {
    *  get sales
    */
   getSales(): void {
-    this.userService.getSales()
+    this.subscription = this.userService.getSales()
       .subscribe(result => {
-        if(result == "err") {
-          this.snackBar.open('Something went wrong..', 'Undo', {
-            duration: 1000
-          });
-        }else {
-          this.sales = JSON.parse(result._body);
-          //console.log(this.sales);
-        }
+        this.sales = result;
+      }, err => {
+        this.snackBar.open('Something went wrong..', 'Undo', {
+          duration: 1000
+        });
       });
   }
 
@@ -48,16 +47,13 @@ export class NoticesComponent implements OnInit {
    *  get purchases
    */
   getPurchases(): void {
-    this.userService.getPurchases()
+    this.subscription = this.userService.getPurchases()
       .subscribe(result => {
-        if(result == "err") {
-          this.snackBar.open('Something went wrong..', 'Undo', {
-            duration: 1000
-          });
-        }else {
-          this.purchases = JSON.parse(result._body);
-          //console.log(this.purchases);
-        }
+        this.purchases = result;
+      }, err => {
+        this.snackBar.open('Something went wrong..', 'Undo', {
+          duration: 1000
+        });
       });
   }
 
@@ -72,6 +68,10 @@ export class NoticesComponent implements OnInit {
   ngOnInit()  {
     this.getSales();
     this.getPurchases();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

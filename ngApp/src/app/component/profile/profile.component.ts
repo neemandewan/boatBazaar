@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { MatSnackBar } from '@angular/material';
 import { userRegister } from '../../models/userRegistration';
+import { ISubscription } from 'rxjs/Subscription';
 
 /*
  * Created on Mon Feb 05 2018
@@ -19,6 +20,7 @@ import { userRegister } from '../../models/userRegistration';
 })
 export class ProfileComponent implements OnInit {
   user: userRegister;
+  subscription: ISubscription;
 
   constructor(
     //private formBuilder: FormBuilder, 
@@ -32,22 +34,22 @@ export class ProfileComponent implements OnInit {
    */
   getUser(): void {
 
-    this.userService.getUser()
+    this.subscription = this.userService.getUser()
       .subscribe(result => {
-        console.log(result)
-        if(result == "err") {
-          this.snackBar.open('Error in Fetch..', 'Undo', {
-            duration: 1000
-          });
-        }else {
-          console.log(result._body);
-          this.user = JSON.parse(result._body);
-        }
+        this.user = result;
+      }, err => {
+        this.snackBar.open('Error in Fetch..', 'Undo', {
+          duration: 1000
+        });
       });
   }
 
   ngOnInit() {
     this.getUser();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

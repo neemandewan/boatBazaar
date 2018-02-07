@@ -8,11 +8,14 @@ import { Observable } from "rxjs/Rx";
 import { MatSnackBar } from '@angular/material';
 import { NUMBER_TYPE } from '@angular/compiler/src/output/output_ast';
 import { isNumber } from 'util';
+import { User } from '../../models/user';
+import { ISubscription } from "rxjs/Subscription";
 
 
 /*
  * Created on Sun Feb 03 2018
  * Rajesh Subedi
+ * @Modified: Prabhab Dewan
  * Copyright (c) 2018 Your Company
  */
 
@@ -25,9 +28,11 @@ import { isNumber } from 'util';
 
 export class RegisterComponent implements OnInit {
 
-    hide: true;
+    hide: Boolean = true;
+    hideP: Boolean = true;
     gender = Gender;
     userForm: FormGroup;
+    subscription : ISubscription;
   
     constructor(
       private formBuilder: FormBuilder, 
@@ -37,6 +42,10 @@ export class RegisterComponent implements OnInit {
       private snackBar: MatSnackBar
     ) { }
 
+    /**
+     * Validation for Phone Number
+     * @param passwordKey any
+     */
     checkIfNumber( passwordKey: any) {
       return (group: FormGroup) => {
         let passwordInput = group.controls[passwordKey];
@@ -53,6 +62,11 @@ export class RegisterComponent implements OnInit {
       }
     }
 
+    /**
+     * check confirm password
+     * @param passwordKey string
+     * @param passwordConfirmationKey string
+     */
     checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
       return (group: FormGroup) => {
         let passwordInput = group.controls[passwordKey],
@@ -65,9 +79,11 @@ export class RegisterComponent implements OnInit {
         }
       }
     }
-  
+    
+    /**
+     * Initial method
+     */
     ngOnInit() {
-  
       this.userForm = this.formBuilder.group({
         'firstname': ['', [Validators.required]],
         'lastname': ['', [Validators.required]],
@@ -85,15 +101,16 @@ export class RegisterComponent implements OnInit {
         })
       },{validator: [this.checkIfMatchingPasswords('password1', 'password2'), this.checkIfNumber('PhoneNumber')]});
     
-      this.userForm.statusChanges.subscribe(
-        (data: any) => console.log(data)
+      this.subscription = this.userForm.statusChanges.subscribe(
+        (data: any) => {}
       );
   
     }
-  
+    
+    /**
+     * Form submission
+     */
     onSubmit() {
-     console.log(this.userForm.value);
-      
      let user = new userRegister();
 
      user.firstname= this.userForm.value.firstname;
@@ -105,19 +122,24 @@ export class RegisterComponent implements OnInit {
      user.phone= this.userForm.value.PhoneNumber;
      user.address= this.userForm.value.address;
   
-	
-   this.registerService.addUser(user)
-            .subscribe(result => {
-                if(result == "err") {
-                  this.snackBar.open('Error in Registration..', 'Undo', {
-                    duration: 1000
-                  });
-                }else {
-                  this.router.navigate(['./login']);
-                }
-            });
+    /**
+     * Add user
+     */
+    this.subscription = this.registerService.addUser(user).subscribe(result => {
+      this.router.navigate(['./login']);
+    }, (error) => {
+      this.snackBar.open('User already exists', 'Undo', {
+        duration: 1000
+      });
+    })
 
    }
   
+  /**
+   * Unsubscribe subscription
+   */
+   ngOnDestroy() {
+    this.subscription.unsubscribe();
+   }
 
 }

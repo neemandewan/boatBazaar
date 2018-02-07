@@ -18,6 +18,7 @@
   .head {
     height: calc(150px - 15px);
     background: #2b567b;
+    opacity: 0.6;
   }
   
   .head p {
@@ -62,10 +63,20 @@
   }
   
   .mat-toolbar.mat-primary {
-    background: #2b567b !important;
+    /* background: #2b567b !important; */
+    background: none !important;
     color: #ade0ff;
     position: fixed;
     z-index: 1;
+  }
+
+  .wrapper{ 
+    background: url('/assets/images/bg.jpg');
+    min-height: 100vh;
+    height: 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
   }
 
   

@@ -32,13 +32,7 @@ export class PaymentService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(Links.payURL, purchase, options)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-    });
+        .map((response: Response)  => response.json());
   }
 
 }

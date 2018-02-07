@@ -8,10 +8,12 @@ import { AuthenticationService } from '../../services/authentication.service';
 import { PaymentService } from '../../services/payment.service';
 import { Purchase } from '../../models/purchase';
 import { Boat } from '../../models/boat';
+import { ISubscription } from "rxjs/Subscription";
 
 /*
  * Created on Mon Feb 05 2018
- * Rajesh Subedi 
+ * Rajesh Subedi
+ * @Modified Niwesh Rai
  * Copyright (c) 2018 Your Company
  */
 
@@ -23,7 +25,7 @@ import { Boat } from '../../models/boat';
 
 export class PaymentPageComponent implements OnInit {
 
-  subscription: any;
+  subscription: ISubscription;
   id: string;
   boat: any;
   boatname = "";
@@ -54,35 +56,29 @@ export class PaymentPageComponent implements OnInit {
   ) { }
 
 
-
+  /**
+   * Initial method
+   * Purchased boat Id related info fetched
+   */
   ngOnInit() {
-
-    console.log(1);
-    
     this.subscription = this.activatedRoute.params.subscribe(
       (param: any) => {
         this.id = param['id'];
   
-        this.boatService.getMyBoatById(this.id)
+        this.subscription = this.boatService.getMyBoatById(this.id)
           .subscribe(result => {
-            if (result == "err") {
-              this.snackBar.open('Error in Fetch..', 'Undo', {
-                duration: 1000
-              });
-            } else {
-              this.boat = JSON.parse(result._body);
-              console.log(this.boat);
-              console.log(this.boat.name);
-              this.boatname = this.boat.name;
-              this.price = this.boat.price;
-              this.totalprice = this.boat.price+10;
-              this.boatownerid= this.boat.user;
-              this.boatid=this.boat._id;
-            }
+            this.boat = result;
+            this.boatname = this.boat.name;
+            this.price = this.boat.price;
+            this.totalprice = this.boat.price+10;
+            this.boatownerid= this.boat.user;
+            this.boatid=this.boat._id;
+          }, err => {
+            this.snackBar.open('Error in Fetch..', 'Undo', {
+              duration: 1000
+            });
           })
       })
-    
-    console.log(2);
 
     this.payForm = this.formBuilder.group({
 
@@ -96,47 +92,46 @@ export class PaymentPageComponent implements OnInit {
 
     });
 
-
-    //this.boatname = "this.payForm.value.boatname";
-
-    this.payForm.statusChanges.subscribe(
-      (data: any) => console.log(data)
+    this.subscription = this.payForm.statusChanges.subscribe(
+      (data: any) => {}
     );
   }
 
+  /**
+   * Purchase boat and update boat info
+   */
   onSubmit() {
-    console.log(this.payForm.value);
-    console.log(this.boatid);
-
     let purchase = new Purchase();
     purchase.boat=this.boatid;
     purchase.oldUser= this.boatownerid;
     purchase.paymentType = this.payForm.value.payment_type;
     purchase.shippingAddress = this.payForm.value.address;
 
-    console.log(purchase);
-
-    this.paymentService.addpurchase(purchase)
-            .subscribe(result => {
-                if(result == "err") {
-                  this.snackBar.open('Error in Purchase..', 'Undo', {
-                    duration: 1000
-                  });
-                }else {
-                  this.boat.status = 0;
-                  this.boatService.sellBoat(this.boat,this.boatid)
-                  .subscribe(result => {
-                      if(result == "err") {
-                        this.snackBar.open('Error in BoatUpdate..', 'Undo', {
-                          duration: 1000
-                        });
-                      }else {
-                        this.router.navigate(['./home']);
-                      }
-                  });
-                }
-            });
+    this.subscription = this.paymentService.addpurchase(purchase)
+      .subscribe(result => {
+        this.boat.status = 0;
+        
+        this.subscription = this.boatService.sellBoat(this.boat,this.boatid)
+        .subscribe(result => {
+          this.router.navigate(['./home']);
+        }, err => {
+          this.snackBar.open('Error in BoatUpdate..', 'Undo', {
+            duration: 1000
+          });
+        });
+      }, err => {
+        this.snackBar.open('Error in Purchase..', 'Undo', {
+          duration: 1000
+        });
+      });
 
   }
+
+  /**
+   * Unsubscribe subscription
+   */
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+   }
 
 }

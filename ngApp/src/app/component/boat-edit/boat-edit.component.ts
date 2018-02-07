@@ -6,13 +6,13 @@ import { Observable } from "rxjs/Rx";
 import { BoatService } from '../../services/boat.service';
 import { MatSnackBar } from '@angular/material';
 import { AbstractControl } from '@angular/forms/src/model';
+import { ISubscription } from "rxjs/Subscription";
 
 /*
  * Created on Mon Feb 05 2018
  * Prabhab Dewan
  * Copyright (c) 2018 Your Company
  */
-
 
 @Component({
   selector: 'app-boat-edit',
@@ -25,9 +25,9 @@ export class BoatEditComponent implements OnInit {
   status = Status;
   boatForm: FormGroup;
   imageForm: FormGroup;
-  subscription: any;
   id: string;
   actualBoat: any;
+  subscription: ISubscription;
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -46,20 +46,13 @@ export class BoatEditComponent implements OnInit {
 
     // params will return an Observable
     // we need it so we track changes in parameters as this code will be run once at constructor
-    this.activatedRoute.params.subscribe(
+    this.subscription = this.activatedRoute.params.subscribe(
       (param: any) => {
         this.id = param['id'];
         
-        this.boatService.getMyBoatById(this.id)
+        this.subscription = this.boatService.getMyBoatById(this.id)
           .subscribe(result => {
-            console.log(result)
-            if(result == "err") {
-              this.snackBar.open('Error in Fetch..', 'Undo', {
-                duration: 1000
-              });
-            }else {
-              this.actualBoat = JSON.parse(result._body);
-              
+              this.actualBoat = result;
               this.boatForm.reset({
                 'name': this.actualBoat.name,
                 'categories': this.actualBoat.categories,
@@ -73,7 +66,10 @@ export class BoatEditComponent implements OnInit {
                   'zipcode': this.actualBoat.address.zipcode
                 }
               });
-            }
+        }, (err) => {
+          this.snackBar.open('Error in Fetch..', 'Undo', {
+            duration: 1000
+          });
         }
       );
     })
@@ -93,16 +89,16 @@ export class BoatEditComponent implements OnInit {
       })
     });
 
-    this.boatForm.statusChanges.subscribe(
-      (data: any) => console.log(data)
+    this.subscription = this.boatForm.statusChanges.subscribe(
+      (data: any) => {}
     );
 
     this.imageForm = this.formBuilder.group({
       'image': ['', [Validators.required]]
     });
 
-    this.imageForm.statusChanges.subscribe(
-      (data: any) => console.log(data)
+    this.subscription = this.imageForm.statusChanges.subscribe(
+      (data: any) => {}
     );
 
 
@@ -121,18 +117,15 @@ export class BoatEditComponent implements OnInit {
    */
   updateBoat(myBoat: Boat): void {
 
-    this.boatService.updateBoat(myBoat, this.actualBoat._id)
+    this.subscription = this.boatService.updateBoat(myBoat, this.actualBoat._id)
       .subscribe(result => {
-        if(result == "err") {
-          this.snackBar.open('Error in Fetch..', 'Undo', {
-            duration: 1000
-          });
-        }else {
-          this.snackBar.open('Successfully Done..', 'Undo', {
-            duration: 1000
-          });
-        }
-        console.log(JSON.parse(result._body));
+        this.snackBar.open('Successfully Done..', 'Undo', {
+          duration: 1000
+        });
+      }, (err) => {
+        this.snackBar.open('Error in Fetch..', 'Undo', {
+          duration: 1000
+        });
       });
   }
 
@@ -140,8 +133,6 @@ export class BoatEditComponent implements OnInit {
    * Submit form
    */
   onSubmit() {
-    
-    console.log(this.boatForm.value);
     let myBoat = new Boat();
     myBoat.boatImage = this.actualBoat.boatImage;
     myBoat.categories = this.boatForm.value.categories;
@@ -178,7 +169,6 @@ export class BoatEditComponent implements OnInit {
    * @param index Number
    */
   delImage(index: Number): void {
-    console.log(index)
     this.actualBoat.boatImage.splice(index, 1);
     this.updateImage();
   }
@@ -187,8 +177,27 @@ export class BoatEditComponent implements OnInit {
    * Submit Add image form
    */
   onSubmitImage(): void {
-    console.log(this.imageForm.value.image)
+    // first check image format and submit @Rajesh
+    let imagecheck = this.imageForm.value.image.split(".");
+    let lastelement = imagecheck[imagecheck.length-1];
+    let array = ["jpg", "png", "gif", "JPG", "PNG", "GIF"];
+
+    let flag=false;
+    for(let i = 0; i < array.length; i++) {
+      if (lastelement == array[i]) flag=true;
+    }
+
+    if(!flag){
+      this.snackBar.open('Image Format Error .....', 'Undo', {
+      duration: 1000 });
+      return;
+    }
+
     this.actualBoat.boatImage.push(this.imageForm.value.image);
     this.updateImage();
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 }

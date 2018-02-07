@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { Body } from '@angular/http/src/body';
 import { AuthenticationService } from '../../services/authentication.service';
+import { ISubscription } from 'rxjs/Subscription';
 
 //  Created on Mon Feb 05 2018
 //  Niwesh Chandra Rai
@@ -24,6 +25,7 @@ export class HomeComponent implements OnInit {
   boats: any
   categories: Array<string>;
   selectedValue: string;
+  subscription:ISubscription;
 
   constructor(
     private user: HomeService,
@@ -42,12 +44,13 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.tabs = (window.innerWidth <= 400) ? 1 : 5;
     // get boats info from secure api end point
-    this.user.getBoats()
+    this.subscription = this.user.getBoats()
       .subscribe(result => {
-        console.log(result)
-        console.log("avc")
         this.boats = result;
-        console.log(this.boats)
+      }, (error) => {
+        this.snackBar.open('Error in Fetch..', 'Undo', {
+          duration: 1000
+        });
       });
   }
 
@@ -61,15 +64,11 @@ export class HomeComponent implements OnInit {
  * @param data string
  */
   getBoatInfo(data: string): void {
-    console.log("data -->> " + data);
     this.router.navigate(['/home/featured/' + data]);
   }
 
   onResize(event) {
     const element = event.target.innerWidth;
-    console.log(element);
-
-
     if (element < 950) {
       this.tabs = 3;
     }
@@ -102,10 +101,18 @@ export class HomeComponent implements OnInit {
     for(let key in query){
         params.set(key, query[key]) 
     }
-    this.user.getBoatsByQuery(params.toString())
+    this.subscription = this.user.getBoatsByQuery(params.toString())
     .subscribe(result => {
       this.boats = result;
+    }, err => {
+      this.snackBar.open('Error in Fetch..', 'Undo', {
+        duration: 1000
+      });
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

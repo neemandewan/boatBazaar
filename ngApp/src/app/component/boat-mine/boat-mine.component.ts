@@ -3,6 +3,7 @@ import { BoatService } from '../../services/boat.service';
 import { MatSnackBar } from '@angular/material';
 import { Boat, Categories } from '../../models/boat';
 import { Router } from '@angular/router';
+import { ISubscription } from 'rxjs/Subscription';
 
 
 /*
@@ -23,6 +24,7 @@ export class BoatMineComponent implements OnInit {
   boats: any;
   categories: Array<string>;
   selectedValue: string;
+  subscription: ISubscription;
 
   constructor(private boatService: BoatService, private snackBar: MatSnackBar, private router: Router) {
     this.categories = new Categories().getList();
@@ -37,17 +39,13 @@ export class BoatMineComponent implements OnInit {
    * Fecth all boats based on user
    */
   getMyBoats(): void {
-    this.boatService.getMyBoats()
+    this.subscription = this.boatService.getMyBoats()
     .subscribe(result => {
-      if(result == "err") {
-        this.snackBar.open('Error in Fetch..', 'Undo', {
-          duration: 1000
-        });
-      }else {
-        this.boats = JSON.parse(result._body);
-        console.log(this.boats)
-      }
-      
+      this.boats = result;
+    }, err => {
+      this.snackBar.open('Error in Fetch..', 'Undo', {
+        duration: 1000
+      });
     });
   }
 
@@ -61,7 +59,6 @@ export class BoatMineComponent implements OnInit {
    * @param data string
    */
   getBoatInfo(data: string): void {
-    console.log("data -->> " + data);
     this.router.navigate(['/boat/mine/' + data]);
   }
 
@@ -78,19 +75,16 @@ export class BoatMineComponent implements OnInit {
    * @param id string
    */
   delBoat(id: string): void {
-    this.boatService.deleteBoat(id)
+    this.subscription = this.boatService.deleteBoat(id)
     .subscribe(result => {
-      if(result == "err") {
-        this.snackBar.open('Error in Delete..', 'Undo', {
-          duration: 1000
-        });
-      }else {
-        this.snackBar.open('Deleted Successfully..', 'Undo', {
-          duration: 1000
-        });
-        this.getMyBoats();
-      }
-      
+      this.snackBar.open('Deleted Successfully..', 'Undo', {
+        duration: 1000
+      });
+      this.getMyBoats();
+    }, err => {
+      this.snackBar.open('Error in Delete..', 'Undo', {
+        duration: 1000
+      });
     });
   }
 
@@ -100,9 +94,6 @@ export class BoatMineComponent implements OnInit {
    */
   onResize(event) {
     const element = event.target.innerWidth;
-    console.log(element);
-
-
     if (element < 950) {
       this.tabs = 3;
     }
@@ -135,18 +126,19 @@ export class BoatMineComponent implements OnInit {
     for(let key in query){
         params.set(key, query[key]) 
     }
-    this.boatService.getMyBoatsByQuery(params.toString())
+    this.subscription = this.boatService.getMyBoatsByQuery(params.toString())
     .subscribe(result => {
-      if(result == "err") {
-        this.snackBar.open('Error in Fetch..', 'Undo', {
-          duration: 1000
-        });
-      }else {
-        this.boats = JSON.parse(result._body);
-        console.log(this.boats)
-      }
-      
+      this.boats = result;
+    }, err => {
+      this.snackBar.open('Deleted Successfully..', 'Undo', {
+        duration: 1000
+      });
+      this.getMyBoats();
     });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

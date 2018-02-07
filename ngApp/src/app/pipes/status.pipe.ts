@@ -1,5 +1,11 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+/*
+ * Created on Tue Feb 06 2018
+ * Niwesh Rai
+ * Copyright (c) 2018 Your Company
+ */
+
 @Pipe({
   name: 'status'
 })
