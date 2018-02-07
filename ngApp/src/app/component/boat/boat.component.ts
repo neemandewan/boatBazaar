@@ -6,6 +6,7 @@ import { Observable } from "rxjs/Rx";
 import { BoatService } from '../../services/boat.service';
 import { MatSnackBar } from '@angular/material';
 import { AbstractControl } from '@angular/forms/src/model';
+import { ISubscription } from "rxjs/Subscription";
 
 /*
  * Created on Sun Feb 04 2018
@@ -22,6 +23,7 @@ export class BoatComponent implements OnInit {
   categories: string[];
   status = Status;
   boatForm: FormGroup;
+  subscription: ISubscription;
 
   constructor(
     private formBuilder: FormBuilder, 
@@ -30,11 +32,11 @@ export class BoatComponent implements OnInit {
     private snackBar: MatSnackBar
   ) {
       this.categories = new Categories().getList();
-      console.log(this.status);
   }
 
   /**
    * Initial things need to be done
+   * validation of adding the form
    */
   ngOnInit() {
 
@@ -53,8 +55,8 @@ export class BoatComponent implements OnInit {
       })
     });
 
-    this.boatForm.statusChanges.subscribe(
-      (data: any) => console.log(data)
+    this.subscription = this.boatForm.statusChanges.subscribe(
+      (data: any) => {}
     );
 
   }
@@ -85,8 +87,21 @@ export class BoatComponent implements OnInit {
    * Submit form
    */
   onSubmit() {
-    
-    console.log(this.boatForm.value);
+    // first check image format and submit @Rajesh
+    let imagecheck = this.boatForm.value.image.split(".");
+    let lastelement = imagecheck[imagecheck.length-1];
+    let array = ["jpg", "png", "gif", "JPG", "PNG", "GIF"];
+
+    let flag=false;
+    for(let i = 0; i < array.length; i++) {
+      if (lastelement == array[i]) flag=true;
+    }
+
+    if(!flag){
+      this.snackBar.open('Image Format Error .....', 'Undo', {
+      duration: 1000 });
+      return;
+    }
 
     let myBoat = new Boat();
     myBoat.boatImage = [this.boatForm.value.image];
@@ -98,19 +113,20 @@ export class BoatComponent implements OnInit {
     myBoat.address = this.boatForm.value.address;
     myBoat.comments = [];
 
-    this.boatService.addBoat(myBoat)
+    this.subscription = this.boatService.addBoat(myBoat)
       .subscribe(result => {
-        if(result == "err") {
-          this.snackBar.open('Error in Fetch..', 'Undo', {
-            duration: 1000
-          });
-        }else {
-          this.snackBar.open('Successfully Done..', 'Undo', {
-            duration: 1000
-          });
-        }
-        console.log(JSON.parse(result._body));
+        this.snackBar.open('Successfully Done..', 'Undo', {
+          duration: 1000
+        });
+      }, (err) => {
+        this.snackBar.open(err._body, 'Undo', {
+          duration: 1000
+        });
       });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

@@ -40,6 +40,15 @@ import { KeepCssPipe } from './pipes/keep-css.pipe';
 import { DatePipe } from './pipes/date.pipe';
 import { StatusPipe } from './pipes/status.pipe';
 
+/*
+ * Created on Tue Feb 06 2018
+ * Prabhab Dewan
+ * @Modified Niwesh Rai
+ * @Modified Rajesh Subedi
+ * Copyright (c) 2018 Your Company
+ */
+
+
 @NgModule({
   declarations: [
     AppComponent,

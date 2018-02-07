@@ -8,6 +8,7 @@ import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from "@ang
 import { Comments } from '../../models/boat';
 import { Observable } from "rxjs/Rx";
 import { AuthenticationService } from '../../services/authentication.service';
+import { ISubscription } from "rxjs/Subscription";
 
 /*
  * Created on Sun Feb 04 2018
@@ -15,19 +16,18 @@ import { AuthenticationService } from '../../services/authentication.service';
  * Copyright (c) 2018 Your Company
  */
 
-
 @Component({
   selector: 'app-boat-mine-in',
   templateUrl: './boat-mine-in.component.html',
   styleUrls: ['./boat-mine-in.component.css']
 })
 export class BoatMineInComponent implements OnInit {
-  subscription: any;
+  subscription: ISubscription;
   id: string;
   boat: any;
   commentForm: FormGroup;
 
-  private _albums: Array<any> = [];
+  public _albums: Array<any> = [];
 
   constructor(private activatedRoute: ActivatedRoute, 
     private boatService: BoatService, 
@@ -39,7 +39,6 @@ export class BoatMineInComponent implements OnInit {
     private authService: AuthenticationService) { 
       this._lighboxConfig.fadeDuration = 1;
 
-      console.log(this.authService)
     }
 
     open(index: number): void {
@@ -49,6 +48,7 @@ export class BoatMineInComponent implements OnInit {
   
   /**
    * All initial fetch
+   * includes fetch boat details and basic concept of lightbox in Angular
    */
   ngOnInit() {
       // params will return an Observable
@@ -57,24 +57,22 @@ export class BoatMineInComponent implements OnInit {
         (param: any) => {
           this.id = param['id'];
 
-          this.boatService.getMyBoatById(this.id)
+          this.subscription = this.boatService.getMyBoatById(this.id)
             .subscribe(result => {
-              if(result == "err") {
-                this.snackBar.open('Error in Fetch..', 'Undo', {
-                  duration: 1000
-                });
-              }else {
-                this.boat = JSON.parse(result._body);
-                this._albums.splice(0, this._albums.length);
-                for (let i = 1; i <= this.boat.boatImage.length; i++) {
-                  const src = this.boat.boatImage[i-1];
-                  const caption = this.boat.name;
-                  const album = {
-                     src: src
-                  };
-                  this._albums.push(album);
-                }
+              this.boat = result;
+              this._albums.splice(0, this._albums.length);
+              for (let i = 1; i <= this.boat.boatImage.length; i++) {
+                const src = this.boat.boatImage[i-1];
+                const caption = this.boat.name;
+                const album = {
+                    src: src
+                };
+                this._albums.push(album);
               }
+        }, err => {
+          this.snackBar.open('Error in Fetch..', 'Undo', {
+            duration: 1000
+          });
         }
       );
     })
@@ -83,21 +81,17 @@ export class BoatMineInComponent implements OnInit {
       'body': ['', [Validators.required]]
     });
 
-    this.commentForm.statusChanges.subscribe(
-      (data: any) => console.log(data)
+    this.subscription = this.commentForm.statusChanges.subscribe(
+      (data: any) => {}
     );
 
   }
 
   /**
-   * Comment form submission
+   * Comment form submission for comments and update
    */
   onSubmit() {
-    
-    console.log(this.commentForm.value);
-
     let d  = new Date;
-
     let myComment = new Comments();
     myComment.body = this.commentForm.value.body;
     myComment.date = (d.getMonth()+1) + "/" + d.getDay() + "/" + d.getFullYear();
@@ -107,19 +101,24 @@ export class BoatMineInComponent implements OnInit {
       comments: myComment
     }
 
-    this.boatService.addComment(userData, this.boat._id)
+    this.subscription = this.boatService.addComment(userData, this.boat._id)
       .subscribe(result => {
-        if(result == "err") {
-          this.snackBar.open('Something went wrong..', 'Undo', {
-            duration: 1000
-          });
-        }else {
-          this.snackBar.open('Added successfully..', 'Undo', {
-            duration: 1000
-          });
-          this.ngOnInit();
-        }
+        this.snackBar.open('Something went wrong..', 'Undo', {
+          duration: 1000
+        });
+      }, err => {
+        this.snackBar.open('Added successfully..', 'Undo', {
+          duration: 1000
+        });
+        this.ngOnInit();
       });
+  }
+  
+  /**
+   * Destroy subscription
+   */
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }

@@ -19,6 +19,7 @@ export class AuthenticationService {
     public token: string;
     public user: string;
     private loggedIn = new BehaviorSubject<boolean>(false);
+    private userName = new BehaviorSubject<string>("");
 
     constructor(private http: Http) {
         // set token if saved in local storage
@@ -29,6 +30,7 @@ export class AuthenticationService {
         }else {
             this.user = currentUser.email;
             this.loggedIn.next(currentUser.logged);
+            this.userName.next(currentUser.email);
         }
     }
     
@@ -37,6 +39,13 @@ export class AuthenticationService {
      */
     get isLoggedIn() {
         return this.loggedIn.asObservable();
+    }
+
+    /**
+     * get username for login
+     */
+    get haveUserName() {
+        return this.userName.asObservable();
     }
 
     /**
@@ -51,6 +60,7 @@ export class AuthenticationService {
                 let token = response.json() && response.json().token;
                 if (token) {
                     this.loggedIn.next(true);
+                    this.userName.next(email);
 
                     // set token property
                     this.token = token;
@@ -78,6 +88,7 @@ export class AuthenticationService {
         // clear token remove user from local storage to log user out
         this.token = null;
         this.loggedIn.next(false);
+        this.userName.next('');
         localStorage.removeItem('currentUser');
     }
 }

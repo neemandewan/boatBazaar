@@ -19,7 +19,7 @@
           
       <div class="W100">
         <div *ngFor="let image of _albums; let i=index">
-          <img [src]="image.src" class="light-im" (click)="open(i)" />
+          <img [src]="image?.src" class="light-im" (click)="open(i)" />
         </div>
 
         <div style="clear:both;"></div>
@@ -33,7 +33,7 @@
           <p>
             <strong>Category: </strong> {{boat?.categories}}</p>
           <p>
-            <strong>Status: </strong> {{boat?.status}}</p>
+            <strong>Status: </strong> {{boat?.status | status}}</p>
           <p>
             <strong>Price: </strong> {{boat?.price}}</p>
           <p>

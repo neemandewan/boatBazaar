@@ -13,6 +13,15 @@ import { ProfileComponent } from './component/profile/profile.component';
 import { BoatFeaturedComponent } from './component/boat-featured/boat-featured.component';
 import { NoticesComponent } from './component/notices/notices.component';
 
+/*
+ * Created on Tue Feb 06 2018
+ * Rajesh Subedi
+ * @Modified Niwesh Rai
+ * @Modified Prabhab Dewan
+ * Copyright (c) 2018 Your Company
+ */
+
+
 const appRoutes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
     { path: 'login', component: LoginComponent },

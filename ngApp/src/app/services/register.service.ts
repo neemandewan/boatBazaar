@@ -16,7 +16,7 @@ import { Links } from '../app.config';
 
 @Injectable()
 export class RegisterService {
-
+  hide = true;
   constructor(
     private http: Http,
     private authenticationService: AuthenticationService) {
@@ -32,13 +32,6 @@ export class RegisterService {
     let options = new RequestOptions({ headers: headers });
 
     return this.http.post(Links.regURL, user)
-        .map((response: Response) => {
-          if(response.status === 200) {
-            return response
-          }else {
-            return "err";
-          }
-            
-    });
+        .map((response: Response)  => response.json());
   }
 }

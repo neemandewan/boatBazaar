@@ -3,42 +3,44 @@
      Niwesh Chandra Rai 
      Reference : https://material.angular.io/> 
 -->
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-        <span class="logo">Boat Bazaar</span>
-        <span class="e-spacer"></span>
-        <span [routerLink]="['/register/']">REGISTER</span>
-    </mat-toolbar-row>
-</mat-toolbar>
-<mat-grid-list  class = "body" cols="4">
-        <div class="head"></div>
-<mat-card class="layout-form">
-    <div>
-        <h2 class = "head1">Login</h2>
-        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-            <div>
-                <mat-form-field class="input-form form-group">
-                    <input matInput placeholder="Enter your email" formControlName="emailFormControl">
-                    <mat-error *ngIf="loginForm.controls['emailFormControl'].hasError('email')">
-                        Please enter a valid email address
-                    </mat-error>
-                </mat-form-field>
+<div class="wrapper">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <span class="logo">Boat Bazaar</span>
+            <span class="e-spacer"></span>
+            <span [routerLink]="['/register/']">REGISTER</span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <mat-grid-list  class = "body" cols="4">
+            <div class="head"></div>
+    <mat-card class="layout-form">
+        <div>
+            <h2 class = "head1">Login</h2>
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-            </div>
-            <div>
-                <mat-form-field class="input-form form-group">
-                    <input matInput placeholder="Enter your password" formControlName="passwordFormControl" required [type]="hide ? 'password' : 'text'">
-                    <mat-error *ngIf="!loginForm.controls['passwordFormControl'].valid">
-                        password is
-                        <strong>required</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            <div class="button">
-                <button mat-raised-button type="submit" class="btn btn-primary">Login</button>
-            </div>
-            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
-        </form>
-    </div>
-</mat-card> </mat-grid-list>
+                <div>
+                    <mat-form-field class="input-form form-group">
+                        <input matInput placeholder="Enter your email" formControlName="emailFormControl">
+                        <mat-error *ngIf="loginForm.controls['emailFormControl'].hasError('email')">
+                            Please enter a valid email address
+                        </mat-error>
+                    </mat-form-field>
+
+                </div>
+                <div>
+                    <mat-form-field class="input-form form-group">
+                        <input matInput placeholder="Enter your password" formControlName="passwordFormControl" required [type]="hide ? 'password' : 'text'">
+                        <mat-error *ngIf="!loginForm.controls['passwordFormControl'].valid">
+                            password is
+                            <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="button">
+                    <button mat-raised-button type="submit" class="btn btn-primary">Login</button>
+                </div>
+            </form>
+        </div>
+    </mat-card> </mat-grid-list>
+</div>

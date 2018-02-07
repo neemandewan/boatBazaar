@@ -4,8 +4,11 @@
  * Copyright (c) 2018 Your Company
  */
 
+//  This links are used to fetch data from server
 export class Links {
-    static url: string = 'http://localhost:3000';
+    //static url: string = 'http://localhost:3000';
+    
+    static url: string = 'https://ancient-hamlet-60512.herokuapp.com';
 
     static loginURL: string = Links.url + "/api/auth/login";
     static boatURL: string = Links.url + "/api/auth/boat";

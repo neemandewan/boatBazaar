@@ -10,6 +10,8 @@ import { Links } from '../app.config';
 /*
  * Created on Mon Feb 05 2018
  * Prabhab Dewan
+ * @Modified Niwesh rai
+ * @Modified Rajesh Subedi
  * Copyright (c) 2018 Your Company
  */
 
@@ -31,15 +33,12 @@ export class UserService {
 
         // get user from api
         return this.http.get(Links.myURL, options)
-            .map((response: Response) => {
-                if(response.status == 200) {
-                    return response;
-                }else {
-                    return "err";
-                }
-            });
+            .map((response: Response) => response.json());
     }
 
+    /**
+     * get info of all sold boats
+     */
     getSales(): Observable<any> {
         // add authorization header with jwt token
         let headers = new Headers({ 'x-access-token': this.authenticationService.token });
@@ -47,15 +46,12 @@ export class UserService {
 
         // get user from api
         return this.http.get(Links.salesURL, options)
-            .map((response: Response) => {
-                if(response.status == 200) {
-                    return response;
-                }else {
-                    return "err";
-                }
-            });
+            .map((response: Response) => response.json());
     }
 
+    /**
+     * get info of all boats purchased
+     */
     getPurchases(): Observable<any> {
         // add authorization header with jwt token
         let headers = new Headers({ 'x-access-token': this.authenticationService.token });
@@ -63,12 +59,6 @@ export class UserService {
 
         // get user from api
         return this.http.get(Links.purchaseURL, options)
-            .map((response: Response) => {
-                if(response.status == 200) {
-                    return response;
-                }else {
-                    return "err";
-                }
-            });
+            .map((response: Response) => response.json());
     }
 }

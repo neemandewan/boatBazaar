@@ -9,6 +9,7 @@ import { Comments } from '../../models/boat';
 import { Observable } from "rxjs/Rx";
 import { AuthenticationService } from '../../services/authentication.service';
 import { Status } from '../../models/boat';
+import { ISubscription } from "rxjs/Subscription";
 
 //  Created on Mon Feb 05 2018
 //  Niwesh Chandra Rai
@@ -20,13 +21,13 @@ import { Status } from '../../models/boat';
   styleUrls: ['./boat-featured.component.css']
 })
 export class BoatFeaturedComponent implements OnInit {
-  subscription: any;
+  subscription: ISubscription;
   id: string;
   boat: any;
   commentForm: FormGroup;
   status: Status;
 
-  private _albums: Array<any> = [];
+  public _albums: Array<any> = [];
 
   constructor(private activatedRoute: ActivatedRoute,
     private boatService: BoatService,
@@ -37,8 +38,6 @@ export class BoatFeaturedComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authService: AuthenticationService) {
     this._lighboxConfig.fadeDuration = 1;
-
-    console.log(this.authService)
   }
 
   open(index: number): void {
@@ -56,25 +55,23 @@ export class BoatFeaturedComponent implements OnInit {
       (param: any) => {
         this.id = param['id'];
 
-        this.boatService.getMyBoatById(this.id)
+        this.subscription = this.boatService.getMyBoatById(this.id)
           .subscribe(result => {
-            if (result == "err") {
-              this.snackBar.open('Error in Fetch..', 'Undo', {
-                duration: 1000
-              });
-            } else {
-              this.boat = JSON.parse(result._body);
-              this.status = this.boat.status;
-              this._albums.splice(0, this._albums.length);
-              for (let i = 1; i <= this.boat.boatImage.length; i++) {
-                const src = this.boat.boatImage[i - 1];
-                const caption = this.boat.name;
-                const album = {
-                  src: src
-                };
-                this._albums.push(album);
-              }
+            this.boat = result;
+            this.status = this.boat.status;
+            this._albums.splice(0, this._albums.length);
+            for (let i = 1; i <= this.boat.boatImage.length; i++) {
+              const src = this.boat.boatImage[i - 1];
+              const caption = this.boat.name;
+              const album = {
+                src: src
+              };
+              this._albums.push(album);
             }
+          }, err => {
+            this.snackBar.open('Error in Fetch..', 'Undo', {
+              duration: 1000
+            });
           }
           );
       })
@@ -83,8 +80,8 @@ export class BoatFeaturedComponent implements OnInit {
       'body': ['', [Validators.required]]
     });
 
-    this.commentForm.statusChanges.subscribe(
-      (data: any) => console.log(data)
+    this.subscription = this.commentForm.statusChanges.subscribe(
+      (data: any) => {}
     );
 
   }
@@ -93,7 +90,6 @@ export class BoatFeaturedComponent implements OnInit {
    * Redirect for payment
    */
   getBoatInfo(data: string): void {
-    console.log("data -->> " + data);
     this.router.navigate(['/payment/' + data]);
   }
   
@@ -102,10 +98,7 @@ export class BoatFeaturedComponent implements OnInit {
    */
   onSubmit() {
 
-    console.log(this.commentForm.value);
-
     let d = new Date;
-
     let myComment = new Comments();
     myComment.body = this.commentForm.value.body;
     myComment.date = (d.getMonth() + 1) + "/" + d.getDay() + "/" + d.getFullYear();
@@ -115,19 +108,21 @@ export class BoatFeaturedComponent implements OnInit {
       comments: myComment
     }
 
-    this.boatService.addComment(userData, this.boat._id)
+    this.subscription = this.boatService.addComment(userData, this.boat._id)
       .subscribe(result => {
-        if (result == "err") {
-          this.snackBar.open('Something went wrong..', 'Undo', {
-            duration: 1000
-          });
-        } else {
-          this.snackBar.open('Added successfully..', 'Undo', {
-            duration: 1000
-          });
-          this.ngOnInit();
-        }
+        this.snackBar.open('Added successfully..', 'Undo', {
+          duration: 1000
+        });
+        this.ngOnInit();
+      }, err => {
+        this.snackBar.open('Something went wrong..', 'Undo', {
+          duration: 1000
+        });
       });
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
   }
 
 }
