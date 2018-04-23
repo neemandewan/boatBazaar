@@ -110,4 +110,18 @@ router.get('/me', VerifyToken, function(req, res, next) {
 
 });
 
+router.put('/me', VerifyToken, function(req, res, next) {
+  
+  if(req.body.password != undefined) {
+    delete req.body['password'];
+  }else if(req.body._id != undefined) {
+    delete req.body['_id'];
+  }
+
+  User.findByIdAndUpdate(req.userId, req.body, {new: false}, function (err, user) {
+      if (err) return res.status(500).send({error: "There was a problem updating the user."});
+      res.status(200).send({"success": "true"});
+  });
+});
+
 module.exports = router;

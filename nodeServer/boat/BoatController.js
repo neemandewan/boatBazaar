@@ -8,6 +8,22 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator/check');
 
+const FCM = require('fcm-push');
+
+var serverKey = 'AAAAys-BQoI:APA91bEjfD4bDhLAXQ_mBHVp-tbqwrkxANPr8m4hLxNl1wgj5hdMtDEDogZm-syEVPT1sFf7dd0066K6Jb3d90dv3-tJoTidkS3hic-UL-l3W7FraujEzu_2aIRs0tkBbiEMp8PaCwyS';
+var fcm = new FCM(serverKey);
+
+var message = {
+    to: 'registration_token_or_topics', // required fill with device token or topics
+    collapse_key: 'your_collapse_key', 
+    data: {
+    },
+    notification: {
+        title: 'You received a comment',
+        body: ''
+    }
+};
+
 const VerifyToken = require(__root + 'auth/VerifyToken');
 const Boat = require('./Boat');
 var ObjectId = require('mongoose').Types.ObjectId;
@@ -142,6 +158,20 @@ router.post('/:id/comment', VerifyToken, checkCommentJSON, function (req, res) {
 
     Boat.findByIdAndUpdate(req.params.id, query, {new: false}, function (err, boat) {
         if (err) return res.status(500).send({error: "There was a problem updating the boat."});
+
+        message.to = req.headers['x-access-token'];
+        message.data = req.body.comments;
+        message.notification.body = req.body.comments.body;
+
+        fcm.send(message)
+        .then(function(response){
+            //console.log("Successfully sent with response: ", response);
+        })
+        .catch(function(err){
+            //console.log("Something has gone wrong in push notification!");
+            //console.error(err);
+        });
+
         res.status(200).send(boat);
     });
 });
